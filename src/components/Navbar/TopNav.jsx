@@ -1,5 +1,5 @@
 import React from "react";
-
+import styled from "styled-components";
 import {
   SearchOutlined,
   UserOutlined,
@@ -8,66 +8,57 @@ import {
 import hellboylogo1 from "../../assets/images/helboylogo1.png";
 
 const TopNav = () => {
+  const NavBarTopContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+  `;
+  const SearchForm = styled.form`
+    height: "40px";
+    width: 400px;
+    border: 1px solid black;
+    border-radius: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px;
+    margin: 0 7rem;
+  `;
+  const SearchInput = styled.input`
+    height: 30px;
+    width: 300px;
+    border: none;
+    margin-left: 20px;
+    outline: none;
+  `;
+  const SearchButton = styled.button`
+    height: 35px;
+    border-radius: 100px;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-ctems: center;
+    background-color: #f9c349;
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+  `;
   return (
-    <div
-      className="navbartop"
-      style={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "10px 10px",
-      }}
-    >
+    <NavBarTopContainer>
       <img src={hellboylogo1} alt="" style={{ margin: "0 3rem" }} />
 
-      <form
-        className="search"
-        style={{
-          height: "40px",
-          width: "400px",
-          border: "1px solid black",
-          borderRadius: "100px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "3px",
-          margin: "0 7rem",
-        }}
-      >
-        <input
-          placeholder="Try our search..."
-          type="text"
-          style={{
-            height: "30px",
-            width: "300px",
-            border: "none",
-            marginLeft: "20px",
-            outline: "none",
-          }}
-        />
-        <button
-          type="submit"
-          style={{
-            height: "35px",
-            borderRadius: "100px",
-            outline: "none",
-            border: "none",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            backgroundColor: "#F9C349",
-            color: "white",
-            padding: "15px",
-            cursor: "pointer",
-          }}
-        >
+      <SearchForm>
+        <SearchInput placeholder="Try our search..." type="text" />
+        <SearchButton type="submit">
           <div style={{ marginRight: "10px" }}>
             <SearchOutlined />
           </div>
           Search
-        </button>
-      </form>
+        </SearchButton>
+      </SearchForm>
 
       <div className="accButton" style={{ margin: "0 0.5rem" }}>
         <UserOutlined
@@ -109,7 +100,7 @@ const TopNav = () => {
           Account
         </button>
       </div>
-    </div>
+    </NavBarTopContainer>
   );
 };
 
