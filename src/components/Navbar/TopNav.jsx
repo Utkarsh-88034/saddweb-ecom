@@ -40,7 +40,7 @@ const TopNav = () => {
     border: none;
     display: flex;
     justify-content: space-between;
-    align-ctems: center;
+    align-items: center;
     background-color: #f9c349;
     color: white;
     padding: 15px;

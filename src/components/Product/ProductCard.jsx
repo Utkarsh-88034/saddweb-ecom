@@ -14,7 +14,7 @@ function ProductCard({ type, title, originalPrice, price, productImage }) {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin: 40px;
+    margin: 20px 0;
   `;
   const CardTopContainer = styled.div`
     width: 100%;
