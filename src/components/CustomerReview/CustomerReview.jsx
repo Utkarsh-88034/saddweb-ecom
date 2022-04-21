@@ -1,9 +1,12 @@
 import React from 'react'
 import styled from "styled-components";
 import img1 from '../../assets/images/Ellipse1.png'
+import img2 from '../../assets/images/Ellipse2.png'
+import img3 from '../../assets/images/Ellipse3.png'
 import ReactStars from "react-rating-stars-component";
 import LArrow from '../../assets/images/Larrow.png'
 import RArrow from '../../assets/images/Rarrow.png'
+
 const CustomerRview = () => {
     const ReviewBox=styled.div`
     width:100%;
@@ -27,7 +30,9 @@ text-align:center;
     text-align:center;
     position:absolute;
     left:17%;
+    position :relative
     `
+    
 
     const ReactStar = styled.div`
     display:flex;
@@ -40,8 +45,8 @@ text-align:center;
     
     `
     const RightArrow=styled.div`
-    background:yellow;
     border-radius:60%;
+    
     `
     const Name =styled.p``
   return (
@@ -49,6 +54,24 @@ text-align:center;
 <ReaviewHead>What our customers say</ReaviewHead>
 <Reaviewp>Our clients send us bunch of smilies with our services and we love them</Reaviewp>
   <InnerBox>
+    <img src={img2} alt='img2'
+    style={{
+      position:"absolute",
+      top:"90px",
+      left:"0px",
+      width:"56px",
+      height:"56px"
+    }}
+    />
+    <img src={img3} alt='img3'
+        style={{
+          position:"absolute",
+          top:"20px",
+          right:"0px",
+        height:"37px",
+      width:"37px"}}
+    />
+
 <img src={img1} alt='jj'/>
 <Name>Nishant Singh</Name>
 <p>Marketing</p>
