@@ -3,6 +3,7 @@ import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
 import ReactStars from "react-rating-stars-component";
+import Footer from '../components/Footer/Footer';
 
 const Admin = () => {
     const ProductContainer = styled.div`
@@ -141,9 +142,10 @@ alignitem:"center",
         </tbody>
         </Table>
        
+       
 
   </ProductContainer>
- 
+  <Footer/>
 
 
   </>
