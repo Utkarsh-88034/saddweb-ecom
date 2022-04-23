@@ -7,6 +7,7 @@ import Admin from "./views/Admin";
 import LoginCart from "./views/LoginCart";
 import Signup2 from "./views/Signup2";
 import Signup from "./views/Signup";
+import User from "./views/User";
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
       {/* <Home /> */}
       {/* <AllProducts /> */}
    {/* <LoginCart/> */}
-   <Signup2/>
-<Signup/>
+   {/* <Signup2/>
+<Signup/> */}
+<User/>
     </div>
   );
 }
