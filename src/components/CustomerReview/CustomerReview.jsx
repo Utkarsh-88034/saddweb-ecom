@@ -91,15 +91,17 @@ alignitem:"center",
   }}
   />
   <RightArrow>
-    <img src={RArrow} alt=''/>
+    <img src={RArrow} alt='' style={{
+      cursor:"pointer",
+    }}/>
   </RightArrow>
 </ReactStar>
 
 
 
 <></>
-<>You’ll get the best of what you put in. The team is working at their
-best to provide us variety of space and homes. Had a great
+<>You’ll get the best of what you put in. The team is working at their <br/>
+best to provide us variety of space and homes. Had a great<br/>
 experience working with them
 Thanks a lot.</>
 
