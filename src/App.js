@@ -19,9 +19,9 @@ function App() {
       {/* <LoginCart /> */}
       {/* <Signup2 /> */}
       {/* <Signup /> */}
-      {/* <User /> */}
+      <User />
       {/* <Cart /> */}
-      <ProductDetails />
+      {/* <ProductDetails /> */}
       {/* <Admin /> */}
     </div>
   );

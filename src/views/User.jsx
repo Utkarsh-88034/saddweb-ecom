@@ -7,7 +7,7 @@ import TableRow from "../components/UserTable/TableRow";
 
 const User = () => {
   const ProductContainer = styled.div`
-    // width: 80%;
+    width: 80%;
     // border: 1px solid black;
     margin: 20px auto;
     margin-bottom: 200px;

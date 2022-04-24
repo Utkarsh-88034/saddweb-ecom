@@ -8,7 +8,6 @@ import Footer from "../components/Footer/Footer";
 const Admin = () => {
   const ProductContainer = styled.div`
     width: 80%;
-
     // border: 1px solid black;
     margin: 20px auto;
     margin-bottom: 200px;
