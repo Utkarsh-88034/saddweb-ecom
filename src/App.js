@@ -10,20 +10,24 @@ import Signup from "./views/Signup";
 import User from "./views/User";
 import Cart from "./views/cart";
 import ProductDetails from "./views/productDetails";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      {/* <Home /> */}
-      {/* <AllProducts /> */}
-      {/* <LoginCart /> */}
-      {/* <Signup2 /> */}
-      {/* <Signup /> */}
-      {/* <User /> */}
-      {/* <Cart /> */}
-      {/* <ProductDetails /> */}
-      <Admin />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="products" element={<AllProducts />} />
+          <Route path="login" element={<LoginCart />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="signup2" element={<Signup2 />} />
+          <Route path="admin/user" element={<User />} />
+          <Route path="admin/addproduct" element={<ProductDetails />} />
+          <Route path="admin/product" element={<Admin />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

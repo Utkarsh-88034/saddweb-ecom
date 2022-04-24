@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer/Footer";
 import BottomNav from "../components/Navbar/BottomNav";
@@ -8,6 +8,14 @@ import Features from "../components/ProductDetails/Features";
 import Price from "../components/ProductDetails/Price";
 import ProdImages from "../components/ProductDetails/ProdImages";
 const ProductDetails = () => {
+  const [step, setStep] = useState(1);
+  const changeStep = () => {
+    if (step != 4) {
+      setStep(step + 1);
+    } else {
+      setStep(1);
+    }
+  };
   const NavHead = styled.div`
     width: 80%;
     margin: 20px auto;
@@ -65,12 +73,19 @@ const ProductDetails = () => {
       <ProductDdetailsPageContainer>
         <MainHeadProductDetails>Product Details</MainHeadProductDetails>
         <ProductInfoContainer>
-          {/* <Details /> */}
-          {/* <Features /> */}
-          {/* <Price /> */}
-          <ProdImages />
+          {step == 1 ? (
+            <Details />
+          ) : step == 2 ? (
+            <Features />
+          ) : step == 3 ? (
+            <Price />
+          ) : step == 4 ? (
+            <ProdImages />
+          ) : (
+            ""
+          )}
         </ProductInfoContainer>
-        <NextButton>Next</NextButton>
+        <NextButton onClick={changeStep}>Next</NextButton>
       </ProductDdetailsPageContainer>
       <Footer />
     </>
