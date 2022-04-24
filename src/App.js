@@ -8,16 +8,18 @@ import LoginCart from "./views/LoginCart";
 import Signup2 from "./views/Signup2";
 import Signup from "./views/Signup";
 import User from "./views/User";
+import Cart from "./views/cart";
 
 function App() {
   return (
     <div className="App">
       {/* <Home /> */}
       {/* <AllProducts /> */}
-      <LoginCart />
+      {/* <LoginCart /> */}
       {/* <Signup2 /> */}
       {/* <Signup /> */}
       {/* <User /> */}
+      <Cart />
     </div>
   );
 }
