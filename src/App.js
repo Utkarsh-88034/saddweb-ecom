@@ -11,12 +11,13 @@ import User from "./views/User";
 import Cart from "./views/cart";
 import ProductDetails from "./views/productDetails";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import Checkout from "./views/Checkout";
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
+
           <Route path="/" element={<Home />} />
           <Route path="products" element={<AllProducts />} />
           <Route path="login" element={<LoginCart />} />
