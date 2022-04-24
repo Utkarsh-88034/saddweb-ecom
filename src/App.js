@@ -12,6 +12,7 @@ import Cart from "./views/cart";
 import ProductDetails from "./views/productDetails";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Checkout from "./views/Checkout";
+import Dashbord from "./views/Dashbord";
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +27,8 @@ function App() {
           <Route path="admin/user" element={<User />} />
           <Route path="admin/addproduct" element={<ProductDetails />} />
           <Route path="admin/product" element={<Admin />} />
+          <Route path="admin/Dashbord" element={<Dashbord/>} />
+
         </Routes>
       </div>
     </BrowserRouter>
