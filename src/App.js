@@ -9,6 +9,7 @@ import Signup2 from "./views/Signup2";
 import Signup from "./views/Signup";
 import User from "./views/User";
 import Cart from "./views/cart";
+import ProductDetails from "./views/productDetails";
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
       {/* <Signup2 /> */}
       {/* <Signup /> */}
       {/* <User /> */}
-      <Cart />
+      {/* <Cart /> */}
+      <ProductDetails />
+      {/* <Admin /> */}
     </div>
   );
 }
