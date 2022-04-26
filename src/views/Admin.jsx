@@ -22,6 +22,11 @@ const Admin = () => {
     align-items: flex-end;
     // border: 1px solid black;
   `;
+  const PageTitle=styled.p`
+  font-weight: 700; 
+  font-size: 30px; 
+  
+  `
   const Productbtn = styled.button`
     background: #f9c349;
     border-radius: 12px;
@@ -36,6 +41,9 @@ const Admin = () => {
     width: 100%;
     border-spacing: 0 25px;
   `;
+  const TR=styled.tr`
+  text-align:left;
+  `
   const TH = styled.th`
     padding: 12px 15px;
     color: #b5bdc4;
@@ -58,19 +66,15 @@ const Admin = () => {
             color: "#000000",
           }}
         >
-          Home
+        Admin
         </p>
         <ProductContainerHead>
-          <span style={{ fontWeight: "700", fontSize: "30px" }}>Products</span>
+          <PageTitle>Products</PageTitle>
           <Productbtn>ADD PRODUCTS</Productbtn>
         </ProductContainerHead>
         <Table>
           <thead>
-            <tr
-              style={{
-                textAlign: "left",
-              }}
-            >
+            <TR >
               <TH>Product</TH>
               <TH>stock</TH>
               <TH>Quantity</TH>
@@ -78,7 +82,7 @@ const Admin = () => {
               <TH>Rating</TH>
               <TH>Actions</TH>
               <TH></TH>
-            </tr>
+            </TR>
           </thead>
           <TBody>
             <TableRow

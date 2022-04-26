@@ -13,6 +13,7 @@ import ProductDetails from "./views/productDetails";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Checkout from "./views/Checkout";
 import Dashbord from "./views/Dashbord";
+import Read from "./views/Read";
 function App() {
   return (
     <BrowserRouter>
@@ -28,6 +29,9 @@ function App() {
           <Route path="admin/addproduct" element={<ProductDetails />} />
           <Route path="admin/product" element={<Admin />} />
           <Route path="admin/Dashbord" element={<Dashbord/>} />
+          <Route path="checkout" element={<Checkout/>}/>
+          <Route path="read" element={<Read/>}/>
+
 
         </Routes>
       </div>

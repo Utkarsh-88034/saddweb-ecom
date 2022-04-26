@@ -16,6 +16,11 @@ const Signup = () => {
     border-radius: 6px;
     padding: 30px;
   `;
+  const Title=styled.p`
+  marginBottom: 0px; font-size: 30px; font-weight: 700; 
+  `
+  const InnerTitle=styled.p`
+ marginTop: 0px ;font-size: 16px; `
   const Span = styled.div`
     border-bottom: 1.5px solid #d1d4d9;
     margin: 20px 0;
@@ -54,19 +59,28 @@ const Signup = () => {
     background: #fff;
     padding: 0 10px;
   `;
+  const InputBtn=styled.div`
+
+  background: #F9C349";
+  border-radius: 6px;
+  border: none;
+  color: white;
+  padding: 5px ;
+  height: 35px;
+  cursor: pointer;
+`
   return (
     <>
       <TopNav />
       <BoxContainer>
         <Box>
-          <p
-            style={{ marginBottom: "0px", fontSize: "30px", fontWeight: "700" }}
+          <Title
           >
             Welcome to Hellboy Protiens
-          </p>
-          <p style={{ marginTop: "0px", fontSize: "16px" }}>
+          </Title>
+          <InnerTitle>
             Content content content contentcontentcontent
-          </p>
+          </InnerTitle>
           <Span>
             <StrikeHead>Create Your Account</StrikeHead>
           </Span>
@@ -89,18 +103,11 @@ const Signup = () => {
             <Label>Confirm Password</Label>
             <Input type="password" />
 
-            <input
+            <InputBtn
               type="submit"
               value="Create Account"
-              style={{
-                background: "#F9C349",
-                borderRadius: "6px",
-                border: "none",
-                margin: "15px 0px 15px 0px",
-                color: "white",
-                padding: "5px ",
-                height: "35px",
-              }}
+      
+           
             />
           </Form>
         </Box>

@@ -25,7 +25,11 @@ const User = () => {
     color: #b5bdc4;
   `;
   const TBody = styled.tbody``;
-
+  const PageTitle=styled.p`
+  font-weight: 700; 
+  font-size: 30px; 
+  
+  `
   return (
     <>
       <TopNav />
@@ -41,7 +45,7 @@ const User = () => {
           Admin
         </p>
 
-        <span style={{ fontWeight: "700", fontSize: "30px" }}>Users</span>
+        <PageTitle>Users</PageTitle>
         <Table>
           <thead>
             <tr

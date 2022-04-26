@@ -12,11 +12,15 @@ const Dashbord = () => {
     margin: 20px auto;
     margin-bottom: 200px;
   `;
+  const PageTitle=styled.h2`
+  font-size: 25px;,font-weight:700;
+  `
   const Span =styled.div`
   width:100%;
   height:220px;
   background:green;
   `
+  
   const Table = styled.table`
   border-collapse: separate;
   margin: 25px 0;
@@ -29,6 +33,8 @@ const TH = styled.th`
   padding: 12px 15px;
   color: #b5bdc4;
 `;
+const TR=styled.tr`
+text-align:left;`
 const TBody = styled.tbody``;
 
   return (
@@ -45,15 +51,12 @@ const TBody = styled.tbody``;
         >
           Admin
         </p>
-        <h2 style={{  fontSize: "25px",fontWeight:'700'}}>Dashbord</h2>
+        <PageTitle>Dashbord</PageTitle>
         <Span></Span>
-        <h2 style={{  fontSize: "25px",fontWeight:'700'}}>Orders</h2>
+        <PageTitle>Orders</PageTitle>
 <Table>
 <thead>
-            <tr
-              style={{
-                textAlign: "left",
-              }}
+            <TR
             >
               <TH>Product</TH>
               <TH>ID</TH>
@@ -61,7 +64,7 @@ const TBody = styled.tbody``;
               <TH>Total</TH>
               <TH>Deliverd</TH>
              
-            </tr>
+            </TR>
           </thead>
 <TBody>
 <TableRow

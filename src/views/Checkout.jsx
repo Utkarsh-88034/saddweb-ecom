@@ -22,6 +22,10 @@ const Checkout = () => {
 
     // border: 1px solid black;
   `;
+  const PageTitle = styled.h1`
+font-weight:700;
+
+  `
   const CurrentUrlContainer = styled.div`
     display: flex;
   `;
@@ -38,8 +42,6 @@ flex-wrap:wrap;
   border: 1px solid #B5BDC4;
   border-radius:8px;
   padding:10px;
-
-  width:230px
  
  
   `
@@ -135,14 +137,14 @@ width:100%;
 
 
     </CurrentUrlContainer>
-<h1 style={{fontWeight:'700'}}>Shipping Details</h1>
+<PageTitle>Shipping Details</PageTitle>
 <ShippingDetail>
 <DeliveryContainer>
 <DeliveryBox>
     <h3>Delivery Information</h3>
     <Form>
 <Label>Street address</Label>
-<Input style={{width:'347px'}} type='text' placeholder='Click to find Address'/>
+<Input type='text' placeholder='Click to find Address'/>
    <Divflex>
        <Form>
            <Label>Pincode</Label>
