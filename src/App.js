@@ -14,6 +14,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Checkout from "./views/Checkout";
 import Dashbord from "./views/Dashbord";
 import Read from "./views/Read";
+import OrderDetail from "./views/OrderDetail";
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +32,7 @@ function App() {
           <Route path="admin/Dashbord" element={<Dashbord/>} />
           <Route path="checkout" element={<Checkout/>}/>
           <Route path="read" element={<Read/>}/>
+          <Route path="orderdetail" element={<OrderDetail/>}/>
 
 
         </Routes>
