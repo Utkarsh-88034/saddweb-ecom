@@ -14,6 +14,7 @@ const BottomNav = () => {
         backgroundColor: "black",
       }}
     >
+      
       <Menu.Item key="mail">
         <Link to="/" style={{ textDecoration: "none", color: "white" }}>
           Home
@@ -35,10 +36,12 @@ const BottomNav = () => {
       </Menu.Item>
 
       <Menu.Item key="app">
-        <Link to="/contact" style={{ textDecoration: "none", color: "white" }}>
-          Contact
+        <Link to="/admin/Dashboard" style={{ textDecoration: "none", color: "white" }}>
+          Admin
         </Link>
       </Menu.Item>
+      
+
     </Menu>
   );
 };

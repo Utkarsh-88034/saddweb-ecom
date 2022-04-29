@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 const IngredientsBox = ({detail,type}) => {
     const IngredientBox =styled.div`
-    width:320px;
+
+    width:400px;
     height:500px;
     border-radius:12px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
@@ -18,7 +19,7 @@ bottom:90px;
 left:10px;
 flex-wrap:wrap;
 padding:15px;
-font-family: 'Neue Montreal';
+
 font-style: normal;
 font-weight: 400;
 font-size: 18px;
@@ -29,7 +30,7 @@ line-height: 24px;
   position:absolute;
 bottom:0px;
 left:25px;
-font-family: 'Neue Montreal';
+
 font-style: normal;
 font-weight: 700;
 font-size: 30px;

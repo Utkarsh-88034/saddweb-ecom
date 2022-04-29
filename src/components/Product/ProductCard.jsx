@@ -15,6 +15,9 @@ function ProductCard({ type, title, originalPrice, price, productImage }) {
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
+    &:hover {
+      box-shadow: 0px 4px 12px -4px rgba(22, 34, 51, 0.12), 0px 16px 32px rgba(22, 34, 51, 0.16);
+    }
   `;
   const CardTopContainer = styled.div`
     width: 100%;

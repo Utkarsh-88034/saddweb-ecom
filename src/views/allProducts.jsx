@@ -5,6 +5,7 @@ import styled from "styled-components";
 import ProductCard from "../components/Product/ProductCard";
 import MassGainer5KG from "../assets/images/Massgainer5kg.png";
 import Footer from "../components/Footer/Footer";
+import PrimaryButton from "../components/Atoms/Primary Button/PrimaryButton";
 
 const AllProducts = () => {
   const ProductContainer = styled.div`
@@ -128,15 +129,16 @@ const AllProducts = () => {
             title={"Mass Gainer(5KG)"}
             productImage={MassGainer5KG}
           />
-          <ProductCard
-            price={"6,999.00"}
-            originalPrice={"6,999.00"}
-            type={"GAINER"}
-            title={"Mass Gainer(5KG)"}
-            productImage={MassGainer5KG}
-          />
         </BestSellerProd>
       </ProductContainer>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100vw',
+        margin: '2rem 1rem'
+      }}>
+      <PrimaryButton btnText={"Load More"} />
+      </div>
       <Footer />
     </>
   );

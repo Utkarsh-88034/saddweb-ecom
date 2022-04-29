@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import LeanGainerProduct from "../../assets/images/leangainer.png";
+import PrimaryButton from "../Atoms/Primary Button/PrimaryButton";
+import dot from '../../assets/images/Ellipse3.png'
 
 function ProductBanner({ img, title, disc }) {
   const MainHeadContainer = styled.div`
@@ -30,6 +32,12 @@ function ProductBanner({ img, title, disc }) {
   `;
   const PordBannerDisc = styled.ul`
     padding: 20px;
+    font-size: 1rem;
+    // list-style: none; /* Remove default bullets */
+  `;
+
+  const Li = styled.li`
+  
   `;
   const BannerTitle = styled.p`
     font-size: 3vw;
@@ -48,13 +56,25 @@ function ProductBanner({ img, title, disc }) {
       <ProdBanner>
         <BannerTitle>{title}</BannerTitle>
         <PordBannerDisc>
-          <li>Helps in building lean muscles</li>
-          <li>
-            {" "}
+          <Li style={{
+            listStyleImage: dot,
+          }}>Helps in building lean muscles</Li>
+          <Li>
             It is rich in protein supplement with a great taste that provides a
             rapid increase in strength
-          </li>
+          </Li>
+          <Li>
+         
+            It is rich in protein supplement with a great taste that provides a
+            rapid increase in strength
+          </Li>
+          <Li>
+         
+            It is rich in protein supplement with a great taste that provides a
+            rapid increase in strength
+          </Li>
         </PordBannerDisc>
+        <PrimaryButton btnText={"Shop Now"} />
       </ProdBanner>
     </Container>
   );

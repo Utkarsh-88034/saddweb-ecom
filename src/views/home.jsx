@@ -12,6 +12,7 @@ import Footer from "../components/Footer/Footer";
 import IngredientsBox from "../components/IngredientBox/IngredientBox";
 import CustomerRview from "../components/CustomerReview/CustomerReview";
 import { Link } from "react-router-dom";
+import PrimaryButton from "../components/Atoms/Primary Button/PrimaryButton";
 
 const Home = () => {
   const MainHeadContainer = styled.div`
@@ -37,21 +38,7 @@ const Home = () => {
     font-size: 40px;
     margin: 50px 0;
   `;
-  const PrimaryButton = styled.div`
-    width: 180px;
-    height: 64px;
-    background: #f9c349;
-    border-radius: 12px;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 8px 30px 0px rgba(249, 195, 73, 0.8);
-    cursor: pointer;
-  `;
+
   const IngredientsContainer = styled.div`
     display: flex;
     width: 80%;
@@ -60,6 +47,7 @@ const Home = () => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+padding-bottom: 4rem;
   `;
   const IngredientsHead = styled.p`
     font-weight: 700;
@@ -70,6 +58,7 @@ const Home = () => {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    
     flex-wrap: wrap;
     margin: auto;
   `;
@@ -116,7 +105,7 @@ const Home = () => {
           />
         </BestSellerProd>
         <Link to={"/products"}>
-          <PrimaryButton>VIEW ALL</PrimaryButton>
+          <PrimaryButton btnText={"View All"} />
         </Link>
       </BestSellerContainer>
       <HomePageDiv />
@@ -143,6 +132,12 @@ const Home = () => {
           />
         </Ingredientsboxs>
       </IngredientsContainer>
+      <MainHeadContainer>
+        <img
+          src={HeaderMain}
+          style={{ width: "100%", objectFit: "cover" }}
+        ></img>
+      </MainHeadContainer>
       <CustomerRview />
       <Footer />
     </HomeContainer>

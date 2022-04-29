@@ -8,13 +8,18 @@ import LArrow from "../../assets/images/Larrow.png";
 import RArrow from "../../assets/images/Rarrow.png";
 
 const CustomerRview = () => {
+  const ReviewContainer = styled.div`
+  margin: 6rem;
+  `;
   const ReviewBox = styled.div`
     width: 100%;
     height: 753px;
     background: #f4f4f6;
     border-radius: 12px;
     position: relative;
+
   `;
+ 
   const ReaviewHead = styled.h1`
     font-weight: 700;
     font-size: 40px;
@@ -46,7 +51,8 @@ const CustomerRview = () => {
   `;
   const Name = styled.p``;
   return (
-    <ReviewBox>
+    <ReviewContainer >
+      <ReviewBox>
       <ReaviewHead>What our customers say</ReaviewHead>
       <Reaviewp>
         Our clients send us bunch of smilies with our services and we love them
@@ -111,6 +117,8 @@ const CustomerRview = () => {
         </>
       </InnerBox>
     </ReviewBox>
+    </ReviewContainer>
+  
   );
 };
 

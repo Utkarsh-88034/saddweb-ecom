@@ -13,14 +13,12 @@ const TopNav = () => {
   const Hamburger = styled.img``;
   const HamburgerContainer = styled.div``;
   const NavBarTopContainer = styled.div`
-    width: 100vw;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100vw;
     padding: 10px 10px;
-    @media (max-width: 784) {
-      justify-content: spacce-between;
-    }
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1500px
   `;
   const SearchForm = styled.form`
     height: "40px";
@@ -31,7 +29,6 @@ const TopNav = () => {
     justify-content: space-between;
     align-items: center;
     padding: 3px;
-    // margin: 0 7rem;
     @media (max-width: 784) {
       display: none;
     }
@@ -80,12 +77,16 @@ const TopNav = () => {
       display: hidden;
     }
   `;
+  const LinksContainer = styled.div`
+    display: flex;
+  `;
+
   console.log(window.innerWidth);
   return (
     <NavBarTopContainer>
       <img src={hellboylogo1} alt="" style={{ margin: "0 3rem" }} />
       {window.innerWidth > 784 ? (
-        <>
+        <React.Fragment>
           <SearchForm>
             <SearchInput placeholder="Try our search..." type="text" />
             <SearchButton type="submit">
@@ -95,6 +96,7 @@ const TopNav = () => {
               Search
             </SearchButton>
           </SearchForm>
+          <LinksContainer>
           <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
             <AccButton>
               <UserOutlined
@@ -140,7 +142,9 @@ const TopNav = () => {
               </button>
             </CartButton>
           </Link>
-        </>
+          </LinksContainer>
+         
+        </React.Fragment>
       ) : (
         <HamburgerContainer>
           <Hamburger src={ham} />
