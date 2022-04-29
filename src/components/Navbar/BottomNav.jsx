@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
+import { Link } from "react-router-dom";
 
 const BottomNav = () => {
   const { SubMenu } = Menu;
@@ -13,19 +14,31 @@ const BottomNav = () => {
         backgroundColor: "black",
       }}
     >
-      <Menu.Item key="mail">Home</Menu.Item>
-      <Menu.Item key="app">All Products</Menu.Item>
-      <SubMenu key="SubMenu" title="Authenticity">
-        <Menu.ItemGroup title="Item 1">
-          <Menu.Item key="setting:1">Option 1</Menu.Item>
-          <Menu.Item key="setting:2">Option 2</Menu.Item>
-        </Menu.ItemGroup>
-        <Menu.ItemGroup title="Item 2">
-          <Menu.Item key="setting:3">Option 3</Menu.Item>
-          <Menu.Item key="setting:4">Option 4</Menu.Item>
-        </Menu.ItemGroup>
-      </SubMenu>
-      <Menu.Item key="alipay">Contact</Menu.Item>
+      <Menu.Item key="mail">
+        <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          Home
+        </Link>
+      </Menu.Item>
+
+      <Menu.Item key="app">
+        <Link to="/products" style={{ textDecoration: "none", color: "white" }}>
+          All products
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="app">
+        <Link
+          to="/authenticity"
+          style={{ textDecoration: "none", color: "white" }}
+        >
+          Authenticity
+        </Link>
+      </Menu.Item>
+
+      <Menu.Item key="app">
+        <Link to="/contact" style={{ textDecoration: "none", color: "white" }}>
+          Contact
+        </Link>
+      </Menu.Item>
     </Menu>
   );
 };

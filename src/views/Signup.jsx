@@ -16,11 +16,15 @@ const Signup = () => {
     border-radius: 6px;
     padding: 30px;
   `;
-  const Title=styled.p`
-  marginBottom: 0px; font-size: 30px; font-weight: 700; 
-  `
-  const InnerTitle=styled.p`
- marginTop: 0px ;font-size: 16px; `
+  const Title = styled.p`
+    marginbottom: 0px;
+    font-size: 30px;
+    font-weight: 700;
+  `;
+  const InnerTitle = styled.p`
+    margintop: 0px;
+    font-size: 16px;
+  `;
   const Span = styled.div`
     border-bottom: 1.5px solid #d1d4d9;
     margin: 20px 0;
@@ -59,7 +63,7 @@ const Signup = () => {
     background: #fff;
     padding: 0 10px;
   `;
-  const InputBtn=styled.div`
+  const InputBtn = styled.div`
 
   background: #F9C349";
   border-radius: 6px;
@@ -68,19 +72,14 @@ const Signup = () => {
   padding: 5px ;
   height: 35px;
   cursor: pointer;
-`
+`;
   return (
     <>
       <TopNav />
       <BoxContainer>
         <Box>
-          <Title
-          >
-            Welcome to Hellboy Protiens
-          </Title>
-          <InnerTitle>
-            Content content content contentcontentcontent
-          </InnerTitle>
+          <Title>Welcome to Hellboy Protiens</Title>
+          <InnerTitle>Content content content contentcontentcontent</InnerTitle>
           <Span>
             <StrikeHead>Create Your Account</StrikeHead>
           </Span>
@@ -103,12 +102,7 @@ const Signup = () => {
             <Label>Confirm Password</Label>
             <Input type="password" />
 
-            <InputBtn
-              type="submit"
-              value="Create Account"
-      
-           
-            />
+            <InputBtn type="submit" value="Create Account" />
           </Form>
         </Box>
       </BoxContainer>

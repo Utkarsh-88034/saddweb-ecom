@@ -20,7 +20,6 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-
           <Route path="/" element={<Home />} />
           <Route path="products" element={<AllProducts />} />
           <Route path="login" element={<LoginCart />} />
@@ -29,12 +28,11 @@ function App() {
           <Route path="admin/user" element={<User />} />
           <Route path="admin/addproduct" element={<ProductDetails />} />
           <Route path="admin/product" element={<Admin />} />
-          <Route path="admin/Dashbord" element={<Dashbord/>} />
-          <Route path="checkout" element={<Checkout/>}/>
-          <Route path="read" element={<Read/>}/>
-          <Route path="orderdetail" element={<OrderDetail/>}/>
-
-
+          <Route path="admin/dashboard" element={<Dashbord />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="authenticity" element={<Read />} />
+          <Route path="orderdetail" element={<OrderDetail />} />
+          <Route path="cart" element={<Cart />} />
         </Routes>
       </div>
     </BrowserRouter>
