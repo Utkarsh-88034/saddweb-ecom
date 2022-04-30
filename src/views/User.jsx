@@ -56,7 +56,7 @@ const User = () => {
               <TH>Name</TH>
               <TH>Admin or user</TH>
               <TH>Date</TH>
-              <TH>Value of order</TH>
+              <TH>Email</TH>
               <TH></TH>
             </tr>
           </thead>
@@ -66,18 +66,23 @@ const User = () => {
               phone={"Mobile Number"}
               role={"Admin"}
               date={"12/03/2021"}
+              value={"xyz@example.com"}
+
             />
             <TableRow
               name={"User Name"}
               phone={"Mobile Number"}
               role={"Admin"}
               date={"12/03/2021"}
+              value={"xyz@example.com"}
             />
             <TableRow
               name={"User Name"}
               phone={"Mobile Number"}
               role={"Admin"}
               date={"12/03/2021"}
+              value={"xyz@example.com"}
+
             />
           </TBody>
         </Table>

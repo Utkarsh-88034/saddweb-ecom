@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import OptionVector from "../../assets/images/optionvector.png";
-const TableRow = ({ name, role, date, value, phone }) => {
+const TableRow = ({ name, role, date, value, phone, email }) => {
   const TD = styled.td`
     padding: 12px 15px;
     border-top: 1px solid #b5bdc4;

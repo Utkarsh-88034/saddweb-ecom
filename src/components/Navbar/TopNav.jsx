@@ -84,7 +84,10 @@ const TopNav = () => {
   console.log(window.innerWidth);
   return (
     <NavBarTopContainer>
+      <Link to="/">
       <img src={hellboylogo1} alt="" style={{ margin: "0 3rem" }} />
+
+      </Link>
       {window.innerWidth > 784 ? (
         <React.Fragment>
           <SearchForm>
