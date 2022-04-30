@@ -5,6 +5,8 @@ import styled from "styled-components";
 import ReactStars from "react-rating-stars-component";
 import Footer from "../components/Footer/Footer";
 import TableRow from "../components/ProductTable/TableRow";
+import PrimaryButton from "../components/Atoms/Primary Button/PrimaryButton";
+import { Link } from "react-router-dom";
 const Admin = () => {
   const ProductContainer = styled.div`
     width: 80%;
@@ -70,7 +72,10 @@ const Admin = () => {
         </p>
         <ProductContainerHead>
           <PageTitle>Products</PageTitle>
-          <Productbtn>ADD PRODUCTS</Productbtn>
+          <Link to="/admin/addproduct">
+            <PrimaryButton btnText={"Add Product"} />
+          </Link>
+          
         </ProductContainerHead>
         <Table>
           <thead>

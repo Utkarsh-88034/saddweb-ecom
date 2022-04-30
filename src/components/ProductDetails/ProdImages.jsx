@@ -30,7 +30,7 @@ const ProdImages = () => {
   return (
     <>
       <ImageDetailContainer>
-        <Heading>Images</Heading>
+        <Heading>Upload Images</Heading>
         <Instructions>
           Instructions Instructions Instructions Instructions Instructions
           Instructions Instructions Instructions Instructions Instructions

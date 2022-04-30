@@ -36,9 +36,22 @@ const BottomNav = () => {
       </Menu.Item>
 
       <Menu.Item key="app">
-        <Link to="/admin/Dashboard" style={{ textDecoration: "none", color: "white" }}>
-          Admin
+        <SubMenu key="SubMenu" title="Admin">
+        <Link to="/admin/dashboard">
+        <Menu.Item key="setting:1">Dashboard</Menu.Item>
+
         </Link>
+        <Link to="/admin/user">
+        <Menu.Item key="setting:1">User Management</Menu.Item>
+
+        </Link>
+        <Link to="/admin/product">
+        <Menu.Item key="setting:1">Product Management</Menu.Item>
+
+        </Link>
+
+          
+      </SubMenu>
       </Menu.Item>
       
 

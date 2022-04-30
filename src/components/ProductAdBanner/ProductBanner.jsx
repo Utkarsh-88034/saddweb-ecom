@@ -3,6 +3,7 @@ import styled from "styled-components";
 import LeanGainerProduct from "../../assets/images/leangainer.png";
 import PrimaryButton from "../Atoms/Primary Button/PrimaryButton";
 import dot from '../../assets/images/Ellipse3.png'
+import { Link } from "react-router-dom";
 
 function ProductBanner({ img, title, disc }) {
   const MainHeadContainer = styled.div`
@@ -74,7 +75,9 @@ function ProductBanner({ img, title, disc }) {
             rapid increase in strength
           </Li>
         </PordBannerDisc>
-        <PrimaryButton btnText={"Shop Now"} />
+        <Link to={"/products"}>
+          <PrimaryButton btnText={"Shop Now"} />
+        </Link>
       </ProdBanner>
     </Container>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import OptionVector from "../../assets/images/optionvector.png";
 const TableRow = ({ProductName,ProductDesc,ID,Paid,Total,Deliverd }) => {
@@ -31,6 +32,7 @@ font-size: 12px;
   return (
     <TR>
       <TD>
+        <Link to='/orderdetail'>
         <TdContainer>
           <Span></Span>
           <div
@@ -59,6 +61,8 @@ font-size: 12px;
             </p>
           </div>
         </TdContainer>
+        </Link>
+    
       </TD>
       <TD>{ID}</TD>
       <TD>{Paid}</TD>

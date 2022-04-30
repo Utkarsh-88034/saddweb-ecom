@@ -4,6 +4,7 @@ import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
 import CartProduct from "../components/Cart/CartProduct";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const NavHead = styled.div`
@@ -164,7 +165,9 @@ const Cart = () => {
             </DetailContainer>
           </CostDetailsContainer>
           <DashedDivider />
+          <Link to="/checkout">
           <CheckoutButton>Proceed To Checkout</CheckoutButton>
+          </Link>
         </TotalContainer>
       </CartContainer>
       <Footer />

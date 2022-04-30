@@ -4,6 +4,7 @@ import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
 import img from '../assets/images/Massgainer5kg.png'
 import Footer from '../components/Footer/Footer';
+import { Link } from 'react-router-dom';
 const Checkout = () => {
     const ProductContainer = styled.div`
     width: 80%;
@@ -221,7 +222,10 @@ Crunchy ( 2KG )</p>
 </Productdesc>
 
 </ProductConatiner>
+<Link to="/orderdetail">
 <Button>Checkout</Button>
+
+</Link>
 </CheckoutContainer>
 </ShippingDetail>
 
