@@ -13,7 +13,7 @@ import payment from "../../assets/images/payment.png";
 const Footer = () => {
   const FooterContainer = styled.div`
     width: 80%;
-    height: 400px;
+    height: 500px;
     margin: auto;
     margin-top: 200px;
     background: #1e1810;
@@ -38,9 +38,9 @@ const Footer = () => {
   const ContactContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    // align-items: center;
     margin: 20px 0;
-    width: 70%;
+    width: 80%;
   `;
   const ContactDetails = styled.p`
     font-weight: 400;
@@ -69,29 +69,63 @@ const Footer = () => {
     display: flex;
     align-items: center;
   `;
+  const ItemContainer = styled.div``;
+  const ItemHead = styled.p`
+    font-weight: 700;
+    font-size: 20px;
+    color: #ffffff;
+  `;
+  const FooterTop = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `;
   return (
     <FooterContainer>
-      <FooterLogo src={logo} />
+      <FooterTop>
+        <FooterLogo src={logo} />
+        <ContactContainer>
+          {/* <SocialLogo src={location} /> */}
+          <ItemContainer>
+            <ItemHead>Explore Feauted Product</ItemHead>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+          </ItemContainer>
+          <ItemContainer>
+            <ItemHead>Useful links</ItemHead>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+          </ItemContainer>
+          <ItemContainer>
+            <ItemHead>Navigate</ItemHead>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+          </ItemContainer>
+          <ItemContainer>
+            <ItemHead>Visit</ItemHead>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>New Delhi, India</ContactDetails>
+          </ItemContainer>
+        </ContactContainer>
+      </FooterTop>
       <SocialContainer>
         <SocialLogo src={fblogo} />
         <SocialLogo src={instalogo} />
-
         <SocialLogo src={ytlogo} />
         <SocialLogo src={twitlogo} />
       </SocialContainer>
-      <ContactContainer>
-        <SocialLogo src={location} />
-        <ContactDetails>New Delhi, India</ContactDetails>
-        <SocialLogo src={phone} />
-        <ContactDetails>+91 9311337205</ContactDetails>
-        <SocialLogo src={email} />
-        <ContactDetails>info.xyz@mail.com</ContactDetails>
-      </ContactContainer>
       <BottomFooter>
         <BottomContent>Copyright © 2022 | Hell Boy Nutrition</BottomContent>
         <PaymentContainer>
           <BottomContent>Pay Securely with </BottomContent>
-
           <img src={payment} style={{ marginLeft: "20px" }} />
         </PaymentContainer>
       </BottomFooter>

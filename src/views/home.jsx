@@ -13,6 +13,11 @@ import IngredientsBox from "../components/IngredientBox/IngredientBox";
 import CustomerRview from "../components/CustomerReview/CustomerReview";
 import { Link } from "react-router-dom";
 import PrimaryButton from "../components/Atoms/Primary Button/PrimaryButton";
+import categorybanner from "../assets/images/categorybanner.png";
+import category1 from "../assets/images/category1.png";
+import category2 from "../assets/images/category2.png";
+import category3 from "../assets/images/category3.png";
+import CommentDivider from "../components/PageDivider/CommentDivider";
 
 const Home = () => {
   const MainHeadContainer = styled.div`
@@ -47,7 +52,7 @@ const Home = () => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-padding-bottom: 4rem;
+    padding-bottom: 4rem;
   `;
   const IngredientsHead = styled.p`
     font-weight: 700;
@@ -56,14 +61,87 @@ padding-bottom: 4rem;
   `;
   const Ingredientsboxs = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 100%;
-    
+
     flex-wrap: wrap;
     margin: auto;
   `;
   const HomeContainer = styled.div`
     width: 100vw;
+  `;
+  const CategoryContainer = styled.div`
+    width: 80%;
+    margin: 40px auto;
+  `;
+  const CategoryHeadding = styled.div`
+    font-weight: 700;
+    font-size: 40px;
+    background-image: url(${categorybanner});
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+  const CategoryBoxContainer = styled.div`
+    width: 100%;
+    display: flex;
+    height: 500px;
+    // border: 1px solid black;
+    margin-top: 30px;
+    justify-content: space-between;
+    // align-items: center;
+  `;
+  const Category1 = styled.div`
+    height: 60%;
+    margin: 10px;
+    background-image: url(${category2});
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    background-position: center;
+    font-weight: 700;
+    font-size: 40px;
+    color: #ffffff;
+    display: flex;
+    padding: 10px;
+    align-items: end;
+  `;
+  const Category2 = styled.div`
+    height: 30%;
+
+    margin: 10px;
+    background-image: url(${category1});
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    background-position: center;
+    font-weight: 700;
+    font-size: 40px;
+    color: #ffffff;
+    display: flex;
+    align-items: end;
+    padding: 10px;
+  `;
+  const Category3 = styled.div`
+    width: 60%;
+    height: 94%;
+
+    margin: 10px;
+    background-image: url(${category3});
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 40px;
+    color: #ffffff;
+    display: flex;
+    padding: 10px;
+    align-items: end;
+  `;
+  const CategoryBoxLeft = styled.div`
+    display: flex;
+    width: 40%;
+    flex-direction: column;
   `;
   return (
     <HomeContainer>
@@ -75,6 +153,16 @@ padding-bottom: 4rem;
           style={{ width: "100%", objectFit: "cover" }}
         ></img>
       </MainHeadContainer>
+      <CategoryContainer>
+        <CategoryHeadding>Shop By Category</CategoryHeadding>
+        <CategoryBoxContainer>
+          <CategoryBoxLeft>
+            <Category1>Category1</Category1>
+            <Category2>Category2</Category2>
+          </CategoryBoxLeft>
+          <Category3>Category3</Category3>
+        </CategoryBoxContainer>
+      </CategoryContainer>
       <ProductBanner
         img={LeanGainerProduct}
         title="Best Quality Hell Boy Nutrition - Lean Gainer"
@@ -132,6 +220,7 @@ padding-bottom: 4rem;
           />
         </Ingredientsboxs>
       </IngredientsContainer>
+      <CommentDivider />
       <MainHeadContainer>
         <img
           src={HeaderMain}

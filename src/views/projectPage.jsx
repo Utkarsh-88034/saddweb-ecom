@@ -163,9 +163,7 @@ const ProductPage = () => {
     font-weight: 500;
     font-size: 16px;
     margin: 0;
-    margin-left: 10px;\
-
-
+    margin-left: 10px;
   `;
   const MoreFeatures = styled.div`
     min-width: 300px;
