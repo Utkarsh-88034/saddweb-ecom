@@ -15,6 +15,7 @@ import Checkout from "./views/Checkout";
 import Dashbord from "./views/Dashbord";
 import Read from "./views/Read";
 import OrderDetail from "./views/OrderDetail";
+import ProductPage from "./views/projectPage";
 function App() {
   return (
     <BrowserRouter>
@@ -33,6 +34,7 @@ function App() {
           <Route path="authenticity" element={<Read />} />
           <Route path="orderdetail" element={<OrderDetail />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="product-info" element={<ProductPage />} />
         </Routes>
       </div>
     </BrowserRouter>

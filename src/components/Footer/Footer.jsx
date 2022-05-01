@@ -12,9 +12,10 @@ import payment from "../../assets/images/payment.png";
 
 const Footer = () => {
   const FooterContainer = styled.div`
-    width: 100%;
+    width: 80%;
     height: 400px;
     margin: auto;
+    margin-top: 200px;
     background: #1e1810;
     border-radius: 12px;
     display: flex;
