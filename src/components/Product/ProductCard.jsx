@@ -16,7 +16,8 @@ function ProductCard({ type, title, originalPrice, price, productImage }) {
     align-items: center;
     margin: 20px 0;
     &:hover {
-      box-shadow: 0px 4px 12px -4px rgba(22, 34, 51, 0.12), 0px 16px 32px rgba(22, 34, 51, 0.16);
+      box-shadow: 0px 4px 12px -4px rgba(22, 34, 51, 0.12),
+        0px 16px 32px rgba(22, 34, 51, 0.16);
     }
   `;
   const CardTopContainer = styled.div`
@@ -69,13 +70,17 @@ function ProductCard({ type, title, originalPrice, price, productImage }) {
     right: 10px;
     cursor: pointer;
   `;
+  const ProductImage = styled.img`
+    object-fit: cover;
+    height: 65%;
+    width: 100%;
+  `;
   return (
     <CardContainer>
       <CardTopContainer>
         <img src={Sale} />
       </CardTopContainer>
-
-      <img src={productImage} alt="" />
+      <ProductImage src={productImage} alt="" />
       <CardProductDetailsContainer>
         <ProductType>{type}</ProductType>
         <ProductName>{title}</ProductName>

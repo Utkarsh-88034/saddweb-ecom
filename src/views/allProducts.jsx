@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
@@ -6,6 +6,7 @@ import ProductCard from "../components/Product/ProductCard";
 import MassGainer5KG from "../assets/images/Massgainer5kg.png";
 import Footer from "../components/Footer/Footer";
 import PrimaryButton from "../components/Atoms/Primary Button/PrimaryButton";
+import useStore from "../store";
 
 const AllProducts = () => {
   const ProductContainer = styled.div`
@@ -49,6 +50,12 @@ const AllProducts = () => {
     width: 100%;
     flex-wrap: wrap;
   `;
+  const allProducts = useStore((state) => state.AllProducts);
+  const getAllProducts = useStore((state) => state.getAllProduct);
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
   return (
     <>
       <TopNav />
@@ -73,71 +80,27 @@ const AllProducts = () => {
           <FilterBox>Showing All Results</FilterBox>
         </ProductContainerHead>
         <BestSellerProd>
-          <ProductCard
-            price={"6,999.00"}
-            originalPrice={"6,999.00"}
-            type={"GAINER"}
-            title={"Mass Gainer(5KG)"}
-            productImage={MassGainer5KG}
-          />
-          <ProductCard
-            price={"6,999.00"}
-            originalPrice={"6,999.00"}
-            type={"GAINER"}
-            title={"Mass Gainer(5KG)"}
-            productImage={MassGainer5KG}
-          />
-          <ProductCard
-            price={"6,999.00"}
-            originalPrice={"6,999.00"}
-            type={"GAINER"}
-            title={"Mass Gainer(5KG)"}
-            productImage={MassGainer5KG}
-          />
-          <ProductCard
-            price={"6,999.00"}
-            originalPrice={"6,999.00"}
-            type={"GAINER"}
-            title={"Mass Gainer(5KG)"}
-            productImage={MassGainer5KG}
-          />
-          <ProductCard
-            price={"6,999.00"}
-            originalPrice={"6,999.00"}
-            type={"GAINER"}
-            title={"Mass Gainer(5KG)"}
-            productImage={MassGainer5KG}
-          />
-          <ProductCard
-            price={"6,999.00"}
-            originalPrice={"6,999.00"}
-            type={"GAINER"}
-            title={"Mass Gainer(5KG)"}
-            productImage={MassGainer5KG}
-          />
-          <ProductCard
-            price={"6,999.00"}
-            originalPrice={"6,999.00"}
-            type={"GAINER"}
-            title={"Mass Gainer(5KG)"}
-            productImage={MassGainer5KG}
-          />
-          <ProductCard
-            price={"6,999.00"}
-            originalPrice={"6,999.00"}
-            type={"GAINER"}
-            title={"Mass Gainer(5KG)"}
-            productImage={MassGainer5KG}
-          />
+          {allProducts.map((prod) => (
+            <ProductCard
+              price={prod.price}
+              originalPrice={prod.price}
+              type={"GAINER"}
+              title={prod.name}
+              productImage={prod.url[0]}
+            />
+          ))}
+          x
         </BestSellerProd>
       </ProductContainer>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        width: '100vw',
-        margin: '2rem 1rem'
-      }}>
-      <PrimaryButton btnText={"Load More"} />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100vw",
+          margin: "2rem 1rem",
+        }}
+      >
+        <PrimaryButton btnText={"Load More"} />
       </div>
       <Footer />
     </>
