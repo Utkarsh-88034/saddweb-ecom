@@ -535,7 +535,7 @@ const ProductPage = () => {
               <ReviewCard />
               <ReviewCard />
               <Divider />
-              <SeeAllButton>See all reviews ></SeeAllButton>
+              <SeeAllButton>See all reviews </SeeAllButton>
             </ReviewCardConatiner>
           </MainReviewBox>
         </ReviewContainer>

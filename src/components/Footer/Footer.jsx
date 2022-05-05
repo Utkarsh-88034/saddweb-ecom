@@ -13,7 +13,7 @@ import payment from "../../assets/images/payment.png";
 const Footer = () => {
   const FooterContainer = styled.div`
     width: 80%;
-    height: 500px;
+    padding:2rem;
     margin: auto;
     margin-top: 200px;
     background: #1e1810;
@@ -38,6 +38,7 @@ const Footer = () => {
   const ContactContainer = styled.div`
     display: flex;
     justify-content: space-between;
+    flex-wrap:wrap;
     // align-items: center;
     margin: 20px 0;
     width: 80%;

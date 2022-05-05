@@ -16,6 +16,8 @@ import Dashbord from "./views/Dashbord";
 import Read from "./views/Read";
 import OrderDetail from "./views/OrderDetail";
 import ProductPage from "./views/projectPage";
+import UserName from "./views/UserName";
+import UserNamecompo from "./components/UserName/UserNamecompo";
 function App() {
   return (
     <BrowserRouter>
@@ -35,6 +37,9 @@ function App() {
           <Route path="orderdetail" element={<OrderDetail />} />
           <Route path="cart" element={<Cart />} />
           <Route path="product-info" element={<ProductPage />} />
+          <Route path="username" element={<UserName />} />
+          <Route path="usernames" element={<UserNamecompo />} />
+
         </Routes>
       </div>
     </BrowserRouter>

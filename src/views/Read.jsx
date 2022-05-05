@@ -67,9 +67,10 @@ const CheckBtn = styled.div`
 color:white;
 background: #F9C349;
 border-radius: 22px;
-width: 25%;
+width: 6rem;
 display: flex;
 justify-content: center;
+flex-wrap:wrap;
 align-items: center;
 cursor: pointer;
 font-weight: 500;
