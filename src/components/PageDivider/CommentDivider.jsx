@@ -4,22 +4,25 @@ import styled from "styled-components";
 const CommentDivider = () => {
   const Container = styled.div`
     width: 100%;
-    background: #f2f2f2;
     display: flex;
     justify-content: center;
-    padding: 70px 30px;
     flex-wrap: wrap;
   `;
   const CommentContainer = styled.div`
     background: #ffffff;
-    max-width: 300px;
+    max-width: 320px;
     margin: 20px;
     padding: 20px;
   `;
   const CommentContent = styled.p``;
 
+  const ContainerWrapper = styled.div`
+    padding: 50px 0;
+    background: #f2f2f2;
+  `;
+
   return (
-    <>
+    <ContainerWrapper>
       <Container>
         <CommentContainer>
           <CommentContent>
@@ -54,9 +57,13 @@ const CommentDivider = () => {
             good protein which helps you to gain weight.
           </CommentContent>
         </CommentContainer>
-        <CommentContainer>
+    
+      
+      </Container>
+      <Container>
+      <CommentContainer>
           <CommentContent>
-            Hell Boy Nutrition- India’s Trusted & Affordable Protein –
+            <strong>Hell Boy Nutrition- India’s</strong> {" "}Trusted & Affordable Protein –
             Affordable Supplements Brand India is transforming into a fitness
             freak nation at a very rapid rate. People perhaps see bodybuilding
             as a professional choice as well. Body Core Science comes with a
@@ -91,9 +98,8 @@ const CommentDivider = () => {
             affordable price range.
           </CommentContent>
         </CommentContainer>
-        {""}
       </Container>
-    </>
+    </ContainerWrapper>
   );
 };
 

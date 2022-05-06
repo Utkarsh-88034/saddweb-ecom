@@ -49,7 +49,6 @@ const Footer = () => {
     width: 100%;
     @media (max-width: 700px) {
       justify-content: start;
-
     }
   `;
   const ContactDetails = styled.p`
@@ -117,14 +116,14 @@ const Footer = () => {
             <ItemHead>Useful links</ItemHead>
             <ContactDetails>Privacy Policy</ContactDetails>
             <ContactDetails>Terms and Conditions</ContactDetails>
-            <ContactDetails>Certifications</ContactDetails>
+            <ContactDetails>Pay Now</ContactDetails>
            
           </ItemContainer>
           <ItemContainer>
             <ItemHead>Navigate</ItemHead>
             <ContactDetails>Home</ContactDetails>
             <ContactDetails>Shop</ContactDetails>
-            <ContactDetails>Pay Now</ContactDetails>
+            <ContactDetails>Account</ContactDetails>
             <ContactDetails>Authenticity</ContactDetails>
           </ItemContainer>
           <ItemContainer>
