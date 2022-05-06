@@ -17,11 +17,15 @@ const LoginCart = () => {
     border-radius: 6px;
     padding: 30px;
   `;
-  const Title=styled.p`
-  marginBottom: 0px; font-size: 30px; font-weight: 700; 
-  `
-  const InnerTitle=styled.p`
- marginTop: 0px ;font-size: 16px; `
+  const Title = styled.p`
+    marginbottom: 0px;
+    font-size: 30px;
+    font-weight: 700;
+  `;
+  const InnerTitle = styled.p`
+    margintop: 0px;
+    font-size: 16px;
+  `;
   const Span = styled.div`
     border-bottom: 1.5px solid #d1d4d9;
     margin: 20px 0;
@@ -51,7 +55,7 @@ const LoginCart = () => {
     background: #fff;
     padding: 0 10px;
   `;
-  const InputBtn=styled.div`
+  const InputBtn = styled.div`
 
     background: #F9C349";
     border-radius: 6px;
@@ -60,24 +64,34 @@ const LoginCart = () => {
     padding: 5px ;
     height: 35px;
     cursor: pointer;
-  `
-  const FPass=styled.p`
-    color: #F9C349;
+  `;
+  const FPass = styled.p`
+    color: #f9c349;
     font-size: 14px;
-  `
+  `;
+  const CheckoutButton = styled.button`
+    display: flex;
+    border: 2px solid #b5bdc4;
+    border-radius: 12px;
+    width: 90%;
+    margin: 30px auto;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    padding: 5px 0;
+    background: #f9c349;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+  `;
   return (
     <>
       <TopNav />
       <BoxContainer>
         <Box>
-          <Title
-           
-          >
-            Welcom to Hellboy Protiens
-          </Title>
-          <InnerTitle>
-            Content content content contentcontentcontent
-          </InnerTitle>
+          <Title>Welcom to Hellboy Protiens</Title>
+          <InnerTitle>Content content content contentcontentcontent</InnerTitle>
           <Span>
             <StrikeHead>
               Have a password? Continue with your email address
@@ -99,14 +113,9 @@ const LoginCart = () => {
                 Remember me
               </p>
             </Check>
-            <InputBtn
-              type="submit"
-     
-            />
-            <FPass
-            >
-              I forgot my password
-            </FPass>
+            <InputBtn type="submit" />
+            <FPass>I forgot my password</FPass>
+            <CheckoutButton type="submit">Sign In</CheckoutButton>
           </Form>
         </Box>
       </BoxContainer>
