@@ -52,6 +52,7 @@ const AllProducts = () => {
   `;
   const allProducts = useStore((state) => state.AllProducts);
   const getAllProducts = useStore((state) => state.getAllProduct);
+  console.log(allProducts);
   useEffect(() => {
     getAllProducts();
   }, []);
@@ -80,7 +81,7 @@ const AllProducts = () => {
           <FilterBox>Showing All Results</FilterBox>
         </ProductContainerHead>
         <BestSellerProd>
-          {allProducts.map((prod) => (
+          {allProducts?.map((prod) => (
             <ProductCard
               price={prod.price}
               originalPrice={prod.price}
@@ -89,7 +90,6 @@ const AllProducts = () => {
               productImage={prod.url[0]}
             />
           ))}
-          x
         </BestSellerProd>
       </ProductContainer>
       <div

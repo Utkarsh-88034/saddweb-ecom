@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
+import usestore from "../store";
+import { signupSubmitHandler } from "../Main/login";
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
+  const signup = usestore((state) => state.register);
+  const email = useRef();
+  const userName = useRef();
+  const password = useRef();
+  const isAdmin = useRef();
+  const fname = useRef();
+  const lname = useRef();
+
+  const navigate = useNavigate();
+
   const BoxContainer = styled.div`
     display: flex;
     align-items: center;
@@ -73,6 +86,22 @@ const Signup = () => {
   height: 35px;
   cursor: pointer;
 `;
+  const CheckoutButton = styled.button`
+    display: flex;
+    border: 2px solid #b5bdc4;
+    border-radius: 12px;
+    width: 100%;
+    margin: 30px auto;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    padding: 5px 0;
+    background: #f9c349;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 18px;
+    cursor: pointer;
+  `;
   return (
     <>
       <TopNav />
@@ -83,26 +112,40 @@ const Signup = () => {
           <Span>
             <StrikeHead>Create Your Account</StrikeHead>
           </Span>
-          <Form>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              signupSubmitHandler(
+                `${fname.current.value} ${lname.current.value}`,
+                email.current.value,
+                userName.current.value,
+                password.current.value,
+                true,
+                signup
+              );
+              navigate("/login/");
+            }}
+          >
             <Name>
               <Namein>
                 <Label>First Name</Label>
-                <Input type="text" />
+                <Input type="text" ref={fname} />
               </Namein>
               <Namein>
                 <Label>Last Name</Label>
-                <Input type="text" />
+                <Input type="text" ref={lname} />
               </Namein>
             </Name>
 
             <Label>Email</Label>
-            <Input type="email" />
+            <Input type="email" ref={email} />
+            <Label>Username</Label>
+            <Input type="text" ref={userName} />
             <Label>Password</Label>
-            <Input type="password" />
+            <Input type="password" ref={password} />
             <Label>Confirm Password</Label>
             <Input type="password" />
-
-            <InputBtn type="submit" value="Create Account" />
+            <CheckoutButton type="submit">Sign Up</CheckoutButton>
           </Form>
         </Box>
       </BoxContainer>

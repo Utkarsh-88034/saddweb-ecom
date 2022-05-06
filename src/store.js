@@ -19,6 +19,7 @@ let useStore = (set) => ({
   getAllProduct: async () => {
     try {
       const res = await axios.get("/api/product/getproduct/");
+      console.log(res.data);
       set({ AllProducts: res.data.data });
     } catch (error) {}
   },
@@ -44,15 +45,21 @@ let useStore = (set) => ({
 
   register: async (cred) => {
     try {
-      const res = await axios.post("/api/aut/register", cred);
-    } catch (error) {}
+      const res = await axios.post("/api/auth/register", cred);
+    } catch (error) {
+      console.log("error");
+    }
   },
 
   login: async (cred) => {
     try {
       const res = await axios.get("/api/auth/login", cred);
+      console.log(cred);
+
       set({ LoginUser: res.data.data });
-    } catch (error) {}
+    } catch (error) {
+      console.log("first");
+    }
   },
 
   addProduct: async (proddetails) => {

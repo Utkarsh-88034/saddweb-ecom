@@ -1,8 +1,16 @@
-import useStore from "../store";
+export const loginSubmitHandeler = (email, password, action) => {
+  const cred = { email, password };
+  action(cred);
+};
 
-const login = useStore((state) => state.login);
-
-export const loginSubmitHandeler = (email, password) => {
-  const cred = { email: email, password: password };
-  login(cred);
+export const signupSubmitHandler = (
+  name,
+  email,
+  user_name,
+  password,
+  is_admin,
+  action
+) => {
+  const cred = { name, email, user_name, password, is_admin };
+  action(cred);
 };

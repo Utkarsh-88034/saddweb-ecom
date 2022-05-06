@@ -1,8 +1,13 @@
 import React from "react";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
+import useStore from "../store";
+import { loginSubmitHandeler } from "../Main/login";
 
 const LoginCart = () => {
+  const login = useStore((state) => state.login);
+  const loginUser = useStore((state) => state.LoginUser);
+  console.log(loginUser);
   const BoxContainer = styled.div`
     display: flex;
     align-items: center;
@@ -31,18 +36,18 @@ const LoginCart = () => {
     margin: 20px 0;
     line-height: 0.1em;
   `;
-  const Form = styled.form`
+  const LoginForm = styled.form`
     display: flex;
     flex-direction: column;
   `;
-  const Input = styled.input`
+  const LoginInput = styled.input`
     background: #f9fafa;
     border-radius: 4px;
     border: 1px solid #b5bdc4;
     margin-bottom: 5px;
     height: 35px;
   `;
-  const Label = styled.label`
+  const InputLabel = styled.label`
     text-align: left;
     margin: 5px 0;
   `;
@@ -73,7 +78,7 @@ const LoginCart = () => {
     display: flex;
     border: 2px solid #b5bdc4;
     border-radius: 12px;
-    width: 90%;
+    width: 100%;
     margin: 30px auto;
     justify-content: center;
     align-items: center;
@@ -97,11 +102,16 @@ const LoginCart = () => {
               Have a password? Continue with your email address
             </StrikeHead>
           </Span>
-          <Form>
-            <Label>Email</Label>
-            <Input type="email" />
-            <Label>password</Label>
-            <Input type="email" />
+          <LoginForm
+            onSubmit={(e) => {
+              e.preventDefault();
+              loginSubmitHandeler("azhar@gmail.comm", "123", login);
+            }}
+          >
+            <InputLabel>Email</InputLabel>
+            <LoginInput type="email" />
+            <InputLabel>password</InputLabel>
+            <LoginInput type="email" />
             <Check>
               <input type="checkbox" />{" "}
               <p
@@ -113,10 +123,9 @@ const LoginCart = () => {
                 Remember me
               </p>
             </Check>
-            <InputBtn type="submit" />
             <FPass>I forgot my password</FPass>
             <CheckoutButton type="submit">Sign In</CheckoutButton>
-          </Form>
+          </LoginForm>
         </Box>
       </BoxContainer>
     </>
