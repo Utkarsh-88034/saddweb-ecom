@@ -12,7 +12,7 @@ import payment from "../../assets/images/payment.png";
 
 const Footer = () => {
   const FooterContainer = styled.div`
-    width: 80%;
+    width: 100%;
     padding:2rem;
     margin: auto;
     margin-top: 200px;
@@ -25,7 +25,12 @@ const Footer = () => {
     padding: 40px 0;
     position: relative;
   `;
-  const FooterLogo = styled.img``;
+  const FooterLogo = styled.img`
+    margin-right: 100px;
+    @media (max-width: 700px) {
+      margin-right: 0;
+    }
+  `;
   const SocialContainer = styled.div`
     padding: 10px 10px;
     width: 300px;
@@ -41,7 +46,11 @@ const Footer = () => {
     flex-wrap:wrap;
     // align-items: center;
     margin: 20px 0;
-    width: 80%;
+    width: 100%;
+    @media (max-width: 700px) {
+      justify-content: start;
+
+    }
   `;
   const ContactDetails = styled.p`
     font-weight: 400;
@@ -70,7 +79,11 @@ const Footer = () => {
     display: flex;
     align-items: center;
   `;
-  const ItemContainer = styled.div``;
+  const ItemContainer = styled.div`
+    min-width: 200px;
+    margin: 50px 0;
+
+  `;
   const ItemHead = styled.p`
     font-weight: 700;
     font-size: 20px;
@@ -80,6 +93,12 @@ const Footer = () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 90%;
+    max-width: 1500px;
+    @media (max-width: 700px) {
+      flex-direction: column;
+      justify-content: center;
+    }
   `;
   return (
     <FooterContainer>
@@ -88,32 +107,32 @@ const Footer = () => {
         <ContactContainer>
           {/* <SocialLogo src={location} /> */}
           <ItemContainer>
-            <ItemHead>Explore Feauted Product</ItemHead>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
+            <ItemHead>Feauted Products</ItemHead>
+            <ContactDetails>Product 1</ContactDetails>
+            <ContactDetails>Product 2</ContactDetails>
+            <ContactDetails>Product 3</ContactDetails>
+            <ContactDetails>Product 4</ContactDetails>
           </ItemContainer>
           <ItemContainer>
             <ItemHead>Useful links</ItemHead>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>Privacy Policy</ContactDetails>
+            <ContactDetails>Terms and Conditions</ContactDetails>
+            <ContactDetails>Certifications</ContactDetails>
+           
           </ItemContainer>
           <ItemContainer>
             <ItemHead>Navigate</ItemHead>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>Home</ContactDetails>
+            <ContactDetails>Shop</ContactDetails>
+            <ContactDetails>Pay Now</ContactDetails>
+            <ContactDetails>Authenticity</ContactDetails>
           </ItemContainer>
           <ItemContainer>
             <ItemHead>Visit</ItemHead>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
-            <ContactDetails>New Delhi, India</ContactDetails>
+            <ContactDetails>DA4/A Main Vikas Marg, Shakarpur,</ContactDetails>
+            <ContactDetails>Opp Nathu Sweets</ContactDetails>
+            <ContactDetails>New Delhi, 110092</ContactDetails>
+            <ContactDetails>+91 9999999999</ContactDetails>
           </ItemContainer>
         </ContactContainer>
       </FooterTop>

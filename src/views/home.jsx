@@ -77,7 +77,7 @@ const Home = () => {
   const CategoryHeadding = styled.div`
     font-weight: 700;
     font-size: 40px;
-    background-image: url(${categorybanner});
+    background: url(${categorybanner});
     background-repeat: no-repeat;
     background-position: center;
     display: flex;
@@ -111,7 +111,7 @@ const Home = () => {
     height: 30%;
 
     margin: 10px;
-    background-image: url(${category1});
+    background: url(${category1});
     background-repeat: no-repeat;
     border-radius: 6px;
     background-position: center;
@@ -121,13 +121,14 @@ const Home = () => {
     display: flex;
     align-items: end;
     padding: 10px;
+
   `;
   const Category3 = styled.div`
     width: 60%;
     height: 94%;
 
     margin: 10px;
-    background-image: url(${category3});
+    background: url(${category3}) ;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 6px;
@@ -137,11 +138,13 @@ const Home = () => {
     display: flex;
     padding: 10px;
     align-items: end;
+    // background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
   `;
   const CategoryBoxLeft = styled.div`
     display: flex;
     width: 40%;
     flex-direction: column;
+   
   `;
   return (
     <HomeContainer>
