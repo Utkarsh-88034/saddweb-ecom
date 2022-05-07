@@ -15,7 +15,12 @@ const CartProduct = () => {
     align-items: center;
     padding: 10px;
     position: relative;
-  `;
+    // @media (max-width: 1256px) {
+    //   height: 150px;
+    //   width: 80%;
+    // }
+    `
+  ;
   const CartContainer = styled.div`
     width: 100%;
     margin: auto;

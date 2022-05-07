@@ -29,6 +29,9 @@ font-weight:700;
   `
   const CurrentUrlContainer = styled.div`
     display: flex;
+    @media (max-width: 585px) {
+  display:none;
+      }
   `;
   const ShippingDetail=styled.div`
   display:flex;
@@ -43,13 +46,21 @@ flex-wrap:wrap;
   border: 1px solid #B5BDC4;
   border-radius:8px;
   padding:10px;
+  
+  @media (max-width: 704px) {
+  width:20.5rem;
+  min-width:18.5rem;
+  margin-top:2rem;
+  }
  
  
   `
   const DeliveryBox=styled.div`
   `
   const PaymentBox=styled.div`
+  margin-top:2rem;
   `
+
   const Form =styled.div`
   display:flex;
 
@@ -102,6 +113,15 @@ border:none;
 border-radius: 7px;
 width:100%;
 `
+const DashedDivider = styled.hr`
+border: none;
+border-top: 2px dashed #b5bdc4;
+color: #fff;
+margin-top:1rem;
+margin-bottom:1rem;
+height: 1px;
+width: 100%;
+`;
   return (
 <>
 <TopNav/>
@@ -169,6 +189,32 @@ width:100%;
 </DeliveryBox>
 <PaymentBox>
 {/* padding yaha se */}
+<DeliveryBox>
+    <h3>Delivery Information</h3>
+    <Form>
+<Label>Street address</Label>
+<Input type='text' placeholder='Click to find Address'/>
+   <Divflex>
+       <Form>
+           <Label>Pincode</Label>
+           <Input style={{width:'107px'}} type='number' placeholder='395003'/>
+       </Form>
+       <Form>
+           <Label>City</Label>
+           <Select style={{width:'107px'}} id="city" name="city">
+           <option value="surat">surat</option>
+  </Select>
+           
+       </Form>
+       <Form>
+           <Label>Country</Label>
+           <Select style={{width:'107px'}} id="city" name="city">
+           <option value="India">India</option>
+  </Select>
+                  </Form>
+   </Divflex>
+    </Form>
+</DeliveryBox>
 </PaymentBox>
 </DeliveryContainer>
 <CheckoutContainer>
@@ -222,6 +268,7 @@ Crunchy ( 2KG )</p>
 </Productdesc>
 
 </ProductConatiner>
+<DashedDivider/>
 <Link to="/orderdetail">
 <Button>Checkout</Button>
 

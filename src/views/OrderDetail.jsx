@@ -38,8 +38,12 @@ flex-wrap:wrap;
   padding:10px;
   width:16rem;
   min-width:80px;
-
- 
+  @media (max-width: 839px) {
+    width:26rem;
+    margin-top:2rem;
+   
+  }
+  
  
   `
   const DeliveryBox=styled.div`

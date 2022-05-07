@@ -17,6 +17,11 @@ const Signup2 = () => {
     border: 1px solid #d7d9d9;
     border-radius: 6px;
     padding: 30px;
+    @media (max-width: 585px) {
+      border: none;
+      padding: 15px;
+       margin-top:4em;
+    }
   `;
   const Title=styled.p`
   marginBottom: 0px; font-size: 30px; font-weight: 700; 
@@ -59,6 +64,32 @@ flex-wrap:wrap;
   height: 35px;
   cursor: pointer;
 `
+const CheckoutButton = styled.button`
+display: flex;
+border: 2px solid #b5bdc4;
+border-radius: 12px;
+width: 100%;
+margin: 30px auto;
+justify-content: center;
+align-items: center;
+height: 50px;
+padding: 5px 0;
+background: #f9c349;
+color: #ffffff;
+font-weight: 500;
+font-size: 18px;
+cursor: pointer;
+`;
+
+const FPass = styled.p`
+color: #f9c349;
+font-size: 14px;
+`;
+const Check = styled.div`
+text-align: left;
+display: flex;
+align-items: center;
+`;
   return (
     <>
       <TopNav />
@@ -79,13 +110,20 @@ flex-wrap:wrap;
             <Input type="email" />
             <Label>password</Label>
             <Input type="email" />
+            <Check>
+              <input type="checkbox" />{" "}
+              <p
+                style={{
+                  margin: "0 10px",
+                }}
+              >
+                {" "}
+                Remember me
+              </p>
+            </Check>
+            <CheckoutButton type="submit">Continue</CheckoutButton>
+            <FPass>I forgot my password</FPass>
 
-            <InputBtn
-              type="submit"
-              value="Create Account"
-      
-           
-            />
           </Form>
         </Box>
       </BoxContainer>

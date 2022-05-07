@@ -50,7 +50,8 @@ const Admin = () => {
     padding: 12px 15px;
     color: #b5bdc4;
   `;
-  const TBody = styled.tbody``;
+  const TBody = styled.tbody`
+  `;
 
   const Star = styled.div`
     display: flex;

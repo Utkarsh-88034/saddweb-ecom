@@ -4,6 +4,7 @@ import styled from "styled-components";
 import usestore from "../store";
 import { signupSubmitHandler } from "../Main/login";
 import { useNavigate } from "react-router-dom";
+import BottomNav from "../components/Navbar/BottomNav";
 const Signup = () => {
   const signup = usestore((state) => state.register);
   const email = useRef();
@@ -19,15 +20,23 @@ const Signup = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100;
+   
+
   `;
   const Box = styled.div`
     text-align: center;
-    border-sizing: border-box;
+    // border-sizing: border-box;
     margin: 0px;
     border: 1px solid #d7d9d9;
     border-radius: 6px;
     padding: 30px;
+   @media (max-width: 585px) {
+      border: none;
+      padding: 15px;
+       margin-top:4em;
+    }
+    
   `;
   const Title = styled.p`
     marginbottom: 0px;
@@ -86,6 +95,8 @@ const Signup = () => {
   height: 35px;
   cursor: pointer;
 `;
+
+
   const CheckoutButton = styled.button`
     display: flex;
     border: 2px solid #b5bdc4;

@@ -5,8 +5,12 @@ const Details = () => {
   const Heading = styled.p`
     font-weight: 500;
     font-size: 24px;
+    margin:1px;
+  
   `;
-  const DetailsContainer = styled.div``;
+  const DetailsContainer = styled.div`
+
+ `;
   const Label = styled.label`
     font-style: normal;
     font-weight: 400;
@@ -23,17 +27,26 @@ const Details = () => {
     height: 35px;
     outline: none;
     padding: 5px;
+    @media (max-width: 585px) {
+      background: #ffffff;
+      
+           }
   `;
   const DetailForm = styled.form`
     display: flex;
     flex-direction: column;
     width: 80%;
+    @media (max-width: 585px) {
+      margin:auto;
+       
+            }
   `;
   return (
     <>
       <DetailsContainer>
-        <Heading>Product Details</Heading>
+       
         <DetailForm>
+        <Heading>Product Details</Heading>
           <Label>Product Name</Label>
           <Input type={"text"} />
           <Label>Overview</Label>

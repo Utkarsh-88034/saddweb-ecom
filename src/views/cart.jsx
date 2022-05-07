@@ -11,6 +11,9 @@ const Cart = () => {
     width: 80%;
     margin: 20px auto;
     display: flex;
+    @media (max-width: 585px) {
+      display:none;
+    }
   `;
   const TotalContainer = styled.div`
     height: 500px;
@@ -23,13 +26,14 @@ const Cart = () => {
     min-width: 320px;
   `;
   const ProductListContainer = styled.div`
-    margin-right: 20px;
+    // margin-right: 20px;
     margin-bottom: 30px;
+    
   `;
   const CartContainer = styled.div`
     display: flex;
     margin: auto;
-    width: 80%;
+     width:80%;
     justify-content: space-between;
     margin-bottom: 250px;
     flex-wrap: wrap;

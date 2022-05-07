@@ -20,21 +20,35 @@ const LoginCart = () => {
     margin: 0px;
     border: 1px solid #d7d9d9;
     border-radius: 6px;
-    padding: 30px;
+    padding: 30px; 
+   @media (max-width: 585px) {
+      border: none;
+      padding: 15px;
+    }
   `;
   const Title = styled.p`
     marginbottom: 0px;
     font-size: 30px;
     font-weight: 700;
+    @media (max-width: 585px) {
+      font-size: 20px;
+    }
   `;
   const InnerTitle = styled.p`
     margintop: 0px;
     font-size: 16px;
+    @media (max-width: 585px) {
+      font-size: 14px;
+    }
   `;
   const Span = styled.div`
     border-bottom: 1.5px solid #d1d4d9;
-    margin: 20px 0;
+    margin: 40px 0;
     line-height: 0.1em;
+    @media (max-width: 585px) {
+      
+
+    }
   `;
   const LoginForm = styled.form`
     display: flex;
@@ -59,6 +73,11 @@ const LoginCart = () => {
   const StrikeHead = styled.span`
     background: #fff;
     padding: 0 10px;
+    @media (max-width: 585px) {
+ padding:0px;  
+ 
+      }
+    
   `;
   const InputBtn = styled.div`
 

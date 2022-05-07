@@ -10,25 +10,34 @@ const UserName = () => {
     width:90%;
     margin: 20px auto;
     margin-bottom: 200px;
-    
+
     display:flex;
     justify-content: space-between;
     flex-wrap: wrap;
     `
     const NameContainer=styled.div`
-    width:16rem;
+    width:26rem;
     border: 1px solid #B5BDC4;
     border-radius: 10px;
     display:flex;
+    min-width:15rem;
   
     height:5rem;
+    @media (max-width: 955px) {
+        width:18rem;
 
+      }
+      @media (max-width: 803px) {
+        width:26.8rem;
+        margin-bottom:2rem;
+      }
     `
     const Detail=styled.div`
-    width:30rem;
+    // width:30rem;
     border: 1px solid #B5BDC4;
 border-radius: 12px;
 padding:20px;
+
     `
     const Head =styled.span`
     font-size:10px;
@@ -85,6 +94,8 @@ border-radius:5px;
 margin-right:2rem;
 margin-bottom:1rem;
 `
+const Check=styled.input`
+margin:auto;`
 const Div=styled.div`
 `
   return (
@@ -115,8 +126,8 @@ const Div=styled.div`
     </Flexdiv>
    <Title>your Gender</Title>
    <Flexdiv>
-   <input type="radio" value="Male" name="gender" /> Male
-   <input type="radio" value="Female" name="gender" /> Female
+   <Check type="radio" value="Male" name="gender"    /> Male
+   <Check type="radio" value="Female" name="gender"   /> Female
    </Flexdiv>
    <Flexdiv>
        <Title>Email</Title>
