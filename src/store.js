@@ -72,6 +72,7 @@ let useStore = (set) => ({
     try {
       const res = await axios.get(`/api/product/${id}`);
       set({ Product: res.data.data });
+      console.log(res.data);
     } catch (error) {}
   },
 

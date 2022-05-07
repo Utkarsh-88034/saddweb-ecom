@@ -37,6 +37,9 @@ const Home = () => {
     justify-content: space-between;
     width: 100%;
     flex-wrap: wrap;
+    @media (max-width: 750px) {
+      justify-content: center;
+    }
   `;
   const BestSellerHead = styled.p`
     font-weight: 700;
@@ -63,7 +66,6 @@ const Home = () => {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
-
     flex-wrap: wrap;
     margin: auto;
   `;
@@ -76,13 +78,18 @@ const Home = () => {
   `;
   const CategoryHeadding = styled.div`
     font-weight: 700;
-    font-size: 40px;
+    width: 80vw;
+    font-size: 3vw;
     background: url(${categorybanner});
     background-repeat: no-repeat;
     background-position: center;
+    background-size: contain;
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 710px) {
+      font-size: 20px;
+    }
   `;
   const CategoryBoxContainer = styled.div`
     width: 100%;
@@ -92,11 +99,15 @@ const Home = () => {
     margin-top: 30px;
     justify-content: space-between;
     // align-items: center;
+    @media (max-width: 710px) {
+      flex-wrap: wrap;
+      height: max-content;
+    }
   `;
   const Category1 = styled.div`
     height: 60%;
     margin: 10px;
-    background-image: url(${category2});
+    background-image:  linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%),url(${category2});
     background-repeat: no-repeat;
     border-radius: 6px;
     background-position: center;
@@ -106,12 +117,17 @@ const Home = () => {
     display: flex;
     padding: 10px;
     align-items: end;
+    @media(max-width:710px){
+      width::90%;
+      height:280px;
+
+    }
   `;
   const Category2 = styled.div`
     height: 30%;
 
     margin: 10px;
-    background: url(${category1});
+    background:  linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%),url(${category1});
     background-repeat: no-repeat;
     border-radius: 6px;
     background-position: center;
@@ -121,14 +137,18 @@ const Home = () => {
     display: flex;
     align-items: end;
     padding: 10px;
-
+    @media(max-width:710px){
+      width::90%;
+      height:280px;
+    }
   `;
   const Category3 = styled.div`
     width: 60%;
     height: 94%;
 
     margin: 10px;
-    background: url(${category3}) ;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%),
+      url(${category3});
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 6px;
@@ -139,12 +159,19 @@ const Home = () => {
     padding: 10px;
     align-items: end;
     // background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    @media (max-width: 710px) {
+      width: 100%;
+      height: 300px;
+    }
   `;
   const CategoryBoxLeft = styled.div`
     display: flex;
     width: 40%;
     flex-direction: column;
-   
+    @media (max-width: 710px) {
+      // flex-wrap: wrap;
+      width: 100%;
+    }
   `;
   return (
     <HomeContainer>
@@ -153,7 +180,7 @@ const Home = () => {
       <MainHeadContainer>
         <img
           src={HeaderMain}
-          style={{ width: "100%", objectFit: "cover" }}
+          style={{ width: "100vw", objectFit: "cover" }}
         ></img>
       </MainHeadContainer>
       <CategoryContainer>
@@ -168,8 +195,7 @@ const Home = () => {
       </CategoryContainer>
       <ProductBanner
         img={LeanGainerProduct}
-        title=' Best Quality Hell Boy Nutrition - Lean Gainer'
-      
+        title=" Best Quality Hell Boy Nutrition - Lean Gainer"
       />
       <BestSellerContainer>
         <BestSellerHead>BEST SELLER</BestSellerHead>
@@ -209,18 +235,21 @@ const Home = () => {
               "Whey is one of the best forms of protein for your body that helps you build muscle and lose fat. Consuming supplement with whey is a convenient way to add protein on top of daily intake. All our supplements are enriched with whey that is effective for muscle growth"
             }
             type={"Whey"}
+            background={category1}
           />
           <IngredientsBox
             detail={
               "Milk Protein is great for the muscle mass and muscle strength of all ages practicing bodybuilding. All the supplements of Hell Boy Nutrition contain milk protein that helps you to reduce age-related muscle loss"
             }
             type={"Milk"}
+            background={category2}
           />
           <IngredientsBox
             detail={
               "Cocoa powder is widely used to boost mood. Besides, many bodybuilders use it for muscle building. Our manufacturing team is well aware of the surprising health benefits of cocoa powder. And that is why cocoa powder is used in all ranges of gym and bodybuilding supplements"
             }
             type={"Cocoa powder"}
+            background={category3}
           />
         </Ingredientsboxs>
       </IngredientsContainer>

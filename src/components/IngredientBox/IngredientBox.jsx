@@ -1,14 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import category1 from "../../assets/images/category1.png";
+import category2 from "../../assets/images/category2.png";
+import category3 from "../../assets/images/category3.png";
 
-const IngredientsBox = ({ detail, type }) => {
+const IngredientsBox = ({ detail, type, background }) => {
   const IngredientBox = styled.div`
     width: 300px;
     height: 400px;
     border-radius: 12px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%),
+      url(${background});
+    background-repeat: no-repeat;
     position: relative;
     top: 0;
+    margin: 20px 0;
   `;
   const Ingredientdetail = styled.div`
     color: white;

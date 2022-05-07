@@ -7,7 +7,6 @@ import MassGainer5KG from "../assets/images/Massgainer5kg.png";
 import Footer from "../components/Footer/Footer";
 import PrimaryButton from "../components/Atoms/Primary Button/PrimaryButton";
 import useStore from "../store";
-
 const AllProducts = () => {
   const ProductContainer = styled.div`
     width: 80%;
@@ -38,7 +37,7 @@ const AllProducts = () => {
     border: 1px solid #b5bdc4;
     border-radius: 51px;
     height: 40px;
-    width: 30%;
+    width: max-content;
     display: flex;
     justify-content: felx-start;
     align-items: center;
@@ -49,6 +48,9 @@ const AllProducts = () => {
     justify-content: space-between;
     width: 100%;
     flex-wrap: wrap;
+    @media (max-width: 757px) {
+      justify-content: center;
+    }
   `;
   const allProducts = useStore((state) => state.AllProducts);
   const getAllProducts = useStore((state) => state.getAllProduct);
@@ -88,6 +90,7 @@ const AllProducts = () => {
               type={"GAINER"}
               title={prod.name}
               productImage={prod.url[0]}
+              id={prod._id}
             />
           ))}
         </BestSellerProd>

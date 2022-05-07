@@ -4,9 +4,11 @@ import styled from "styled-components";
 const CommentDivider = () => {
   const Container = styled.div`
     width: 100%;
+    max-width: 1280px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin: 10px auto;
   `;
   const CommentContainer = styled.div`
     background: #ffffff;
@@ -57,22 +59,20 @@ const CommentDivider = () => {
             good protein which helps you to gain weight.
           </CommentContent>
         </CommentContainer>
-    
-      
       </Container>
       <Container>
-      <CommentContainer>
+        <CommentContainer>
           <CommentContent>
-            <strong>Hell Boy Nutrition- India’s</strong> {" "}Trusted & Affordable Protein –
-            Affordable Supplements Brand India is transforming into a fitness
-            freak nation at a very rapid rate. People perhaps see bodybuilding
-            as a professional choice as well. Body Core Science comes with a
-            vision to provide qualitative and affordable supplements to every
-            section of society. Our body requires necessary supplements which
-            are hard to take via a regular food diet. Therefore, extra nutrition
-            is required by the human body to fulfill those requirements. Body
-            Core Science provides healthy and quality nutrition at a very
-            affordable price range.
+            <strong>Hell Boy Nutrition- India’s</strong> Trusted & Affordable
+            Protein – Affordable Supplements Brand India is transforming into a
+            fitness freak nation at a very rapid rate. People perhaps see
+            bodybuilding as a professional choice as well. Body Core Science
+            comes with a vision to provide qualitative and affordable
+            supplements to every section of society. Our body requires necessary
+            supplements which are hard to take via a regular food diet.
+            Therefore, extra nutrition is required by the human body to fulfill
+            those requirements. Body Core Science provides healthy and quality
+            nutrition at a very affordable price range.
           </CommentContent>
         </CommentContainer>
         <CommentContainer>

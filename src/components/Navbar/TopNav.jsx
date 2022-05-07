@@ -11,14 +11,19 @@ import { Link } from "react-router-dom";
 
 const TopNav = () => {
   const Hamburger = styled.img``;
-  const HamburgerContainer = styled.div``;
+  const HamburgerContainer = styled.div`
+    display: none;
+    @media (max-width: 963px) {
+      display: block;
+    }
+  `;
   const NavBarTopContainer = styled.div`
     display: flex;
     width: 100vw;
     padding: 10px 10px;
     align-items: center;
     justify-content: space-between;
-    max-width: 1500px
+    max-width: 1500px;
   `;
   const SearchForm = styled.form`
     height: "40px";
@@ -79,27 +84,36 @@ const TopNav = () => {
   `;
   const LinksContainer = styled.div`
     display: flex;
+    width: 200px;
+    align-items: center;
+    justify-content: space-evenly;
   `;
-
+  const RegularFragment = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 963px) {
+      display: none;
+    }
+  `;
   console.log(window.innerWidth);
   return (
     <NavBarTopContainer>
       <Link to="/">
-      <img src={hellboylogo1} alt="" style={{ margin: "0 3rem" }} />
-
+        <img src={hellboylogo1} alt="" style={{ margin: "0 3rem" }} />
       </Link>
-      {window.innerWidth > 784 ? (
-        <React.Fragment>
-          <SearchForm>
-            <SearchInput placeholder="Try our search..." type="text" />
-            <SearchButton type="submit">
-              <div style={{ marginRight: "10px" }}>
-                <SearchOutlined />
-              </div>
-              Search
-            </SearchButton>
-          </SearchForm>
-          <LinksContainer>
+
+      <RegularFragment>
+        <SearchForm>
+          <SearchInput placeholder="Try our search..." type="text" />
+          <SearchButton type="submit">
+            <div style={{ marginRight: "10px" }}>
+              <SearchOutlined />
+            </div>
+            Search
+          </SearchButton>
+        </SearchForm>
+        <LinksContainer>
           <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
             <AccButton>
               <UserOutlined
@@ -145,14 +159,12 @@ const TopNav = () => {
               </button>
             </CartButton>
           </Link>
-          </LinksContainer>
-         
-        </React.Fragment>
-      ) : (
-        <HamburgerContainer>
-          <Hamburger src={ham} />
-        </HamburgerContainer>
-      )}
+        </LinksContainer>
+      </RegularFragment>
+
+      <HamburgerContainer>
+        <Hamburger src={ham} />
+      </HamburgerContainer>
     </NavBarTopContainer>
   );
 };

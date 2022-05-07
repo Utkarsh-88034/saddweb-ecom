@@ -3,8 +3,11 @@ import styled from "styled-components";
 import MassGainer5Kg from "../../assets/images/Massgainer5kg.png";
 import Sale from "../../assets/images/sale-banner.png";
 import CartIcon from "../../assets/images/cart1.png";
+import { useNavigate } from "react-router-dom";
 
-function ProductCard({ type, title, originalPrice, price, productImage }) {
+function ProductCard({ type, title, originalPrice, price, productImage, id }) {
+  const Navigate = useNavigate();
+
   const CardContainer = styled.div`
     border: 1px solid #e5e5e5;
     width: 300px;
@@ -15,6 +18,7 @@ function ProductCard({ type, title, originalPrice, price, productImage }) {
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
+    cursor: pointer;
     &:hover {
       box-shadow: 0px 4px 12px -4px rgba(22, 34, 51, 0.12),
         0px 16px 32px rgba(22, 34, 51, 0.16);
@@ -76,7 +80,11 @@ function ProductCard({ type, title, originalPrice, price, productImage }) {
     width: 100%;
   `;
   return (
-    <CardContainer>
+    <CardContainer
+      onClick={() => {
+        Navigate(`/product-info/${id}`);
+      }}
+    >
       <CardTopContainer>
         <img src={Sale} />
       </CardTopContainer>

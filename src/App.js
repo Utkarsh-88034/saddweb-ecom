@@ -21,7 +21,7 @@ import UserNamecompo from "./components/UserName/UserNamecompo";
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="App" style={{ maxWidth: "1440px", margin: "auto" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="products" element={<AllProducts />} />
@@ -36,10 +36,9 @@ function App() {
           <Route path="authenticity" element={<Read />} />
           <Route path="orderdetail" element={<OrderDetail />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="product-info" element={<ProductPage />} />
+          <Route path="product-info/:id" element={<ProductPage />} />
           <Route path="username" element={<UserName />} />
           <Route path="usernames" element={<UserNamecompo />} />
-
         </Routes>
       </div>
     </BrowserRouter>

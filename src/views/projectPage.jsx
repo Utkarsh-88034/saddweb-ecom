@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
@@ -14,11 +14,25 @@ import ReviewCard from "../components/CustomerReview/ReviewCard";
 import { Progress } from "antd";
 import ProductCard from "../components/Product/ProductCard";
 import MassGainer5KG from "../assets/images/Massgainer5kg.png";
+import { useParams } from "react-router-dom";
+import useStore from "../store";
 
 const ProductPage = () => {
   const [overviewFlag, setOverviewFlag] = useState(false);
   const [benefitsFlag, setBenefitsFlag] = useState(false);
   const [ingredientFlag, setIngredientFlag] = useState(false);
+
+  const param = useParams();
+
+  const getProductById = useStore((state) => state.getProductById);
+  const getReviewById = useStore((state) => state.getAllReviewsById);
+  const AllReviews = useStore((state) => state.AllReviewsById);
+  const ProductById = useStore((state) => state.Product);
+
+  useEffect(() => {
+    getProductById(param.id);
+  }, []);
+
   const MainContainer = styled.div`
     height: max-content;
   `;
@@ -295,11 +309,14 @@ const ProductPage = () => {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    // flex-wrap: wrap;
+
     // align-items: center;
   `;
   const ProductContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
   `;
   return (
     <>
@@ -311,7 +328,7 @@ const ProductPage = () => {
             <ProductImageContainer>
               <Arrow src={leftarr} />
               <Imageslide>
-                <ProductImage src={ProductImg} />
+                <ProductImage src={ProductById.main_url} />
                 <ProductImage src={ProductImg} />
                 <ProductImage src={ProductImg} />
                 <ProductImage src={ProductImg} />
@@ -328,26 +345,7 @@ const ProductPage = () => {
                   }}
                 />
               </OverviewTitleContainer>
-              {overviewFlag ? (
-                <p>
-                  Hell Boy Nutrition Peanut butter is comprised of about 30g
-                  protein per 100g, making it an excellent plant-based protein
-                  source. Peanuts belong to the legume family, which also
-                  includes beans, peas and lentils. Legume protein is much lower
-                  in methionine and cysteine compared to animal protein. Peanuts
-                  are low in carbs and suitable for people with type 2 diabetes
-                  or those following a low-carb diet. Pure peanut butter is a
-                  good source of healthy fats. It is high in many healthy
-                  vitamins and minerals. It is rich in antioxidants, including
-                  p-coumarin and resveratrol. BCS Peanut Butter is fairly rich
-                  in nutrients and a decent protein source. It’s also loaded
-                  with fiber, vitamins and minerals; it’s a potential source of
-                  aflatoxins, which are associated with harmful effects in the
-                  long run.
-                </p>
-              ) : (
-                ""
-              )}
+              {overviewFlag ? <p>{ProductById.details}</p> : ""}
             </Overview>
             <Overview>
               <OverviewTitleContainer>
@@ -413,12 +411,10 @@ const ProductPage = () => {
             </Overview>
           </ProductContainerLeft>
           <ProductContainerRight>
-            <DetailTitle>
-              Hell Boy Natural Peanut Butter Crunchy ( 2KG )
-            </DetailTitle>
+            <DetailTitle>{ProductById.name}</DetailTitle>
             <Price>
-              <StrikedPrice>Rs.399</StrikedPrice>
-              <DiscountPrice>Rs. 399</DiscountPrice>
+              <StrikedPrice>{ProductById.price}</StrikedPrice>
+              <DiscountPrice>{ProductById.price}</DiscountPrice>
               <SavePrice>Save Rs. 399</SavePrice>
             </Price>
             <FeatureContainer>
