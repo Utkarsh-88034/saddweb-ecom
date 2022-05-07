@@ -168,7 +168,8 @@ const Home = () => {
       </CategoryContainer>
       <ProductBanner
         img={LeanGainerProduct}
-        title="Best Quality Hell Boy Nutrition - Lean Gainer"
+        title=' Best Quality Hell Boy Nutrition - Lean Gainer'
+      
       />
       <BestSellerContainer>
         <BestSellerHead>BEST SELLER</BestSellerHead>

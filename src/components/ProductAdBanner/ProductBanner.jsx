@@ -10,46 +10,77 @@ function ProductBanner({ img, title, disc }) {
     width: 100vw;
   `;
   const Container = styled.div`
+  margin-top:5rem;
     display: flex;
     width: 80%;
     margin: auto;
     height: 40vw;
-    @media (max-width: 530px) {
+   
+    @media (max-width: 585px) {
+      height: auto;
       flex-direction: column;
+      
     }
   `;
   const ProdBanner = styled.div`
     background-color: rgba(249, 195, 73, 0.1);
-    padding: 40px;
     display: flex;
     justify-content: center;
     align-items: start;
     flex-direction: column;
     border-radius: 10px;
     font-size: 1.8vw;
-    @media (max-width: 850px) {
-      font-size: 1.5vw;
+    // @media (max-width: 850px) {
+    //   font-size: 1.3vw;
+    // }
+    @media(max-width:1200px){
+      dipaly:none;
+    
+    }
+    @media (max-width: 585px) {
+margin:auto;    
     }
   `;
   const PordBannerDisc = styled.ul`
-    padding: 20px;
+    // padding: 20px;
     font-size: 1rem;
     // list-style: none; /* Remove default bullets */
   `;
 
   const Li = styled.li`
-  
+  font-size:14px;
+  @media (max-width: 1035px) {
+    font-size: 12px;
+  }
+  @media (max-width: 850px) {
+    font-size: 8px;
+  }
+  @media (max-width: 850px) {
+    font-size: 14px;
+  }
   `;
   const BannerTitle = styled.p`
     font-size: 3vw;
     font-weight: bolder;
-    margin-bottom: 1vw;
-    @media (max-width: 850px) {
-      font-size: 2.5vw;
+  
+   
+   
+    @media (max-width: 1035px) {
+      font-size: 2.3vw;
+    }
+    @media (max-width: 850x) {
+      font-size: 1vw;
+    }  @media (max-width: 585px) {
+      font-size: 20px;
     }
   `;
   const BannerImage = styled.img`
     margin: 20px;
+    @media (max-width: 750px) {
+     margin:auto;
+     width:199px;
+     height:233px;
+    }
   `;
   return (
     <Container>
@@ -76,7 +107,7 @@ function ProductBanner({ img, title, disc }) {
           </Li>
         </PordBannerDisc>
         <Link to={"/products"}>
-          <PrimaryButton btnText={"Shop Now"} />
+          <PrimaryButton btnText={"Shop Now"}   style={{margin:'auto'}}/>
         </Link>
       </ProdBanner>
     </Container>
