@@ -14,19 +14,18 @@ const BottomNav = () => {
         backgroundColor: "black",
       }}
     >
-      
-      <Menu.Item key="mail">
+      <Menu.Item key="home">
         <Link to="/" style={{ textDecoration: "none", color: "white" }}>
           Home
         </Link>
       </Menu.Item>
 
-      <Menu.Item key="app">
+      <Menu.Item key="products">
         <Link to="/products" style={{ textDecoration: "none", color: "white" }}>
           All products
         </Link>
       </Menu.Item>
-      <Menu.Item key="app">
+      <Menu.Item key="authenticity">
         <Link
           to="/authenticity"
           style={{ textDecoration: "none", color: "white" }}
@@ -35,26 +34,19 @@ const BottomNav = () => {
         </Link>
       </Menu.Item>
 
-      <Menu.Item key="app">
+      <Menu.Item key="admin">
         <SubMenu key="SubMenu" title="Admin">
-        <Link to="/admin/dashboard">
-        <Menu.Item key="setting:1">Dashboard</Menu.Item>
-
-        </Link>
-        <Link to="/admin/user">
-        <Menu.Item key="setting:1">User Management</Menu.Item>
-
-        </Link>
-        <Link to="/admin/product">
-        <Menu.Item key="setting:1">Product Management</Menu.Item>
-
-        </Link>
-
-          
-      </SubMenu>
+          <Link to="/admin/dashboard">
+            <Menu.Item key="setting:1">Dashboard</Menu.Item>
+          </Link>
+          <Link to="/admin/user">
+            <Menu.Item key="setting:2">User Management</Menu.Item>
+          </Link>
+          <Link to="/admin/product">
+            <Menu.Item key="setting:3">Product Management</Menu.Item>
+          </Link>
+        </SubMenu>
       </Menu.Item>
-      
-
     </Menu>
   );
 };

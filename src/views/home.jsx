@@ -17,9 +17,12 @@ import categorybanner from "../assets/images/categorybanner.png";
 import category1 from "../assets/images/category1.png";
 import category2 from "../assets/images/category2.png";
 import category3 from "../assets/images/category3.png";
+import useStore from "../store";
 import CommentDivider from "../components/PageDivider/CommentDivider";
 
 const Home = () => {
+  const loginUser = useStore((state) => state.LoginUser);
+  console.log(loginUser);
   const MainHeadContainer = styled.div`
     width: 100%;
   `;

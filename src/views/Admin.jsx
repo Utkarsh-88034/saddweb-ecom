@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
@@ -7,7 +7,15 @@ import Footer from "../components/Footer/Footer";
 import TableRow from "../components/ProductTable/TableRow";
 import PrimaryButton from "../components/Atoms/Primary Button/PrimaryButton";
 import { Link } from "react-router-dom";
+import useStore from "../store";
+import AllProducts from "./allProducts";
 const Admin = () => {
+  const allProducts = useStore((state) => state.AllProducts);
+  const getAllProducts = useStore((state) => state.getAllProduct);
+  console.log(allProducts);
+  useEffect(() => {
+    getAllProducts();
+  }, []);
   const ProductContainer = styled.div`
     width: 80%;
 
@@ -24,11 +32,10 @@ const Admin = () => {
     align-items: flex-end;
     // border: 1px solid black;
   `;
-  const PageTitle=styled.p`
-  font-weight: 700; 
-  font-size: 30px; 
-  
-  `
+  const PageTitle = styled.p`
+    font-weight: 700;
+    font-size: 30px;
+  `;
   const Productbtn = styled.button`
     background: #f9c349;
     border-radius: 12px;
@@ -43,15 +50,14 @@ const Admin = () => {
     width: 100%;
     border-spacing: 0 25px;
   `;
-  const TR=styled.tr`
-  text-align:left;
-  `
+  const TR = styled.tr`
+    text-align: left;
+  `;
   const TH = styled.th`
     padding: 12px 15px;
     color: #b5bdc4;
   `;
-  const TBody = styled.tbody`
-  `;
+  const TBody = styled.tbody``;
 
   const Star = styled.div`
     display: flex;
@@ -69,18 +75,17 @@ const Admin = () => {
             color: "#000000",
           }}
         >
-        Admin
+          Admin
         </p>
         <ProductContainerHead>
           <PageTitle>Products</PageTitle>
           <Link to="/admin/addproduct">
             <PrimaryButton btnText={"Add Product"} />
           </Link>
-          
         </ProductContainerHead>
         <Table>
           <thead>
-            <TR >
+            <TR>
               <TH>Product</TH>
               <TH>stock</TH>
               <TH>Quantity</TH>
@@ -91,102 +96,29 @@ const Admin = () => {
             </TR>
           </thead>
           <TBody>
-            <TableRow
-              name={"Product Name"}
-              Desc={"Product description, product description"}
-              stock={"In stock"}
-              quantity={"600"}
-              Date={"12/03/2021"}
-              Rating={
-                <>
-                  {" "}
-                  <Star>
-                    <div>
-                      <ReactStars
-                        count={5}
-                        // onChange={ratingChanged}
-                        size={8}
-                        activeColor="#ffd700"
+            {allProducts.map((product, index) => (
+              <TableRow
+                name={product.name}
+                Desc={product.details}
+                stock={"In Stock"}
+                Action={
+                  <>
+                    <Link to={`/admin/updateproduct/${product._id}`}>
+                      <button
                         style={{
-                          display: "flex",
-                          alignitem: "center",
+                          border: "none",
+                          cursor: "pointer",
+                          borderRadius: "6px",
                         }}
-                      />
-                    </div>
-                    <p style={{ fontSize: "8px" }}>4.7 out of 5</p>
-                  </Star>
-                </>
-              }
-              Action={
-                <>
-                  <button style={{ border: "none" }}>Edit</button>
-                </>
-              }
-            />
-            <TableRow
-              name={"Product Name"}
-              Desc={"Product description, product description"}
-              stock={"In stock"}
-              quantity={"600"}
-              Date={"12/03/2021"}
-              Rating={
-                <>
-                  {" "}
-                  <Star>
-                    <div>
-                      <ReactStars
-                        count={5}
-                        // onChange={ratingChanged}
-                        size={8}
-                        activeColor="#ffd700"
-                        style={{
-                          display: "flex",
-                          alignitem: "center",
-                        }}
-                      />
-                    </div>
-                    <p style={{ fontSize: "8px" }}>4.7 out of 5</p>
-                  </Star>
-                </>
-              }
-              Action={
-                <>
-                  <button style={{ border: "none" }}>Edit</button>
-                </>
-              }
-            />
-            <TableRow
-              name={"Product Name"}
-              Desc={"Product description, product description"}
-              stock={"In stock"}
-              quantity={"600"}
-              Date={"12/03/2021"}
-              Rating={
-                <>
-                  {" "}
-                  <Star>
-                    <div>
-                      <ReactStars
-                        count={5}
-                        // onChange={ratingChanged}
-                        size={8}
-                        activeColor="#ffd700"
-                        style={{
-                          display: "flex",
-                          alignitem: "center",
-                        }}
-                      />
-                    </div>
-                    <p style={{ fontSize: "8px" }}>4.7 out of 5</p>
-                  </Star>
-                </>
-              }
-              Action={
-                <>
-                  <button style={{ border: "none" }}>Edit</button>
-                </>
-              }
-            />
+                      >
+                        Edit
+                      </button>
+                    </Link>
+                  </>
+                }
+                key={index}
+              />
+            ))}
           </TBody>
         </Table>
       </ProductContainer>

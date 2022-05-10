@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MassGainer5Kg from "../../assets/images/Massgainer5kg.png";
 import Sale from "../../assets/images/sale-banner.png";
 import CartIcon from "../../assets/images/cart1.png";
 import { useNavigate } from "react-router-dom";
+import useStore from "../../store";
 
 function ProductCard({ type, title, originalPrice, price, productImage, id }) {
   const Navigate = useNavigate();
-
+  const getProductById = useStore((state) => state.getProductById);
+  const [product, setProduct] = useState({});
+  // useEffect(() => {
+  //   const get = async () => {
+  //     const pr = await getProductById(id);
+  //     setProduct(pr);
+  //   };
+  //   get();
+  // }, []);
   const CardContainer = styled.div`
     border: 1px solid #e5e5e5;
     width: 300px;

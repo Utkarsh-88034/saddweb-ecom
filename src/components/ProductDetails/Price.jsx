@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
-const Price = () => {
+const Price = ({ getPrice, price }) => {
+  const priceRef = useRef();
+  if (price) {
+    priceRef.current = price;
+  }
   const Heading = styled.p`
     font-weight: 500;
     font-size: 24px;
@@ -39,7 +43,14 @@ const Price = () => {
           <Input type={"text"} placeholder={"click to enter"} />
 
           <Label>Discounted Price</Label>
-          <Input type={"text"} placeholder={"use “,” after every feature"} />
+          <Input
+            type={"text"}
+            ref={priceRef}
+            onChange={() => {
+              getPrice(priceRef.current.value);
+            }}
+            value={priceRef.current}
+          />
         </FeatureForm>
       </FeaturesContainer>
     </>

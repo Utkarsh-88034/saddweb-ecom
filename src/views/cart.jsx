@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Footer from "../components/Footer/Footer";
 import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
 import CartProduct from "../components/Cart/CartProduct";
 import { Link } from "react-router-dom";
+import useStore from "../store";
 
 const Cart = () => {
   const NavHead = styled.div`
@@ -12,7 +13,7 @@ const Cart = () => {
     margin: 20px auto;
     display: flex;
     @media (max-width: 585px) {
-      display:none;
+      display: none;
     }
   `;
   const TotalContainer = styled.div`
@@ -28,12 +29,11 @@ const Cart = () => {
   const ProductListContainer = styled.div`
     // margin-right: 20px;
     margin-bottom: 30px;
-    
   `;
   const CartContainer = styled.div`
     display: flex;
     margin: auto;
-     width:80%;
+    width: 80%;
     justify-content: space-between;
     margin-bottom: 250px;
     flex-wrap: wrap;
@@ -138,12 +138,16 @@ const Cart = () => {
         <p style={{ fontWeight: "500" }}>Basket</p>
       </NavHead>
       <CartContainer>
-        <ProductListContainer>
-          <CartProduct />
-          <CartProduct />
-          <CartProduct />
-          <CartProduct />
-        </ProductListContainer>
+        {Cart.cart_items?.length > 0 ? (
+          <ProductListContainer>
+            {Cart.cart_items.map((item, index) => (
+              <CartProduct key={index} />
+            ))}
+          </ProductListContainer>
+        ) : (
+          ""
+        )}
+
         <TotalContainer>
           <PromocodeContainer>
             <Promocode placeholder="Promocode" />
@@ -170,7 +174,7 @@ const Cart = () => {
           </CostDetailsContainer>
           <DashedDivider />
           <Link to="/checkout">
-          <CheckoutButton>Proceed To Checkout</CheckoutButton>
+            <CheckoutButton>Proceed To Checkout</CheckoutButton>
           </Link>
         </TotalContainer>
       </CartContainer>

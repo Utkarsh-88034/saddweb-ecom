@@ -4,7 +4,9 @@ import axios from "axios";
 let useStore = (set) => ({
   AllProducts: [],
   AllUsers: [],
-  LoginUser: {},
+  LoginUser: localStorage.getItem("userInfo")
+    ? JSON.parse(localStorage.getItem("userInfo"))
+    : null,
   Product: {},
   AllReviews: [],
   AllReviewsById: [],
@@ -13,13 +15,14 @@ let useStore = (set) => ({
   FeaturedProdById: {},
   AllCartDetails: [],
   AllCartDetailsById: {},
+  LoginError: false,
+  Cart: {},
 
   //
 
   getAllProduct: async () => {
     try {
       const res = await axios.get("/api/product/getproduct/");
-      console.log(res.data);
       set({ AllProducts: res.data.data });
     } catch (error) {}
   },
@@ -53,32 +56,58 @@ let useStore = (set) => ({
 
   login: async (cred) => {
     try {
-      const res = await axios.get("/api/auth/login", cred);
-      console.log(cred);
-
-      set({ LoginUser: res.data.data });
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const res = await axios.post("/api/auth/login", cred, config);
+      localStorage.setItem("userInfo", JSON.stringify(res.data.data));
+      set({ LoginUser: res.data.data, LoginError: false });
+      return "Success";
     } catch (error) {
-      console.log("first");
+      set({
+        LoginError:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
     }
   },
 
   addProduct: async (proddetails) => {
     try {
-      const res = await axios.post("/api/addproduct", proddetails);
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.post(
+        "/api/product/addproduct",
+        proddetails,
+        config
+      );
     } catch (error) {}
   },
 
   getProductById: async (id) => {
     try {
       const res = await axios.get(`/api/product/${id}`);
-      set({ Product: res.data.data });
-      console.log(res.data);
+      // set({ Product: res.data.data });
+      return res.data.data;
     } catch (error) {}
   },
 
   updateProduct: async (id, details) => {
     try {
-      const res = await axios.patch(`/api/product/${id}`, details);
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.patch(`/api/product/${id}`, details, config);
     } catch (error) {}
   },
 
@@ -131,10 +160,11 @@ let useStore = (set) => ({
       const res = await axios.post(`/api/featured_product/${id}`, details);
     } catch (error) {}
   },
-  getFeaturedProdById: async (id) => {
+  getFeaturedProdById: async (pid, fpid) => {
     try {
-      const res = await axios.get(`/api/featured_product/${id}`);
-      set({ FeaturedProdById: res.data.data });
+      const res = await axios.get(`/api/featured_product/${pid}/${fpid}`);
+      // set({ FeaturedProdById: res.data.data });
+      return res.data.data;
     } catch (error) {}
   },
   updateProduct: async (id, details) => {
@@ -168,6 +198,35 @@ let useStore = (set) => ({
   updateOrderById: async (id, details) => {
     try {
       const res = await axios.patch(`}/api/orders/${id}`, details);
+    } catch (error) {}
+  },
+  createCart: async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.post(`/api/cart/create`, {}, config);
+      set({ Cart: res.data.data });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  addToCart: async (fpid, pid, cid) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.patch(
+        `/api/cart/${pid}/${fpid}/${cid}/add`,
+        { quantity: 1 },
+        config
+      );
     } catch (error) {}
   },
 });

@@ -96,7 +96,7 @@ const TopNav = () => {
       display: none;
     }
   `;
-  console.log(window.innerWidth);
+
   return (
     <NavBarTopContainer>
       <Link to="/">

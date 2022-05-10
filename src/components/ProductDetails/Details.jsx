@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-const Details = () => {
+const Details = ({ getDetails, details, name }) => {
+  const nameRef = useRef();
+  const detailsRef = useRef();
+  const [inputname, setInputName] = useState("");
+  const [inputdetails, setInputDetails] = useState("");
+
+  useEffect(() => {
+    if (details) {
+      setInputDetails(details);
+    }
+    if (name) {
+      setInputName(name);
+    }
+  }, []);
+  getDetails(nameRef.current?.value, detailsRef.current?.value);
+  getDetails(nameRef.current?.value, detailsRef.current?.value);
+
   const Heading = styled.p`
     font-weight: 500;
     font-size: 24px;
-    margin:1px;
-  
+    margin: 1px;
   `;
-  const DetailsContainer = styled.div`
-
- `;
+  const DetailsContainer = styled.div``;
   const Label = styled.label`
     font-style: normal;
     font-weight: 400;
@@ -29,28 +42,37 @@ const Details = () => {
     padding: 5px;
     @media (max-width: 585px) {
       background: #ffffff;
-      
-           }
+    }
   `;
   const DetailForm = styled.form`
     display: flex;
     flex-direction: column;
     width: 80%;
     @media (max-width: 585px) {
-      margin:auto;
-       
-            }
+      margin: auto;
+    }
   `;
   return (
     <>
       <DetailsContainer>
-       
         <DetailForm>
-        <Heading>Product Details</Heading>
+          <Heading>Product Details</Heading>
           <Label>Product Name</Label>
-          <Input type={"text"} />
+          <Input
+            type={"text"}
+            ref={nameRef}
+            value={inputname}
+            onChange={(e) => {
+              setInputName(e.target.value);
+            }}
+          />
           <Label>Overview</Label>
-          <Input type={"text"} />
+          <Input
+            type={"text"}
+            ref={detailsRef}
+            onChange={(e) => {}}
+            value={inputdetails}
+          />
           <Label> Benefits</Label>
           <Input type={"text"} />
           <Label>Ingredients</Label>

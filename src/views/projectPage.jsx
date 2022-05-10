@@ -25,12 +25,26 @@ const ProductPage = () => {
   const param = useParams();
 
   const getProductById = useStore((state) => state.getProductById);
+  const getFeaturedProdBYid = useStore((state) => state.getFeaturedProdById);
   const getReviewById = useStore((state) => state.getAllReviewsById);
+  const user = useStore((state) => state.LoginUser);
+  const addToCart = useStore((state) => state.addToCart);
   const AllReviews = useStore((state) => state.AllReviewsById);
   const ProductById = useStore((state) => state.Product);
-
+  const [product, setProduct] = useState({});
+  const [featuredproduct, setFeaturedProduct] = useState({});
+  console.log(user);
   useEffect(() => {
-    getProductById(param.id);
+    const get = async () => {
+      const pr = await getProductById(param.id);
+      setProduct(pr);
+      const fpr = await getFeaturedProdBYid(
+        param.id,
+        pr?.featured_product_id[0]._id
+      );
+      setFeaturedProduct(fpr);
+    };
+    get();
   }, []);
 
   const MainContainer = styled.div`
@@ -43,6 +57,7 @@ const ProductPage = () => {
     height: max-content;
     @media (max-width: 810px) {
       flex-wrap: wrap;
+      justify-content: center;
     }
   `;
   const ProductContainerLeft = styled.div`
@@ -247,21 +262,30 @@ const ProductPage = () => {
   const MainReviewBox = styled.div`
     display: flex;
     justify-content: space-between;
+    @media (max-width: 930px) {
+      flex-direction: column;
+      justify-content: center;
+    }
   `;
   const ReviewBarContainer = styled.div`
     width: 25vw;
+    min-width: 300px;
     // border: 1px solid black;
     display: flex;
     flex-direction: column;
   `;
   const ReviewCardConatiner = styled.div`
     width: 50vw;
+    min-width: 300px;
+    @media (max-width: 930px) {
+    }
     // border: 1px solid black;
   `;
   const ReviewStarContainer = styled.div`
     width: 80%;
     padding: 10px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     background: #fef9ed;
@@ -328,7 +352,7 @@ const ProductPage = () => {
             <ProductImageContainer>
               <Arrow src={leftarr} />
               <Imageslide>
-                <ProductImage src={ProductById.main_url} />
+                <ProductImage src={product.main_url} />
                 <ProductImage src={ProductImg} />
                 <ProductImage src={ProductImg} />
                 <ProductImage src={ProductImg} />
@@ -345,7 +369,7 @@ const ProductPage = () => {
                   }}
                 />
               </OverviewTitleContainer>
-              {overviewFlag ? <p>{ProductById.details}</p> : ""}
+              {overviewFlag ? <p>{product.details}</p> : ""}
             </Overview>
             <Overview>
               <OverviewTitleContainer>
@@ -411,10 +435,10 @@ const ProductPage = () => {
             </Overview>
           </ProductContainerLeft>
           <ProductContainerRight>
-            <DetailTitle>{ProductById.name}</DetailTitle>
+            <DetailTitle>{product.name}</DetailTitle>
             <Price>
-              <StrikedPrice>{ProductById.price}</StrikedPrice>
-              <DiscountPrice>{ProductById.price}</DiscountPrice>
+              <StrikedPrice>{product.price}</StrikedPrice>
+              <DiscountPrice>{product.price}</DiscountPrice>
               <SavePrice>Save Rs. 399</SavePrice>
             </Price>
             <FeatureContainer>
@@ -425,7 +449,6 @@ const ProductPage = () => {
               <ReactStars
                 count={5}
                 // onChange={ratingChanged}
-
                 size={32}
                 value={3}
                 activeColor="#ffd700"
@@ -463,7 +486,17 @@ const ProductPage = () => {
                   <RemoveItem>-</RemoveItem>
                 </Quantity>
               </QuantityContainer>
-              <AddToBasketButton>Add to Basket</AddToBasketButton>
+              <AddToBasketButton
+              // onClick={() => {
+              //   addToCart(
+              //     featuredproduct.gotFeaturedProductById._id,
+              //     product._id,
+              //     Cart._id
+              //   );
+              // }}
+              >
+                Add to Basket
+              </AddToBasketButton>
             </BottomContainer>
           </ProductContainerRight>
         </Container>

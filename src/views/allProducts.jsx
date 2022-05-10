@@ -54,7 +54,6 @@ const AllProducts = () => {
   `;
   const allProducts = useStore((state) => state.AllProducts);
   const getAllProducts = useStore((state) => state.getAllProduct);
-  console.log(allProducts);
   useEffect(() => {
     getAllProducts();
   }, []);

@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
 import useStore from "../store";
 import { loginSubmitHandeler } from "../Main/login";
+import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const LoginCart = () => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const navigate = useNavigate();
+
   const login = useStore((state) => state.login);
-  const loginUser = useStore((state) => state.LoginUser);
-  console.log(loginUser);
+  const Cart = useStore((state) => state.Cart);
+  const createCart = useStore((state) => state.createCart);
+
+  const loginError = useStore((state) => state.LoginError);
+
   const BoxContainer = styled.div`
     display: flex;
     align-items: center;
@@ -20,8 +30,8 @@ const LoginCart = () => {
     margin: 0px;
     border: 1px solid #d7d9d9;
     border-radius: 6px;
-    padding: 30px; 
-   @media (max-width: 585px) {
+    padding: 30px;
+    @media (max-width: 585px) {
       border: none;
       padding: 15px;
     }
@@ -46,8 +56,6 @@ const LoginCart = () => {
     margin: 40px 0;
     line-height: 0.1em;
     @media (max-width: 585px) {
-      
-
     }
   `;
   const LoginForm = styled.form`
@@ -74,10 +82,8 @@ const LoginCart = () => {
     background: #fff;
     padding: 0 10px;
     @media (max-width: 585px) {
- padding:0px;  
- 
-      }
-    
+      padding: 0px;
+    }
   `;
   const InputBtn = styled.div`
 
@@ -109,11 +115,19 @@ const LoginCart = () => {
     font-size: 18px;
     cursor: pointer;
   `;
+  const ErrorBox = styled.div`
+    width: 100%;
+    padding: 20px 0;
+    background: #f7595c;
+    color: white;
+    border-radius: 12px;
+  `;
   return (
     <>
       <TopNav />
       <BoxContainer>
         <Box>
+          {loginError ? <ErrorBox>{loginError}</ErrorBox> : ""}
           <Title>Welcom to Hellboy Protiens</Title>
           <InnerTitle>Content content content contentcontentcontent</InnerTitle>
           <Span>
@@ -124,13 +138,20 @@ const LoginCart = () => {
           <LoginForm
             onSubmit={(e) => {
               e.preventDefault();
-              loginSubmitHandeler("azhar@gmail.comm", "123", login);
+              loginSubmitHandeler(
+                emailRef.current.value,
+                passwordRef.current.value,
+                login,
+                navigate,
+                createCart,
+                Cart
+              );
             }}
           >
             <InputLabel>Email</InputLabel>
-            <LoginInput type="email" />
+            <LoginInput type="email" ref={emailRef} />
             <InputLabel>password</InputLabel>
-            <LoginInput type="email" />
+            <LoginInput type="password" ref={passwordRef} />
             <Check>
               <input type="checkbox" />{" "}
               <p
