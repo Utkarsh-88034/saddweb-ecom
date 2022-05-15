@@ -486,9 +486,17 @@ const ProductPage = ({fpidFromProductPage}) => {
   justify-content: center;
   `
 
-  const handleFeatureChnage = (fp) => {
+  const handleFeatureChnage = async (fp) => {
     
-    console.log(fp)
+    // get featured product and set it
+    setLoading(true);
+    const fpr = await getFeaturedProdBYid(
+      param.id,
+      fp._id
+    );
+    setFeaturedProduct(fpr);
+    setLoading(false)
+      console.log(fpr)
   }
 
   return (
@@ -586,6 +594,7 @@ const ProductPage = ({fpidFromProductPage}) => {
           </ProductContainerLeft>
           <ProductContainerRight>
             <DetailTitle>{product?.name}</DetailTitle>
+            <DetailTitle>{featuredproduct?.flavour}</DetailTitle>
             <Price>
               <StrikedPrice>Rs. {featuredproduct?.gotFeaturedProductById?.price}</StrikedPrice>
               <DiscountPrice>Rs. {featuredproduct?.gotFeaturedProductById?.discounted_price}</DiscountPrice>
@@ -606,14 +615,15 @@ const ProductPage = ({fpidFromProductPage}) => {
                 count={5}
                 // onChange={ratingChanged}
                 size={32}
-                value={4}
+                value={Math.floor(starCount/reviewData.length)}
+                edit={false}
                 activeColor="#ffd700"
                 style={{
                   display: "flex",
                   alignitem: "center",
                 }}
               />
-              <Reviews>45 Reviews</Reviews>
+              <Reviews>{reviewData?.length} Reviews</Reviews>
             </RatingContainer>
             <Divider />
             <MoreFeatures>

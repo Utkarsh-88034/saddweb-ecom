@@ -152,7 +152,10 @@ let useStore = (set) => ({
         },
       };
       const res = await axios.patch(`/api/product/${id}`, details, config);
-    } catch (error) {}
+      return res;
+    } catch (error) {
+      return error;
+    }
   },
 
   getAllReviews: async () => {
@@ -262,7 +265,9 @@ let useStore = (set) => ({
         config
       );
       return res;
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   },
   getFeaturedProdById: async (pid, fpid) => {
     try {
@@ -277,7 +282,7 @@ let useStore = (set) => ({
       return res.data.data;
     } catch (error) {}
   },
-  updateProduct: async (id, details) => {
+  updateFeaturedProduct: async (pid, fpid, details) => {
     try {
       const token = JSON.parse(localStorage.getItem("userInfo"));
       const config = {
@@ -285,8 +290,15 @@ let useStore = (set) => ({
           Authorization: `Bearer ${token.AccessToken}`,
         },
       };
-      const res = await axios.patch(`/api/featured_product/${id}`, details);
-    } catch (error) {}
+      const res = await axios.patch(
+        `/api/featured_product/${pid}/${fpid}`,
+        details,
+        config
+      );
+      return res;
+    } catch (error) {
+      return error;
+    }
   },
   deleteFeaturedProdById: async (prod_id, id, details) => {
     try {

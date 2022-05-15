@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Addbtn from "../../assets/images/AddButton.png";
 
-const Features = ({setStep, getFeaturedProductDetails, flavourNameRef, flavourDescriptionRef, flavourIngridientsRef, flavourPriceRef, flavourDiscountedPriceRef, authCodeRef, featuredProductImagesRef }) => {
+const Features = ({setStep, getFeaturedProductDetails, flavourNameRef, flavourDescriptionRef, flavourIngridientsRef, flavourPriceRef, flavourDiscountedPriceRef, authCodeRef, featuredProductImagesRef, updateFeaturedProductOnClick, edit, addNewFeaturedProductEdit, featuredProductEdit }) => {
   const Heading = styled.p`
     font-weight: 500;
     font-size: 24px;
@@ -34,15 +34,18 @@ const Features = ({setStep, getFeaturedProductDetails, flavourNameRef, flavourDe
     background: #f9fafa;
     border-radius: 4px;
     border: 1px solid #b5bdc4;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     height: 35px;
     outline: none;
-    width: 50px;
+    width: 350px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   `;
-  const AddVector = styled.img``;
+  const AddVector = styled.img`
+  margin-right: 1rem;
+  `;
   return (
     <>
       <FeaturesContainer>
@@ -72,11 +75,20 @@ const Features = ({setStep, getFeaturedProductDetails, flavourNameRef, flavourDe
           <Input type={"file"} ref={featuredProductImagesRef} multiple={"multiple"} placeholder={"Upload all the featured product photos together"} />
 
         </FeatureForm>
-        <AddButton onClick={()=>{
+        { edit ? <AddButton onClick={()=>{
             // logic to make more featured product fields or add more featured product fields
-        }}>
-          <AddVector src={Addbtn} />
-        </AddButton>
+            console.log(featuredProductEdit)
+if(featuredProductEdit){
+updateFeaturedProductOnClick()
+}else {
+  addNewFeaturedProductEdit()
+
+}
+              
+              
+           }}>
+          <AddVector src={Addbtn}  /> Add Featured Product
+        </AddButton> : ''}
       </FeaturesContainer>
     </>
   );
