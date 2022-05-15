@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import OptionVector from "../../assets/images/optionvector.png";
-const TableRow = ({ name, Desc, stock, quantity, Date, Rating,Action }) => {
+const TableRow = ({ name, Desc, stock, quantity, Date, Rating,Action, handleDeleteProduct, id, pid, fpid }) => {
   const TD = styled.td`
     padding: 12px 15px;
     border-top: 1px solid #b5bdc4;
@@ -75,7 +75,13 @@ const TableRow = ({ name, Desc, stock, quantity, Date, Rating,Action }) => {
       <TD>{Action}</TD>
       <TD>
         <OptionButton>
-          <OptionVec src={OptionVector} />
+          <OptionVec src={OptionVector} onClick={()=>{
+            if(id != null){
+              handleDeleteProduct(id);
+            } else {
+              handleDeleteProduct(pid, fpid);
+            }
+          }} />
         </OptionButton>
       </TD>
     </TR>

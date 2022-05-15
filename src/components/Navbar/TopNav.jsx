@@ -7,9 +7,13 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import hellboylogo1 from "../../assets/images/helboylogo1.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { checkAuth } from "../../utils/checkAuth";
 
 const TopNav = () => {
+
+  const location = useLocation()
+
   const Hamburger = styled.img``;
   const HamburgerContainer = styled.div`
     display: none;
@@ -114,7 +118,7 @@ const TopNav = () => {
           </SearchButton>
         </SearchForm>
         <LinksContainer>
-          <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
+     {checkAuth() ? <React.Fragment><Link to="/acc" style={{ textDecoration: "none", color: "black" }}>
             <AccButton>
               <UserOutlined
                 style={{
@@ -135,9 +139,8 @@ const TopNav = () => {
                 Account
               </button>
             </AccButton>
-          </Link>
-
-          <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
+        </Link>
+      <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
             <CartButton>
               <ShoppingCartOutlined
                 style={{
@@ -158,7 +161,78 @@ const TopNav = () => {
                 Cart
               </button>
             </CartButton>
-          </Link>
+          </Link></React.Fragment>  : <React.Fragment>
+
+            {location.pathname == "/login" ? <React.Fragment>
+            <Link to="/signup" style={{ textDecoration: "none", color: "black" }}>
+            <AccButton>
+              <UserOutlined
+                style={{
+                  fontSize: "20px",
+                  border: "1px solid black",
+                  borderRadius: "50%",
+                  padding: "5px",
+                }}
+              />
+              <button
+                style={{
+                  border: "none",
+                  outline: "none",
+                  backgroundColor: "white",
+                  cursor: "pointer",
+                }}
+              >
+                Create Account
+              </button>
+            </AccButton>
+        </Link> </React.Fragment> : <React.Fragment>  <Link to="/login" style={{ textDecoration: "none", color: "black" }}>
+            <AccButton>
+              <UserOutlined
+                style={{
+                  fontSize: "20px",
+                  border: "1px solid black",
+                  borderRadius: "50%",
+                  padding: "5px",
+                }}
+              />
+              <button
+                style={{
+                  border: "none",
+                  outline: "none",
+                  backgroundColor: "white",
+                  cursor: "pointer",
+                }}
+              >
+                Login
+              </button>
+            </AccButton>
+        </Link>         <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
+            <CartButton>
+              <ShoppingCartOutlined
+                style={{
+                  fontSize: "20px",
+                  border: "1px solid black",
+                  borderRadius: "50%",
+                  padding: "5px",
+                }}
+              />
+              <button
+                style={{
+                  border: "none",
+                  outline: "none",
+                  backgroundColor: "white",
+                  cursor: "pointer",
+                }}
+              >
+                Cart
+              </button>
+            </CartButton>
+          </Link>   </React.Fragment>}
+
+
+            
+            
+               </React.Fragment>}
         </LinksContainer>
       </RegularFragment>
 

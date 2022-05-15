@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer/Footer";
 import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
@@ -6,8 +6,79 @@ import styled from "styled-components";
 import CartProduct from "../components/Cart/CartProduct";
 import { Link } from "react-router-dom";
 import useStore from "../store";
+import { toast } from "react-toastify";
+import Loading from "../components/Atoms/Loading";
 
 const Cart = () => {
+
+  const [cartInfo, setCartInfo] = useState();
+
+
+
+  const cartDetails = useStore((state) => state.CartDetails);
+  const getCartDetails = useStore((state) => state.getCartDetails);
+
+  const deleteCartItems = useStore((state)=> state.deleteCartItems);
+  const addToCart = useStore((state)=> state.addToCart);
+
+  const [refresh, setRefresh] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const afunction = async () => {
+    const result = await getCartDetails();
+    setCartInfo(result.data.data)
+  }
+
+  const handleDeleteProductFromCart = async (fpid, pid) => {
+    console.log('handleDeleteProductFromCart', fpid, pid)
+
+  // logic for delete product from cart
+    setLoading(true)
+    const result = await deleteCartItems(fpid, pid)
+ 
+    if(result.status != 404 || result.status != 500){
+      toast.success("Product Deleted Successfully")
+      const result = await afunction()
+      if(result.status != 500 || result.status != 404){
+        setLoading(false)
+      }
+    }
+
+}
+const handleQuantityChange = async (fpid, pid, qty) => {
+  console.log('handleQuantityChange', fpid, pid, qty)
+
+  // logic for handle quantity change
+  setLoading(true)
+  const result = await addToCart(fpid, pid, qty)
+
+  if(result.status != 404 || result.status != 500){
+    toast.success("Product Quantity Changed Succesfully")
+    const result = await afunction()
+    if(result.status != 500 || result.status != 404){
+      setLoading(false)
+    }
+  }
+
+}
+
+  useEffect( () => {
+
+      afunction();
+
+  }, []);
+
+
+
+  console.log(cartDetails)
+
+
+
+
+
+
+
+
   const NavHead = styled.div`
     width: 80%;
     margin: 20px auto;
@@ -121,9 +192,18 @@ const Cart = () => {
     font-size: 18px;
     cursor: pointer;
   `;
+
+  console.log(loading)
+
+  const discountDisplayPrice = cartInfo?.total_cart_price - cartInfo?.discounted_cart_price;
+
+  const discountDisplayPercentage = Math.round(((discountDisplayPrice/cartInfo?.total_cart_price)*100 + Number.EPSILON) * 100) / 100 || 0;
+
+  console.log(cartInfo)
+
   return (
-    <>
-      <TopNav />
+    <React.Fragment>
+          <TopNav />
       <BottomNav />
       <NavHead>
         <p
@@ -137,15 +217,17 @@ const Cart = () => {
         </p>
         <p style={{ fontWeight: "500" }}>Basket</p>
       </NavHead>
+    {cartInfo ? <React.Fragment>
+
       <CartContainer>
-        {Cart.cart_items?.length > 0 ? (
+        {cartInfo.cart_items?.length > 0 ? (
           <ProductListContainer>
-            {Cart.cart_items.map((item, index) => (
-              <CartProduct key={index} />
+            {cartInfo.cart_items.map((item, index) => (
+              <CartProduct item={item} loading={loading} key={index} handleDeleteProductFromCart={handleDeleteProductFromCart} handleQuantityChange={handleQuantityChange} />         
             ))}
           </ProductListContainer>
         ) : (
-          ""
+          <p>No Items in the Cart...</p>
         )}
 
         <TotalContainer>
@@ -157,11 +239,12 @@ const Cart = () => {
           <CostDetailsContainer>
             <DetailContainer>
               <Subtotal>Subtotal</Subtotal>
-              <SubtotlPrice>Rs. 399.00</SubtotlPrice>
+              <SubtotlPrice>{loading ?  'Loading...' : 'Rs.'  + cartInfo.total_cart_price + '.00' } </SubtotlPrice>
             </DetailContainer>
             <DetailContainer>
               <Title>Discount</Title>
-              <Subtitle>(20%) - $16.19</Subtitle>
+              
+              <Subtitle>{loading ? 'Loading...' :  + discountDisplayPercentage + '%' + '->' + 'Rs.' + discountDisplayPrice}</Subtitle>
             </DetailContainer>
             <DetailContainer>
               <Title>Delivery</Title>
@@ -178,8 +261,10 @@ const Cart = () => {
           </Link>
         </TotalContainer>
       </CartContainer>
+    </React.Fragment> : <Loading />
+    }
       <Footer />
-    </>
+    </React.Fragment>
   );
 };
 

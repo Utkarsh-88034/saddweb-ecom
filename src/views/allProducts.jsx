@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
 import ProductCard from "../components/Product/ProductCard";
-import MassGainer5KG from "../assets/images/Massgainer5kg.png";
 import Footer from "../components/Footer/Footer";
 import PrimaryButton from "../components/Atoms/Primary Button/PrimaryButton";
 import useStore from "../store";
+import Loading from "../components/Atoms/Loading";
 const AllProducts = () => {
   const ProductContainer = styled.div`
     width: 80%;
@@ -52,11 +52,40 @@ const AllProducts = () => {
       justify-content: center;
     }
   `;
+
   const allProducts = useStore((state) => state.AllProducts);
   const getAllProducts = useStore((state) => state.getAllProduct);
+
+  const [productList, setProductList] = useState()
+  const [featuredProductList, setFeturedProductList] = useState()
+
+
+  const getProdcuts = async () => {
+    const result = await  getAllProducts();
+    setProductList(result.data.data)
+    const fpListTemp = [];
+    result.data.data.map((product)=> {
+      product.featured_product_id.map((fp)=>{
+        fpListTemp.push(fp);
+      })
+    })
+    setFeturedProductList(fpListTemp);
+
+
+  }
+
   useEffect(() => {
-    getAllProducts();
+    getProdcuts();
+
   }, []);
+
+
+
+
+
+
+
+
 
   return (
     <>
@@ -82,16 +111,16 @@ const AllProducts = () => {
           <FilterBox>Showing All Results</FilterBox>
         </ProductContainerHead>
         <BestSellerProd>
-          {allProducts?.map((prod) => (
-            <ProductCard
-              price={prod.price}
-              originalPrice={prod.price}
-              type={"GAINER"}
-              title={prod.name}
-              productImage={prod.url[0]}
-              id={prod._id}
-            />
-          ))}
+          {productList ? productList?.map((prod) => (prod.featured_product_id.map((fpid)=>(<ProductCard
+      price={fpid.discounted_price}
+      originalPrice={fpid.price}
+      type={fpid.flavour}
+      title={prod.name}
+      productImage={fpid.url[0]}
+      id={prod._id}
+      fpidFromProductPage={fpid._id}
+    />)))
+          ) : <Loading />}
         </BestSellerProd>
       </ProductContainer>
       <div

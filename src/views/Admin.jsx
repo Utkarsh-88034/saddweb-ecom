@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
@@ -12,10 +12,24 @@ import AllProducts from "./allProducts";
 const Admin = () => {
   const allProducts = useStore((state) => state.AllProducts);
   const getAllProducts = useStore((state) => state.getAllProduct);
-  console.log(allProducts);
   useEffect(() => {
     getAllProducts();
+    
   }, []);
+
+
+  const [editState, setEditState] = useState("products")
+  
+
+
+  const handleDeleteProduct = (id) => {
+    console.log('delete product', id)
+  }
+
+  const handleDeleteFeaturedProduct = (pid, fpid) => {
+    console.log('delete fp', pid, fpid)
+  }
+
   const ProductContainer = styled.div`
     width: 80%;
 
@@ -67,6 +81,7 @@ const Admin = () => {
     <>
       <TopNav />
       <BottomNav />
+      {editState == "products" ? 
       <ProductContainer>
         <p
           style={{
@@ -117,11 +132,71 @@ const Admin = () => {
                   </>
                 }
                 key={index}
+                handleDeleteProduct={handleDeleteProduct}
+                id={product._id}
               />
             ))}
           </TBody>
         </Table>
-      </ProductContainer>
+      </ProductContainer> : <ProductContainer>
+        <p
+          style={{
+            fontWeight: "400",
+            fontSize: "14px",
+            color: "#000000",
+          }}
+        >
+          Admin
+        </p>
+        <ProductContainerHead>
+          <PageTitle>Flavours</PageTitle>
+          <Link to="/admin/addproduct">
+            <PrimaryButton btnText={"Add Flavour"} />
+          </Link>
+        </ProductContainerHead>
+        <Table>
+          <thead>
+            <TR>
+              <TH>Flavour</TH>
+              <TH>stock</TH>
+              <TH>Quantity</TH>
+              <TH>Product</TH>
+              <TH>Rating</TH>
+              <TH>Actions</TH>
+              <TH></TH>
+            </TR>
+          </thead>
+          <TBody>
+            {allProducts.map((product, index) => (
+              <TableRow
+                name={product.name}
+                Desc={product.details}
+                stock={"In Stock"}
+                Action={
+                  <>
+                    <Link to={`/admin/updateproduct/${product._id}`}>
+                      <button
+                        style={{
+                          border: "none",
+                          cursor: "pointer",
+                          borderRadius: "6px",
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </Link>
+                  </>
+                }
+                key={index}
+                handleDeleteProduct={handleDeleteFeaturedProduct}
+                id={null}
+                pid={product._id}
+                fpid={product._id}
+              />
+            ))}
+          </TBody>
+        </Table>
+      </ProductContainer>}
       <Footer />
     </>
   );

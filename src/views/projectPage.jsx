@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
@@ -8,44 +8,175 @@ import leftarr from "../assets/images/left-arrow.png";
 import arrowup from "../assets/images/arrowup.png";
 import arrowdown from "../assets/images/arrowdown.png";
 import ReactStars from "react-rating-stars-component";
-import { Divider } from "antd";
+import { Button, Divider } from "antd";
 import Footer from "../components/Footer/Footer";
 import ReviewCard from "../components/CustomerReview/ReviewCard";
 import { Progress } from "antd";
 import ProductCard from "../components/Product/ProductCard";
 import MassGainer5KG from "../assets/images/Massgainer5kg.png";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useStore from "../store";
+import { checkAuth } from "../utils/checkAuth";
+import Loading from '../components/Atoms/Loading'
+import { toast } from "react-toastify";
+import NoDataFound from "../components/Atoms/NoDataFound";
+import ReviewEditCard from "../components/CustomerReview/ReviewEditCard";
 
-const ProductPage = () => {
+const ProductPage = ({fpidFromProductPage}) => {
   const [overviewFlag, setOverviewFlag] = useState(false);
   const [benefitsFlag, setBenefitsFlag] = useState(false);
   const [ingredientFlag, setIngredientFlag] = useState(false);
+
+  const reviewSubmitRef = useRef();
+
+  let [qty, setQty]  = useState(1);
 
   const param = useParams();
 
   const getProductById = useStore((state) => state.getProductById);
   const getFeaturedProdBYid = useStore((state) => state.getFeaturedProdById);
   const getReviewById = useStore((state) => state.getAllReviewsById);
+  const fetchUser = useStore((state)=> state.fetchUser);
+  const addReviewsById = useStore((state)=> state.addReviewsById);
   const user = useStore((state) => state.LoginUser);
   const addToCart = useStore((state) => state.addToCart);
   const AllReviews = useStore((state) => state.AllReviewsById);
   const ProductById = useStore((state) => state.Product);
+
+
   const [product, setProduct] = useState({});
   const [featuredproduct, setFeaturedProduct] = useState({});
-  console.log(user);
-  useEffect(() => {
-    const get = async () => {
+
+  const [featuredProductList, setFeaturedProductList] = useState();
+  const [reviewData, setReviewData] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  const [loading, setLoading] = useState(true)
+  const [loadingReview, setLoadingReview] = useState(true)
+  const [reviewNotFound, setreviewNotFound] = useState(null)
+
+  const navigate = useNavigate();
+
+  const get = async () => {
+    setLoading(true)
       const pr = await getProductById(param.id);
       setProduct(pr);
       const fpr = await getFeaturedProdBYid(
         param.id,
-        pr?.featured_product_id[0]._id
+        param.fpidFromProductPage
       );
       setFeaturedProduct(fpr);
-    };
-    get();
+      setFeaturedProductList(pr.featured_product_id)  
+      setLoading(false)
+  }
+
+  const getReviews = async () => {
+    setLoadingReview(true)
+    const reviews = await getReviewById(param.id)
+    if(reviews.response?.status == 404){
+      setreviewNotFound(reviews.response.data.message);
+      setLoadingReview(false)
+    }
+    if(reviews.status != 500 || reviews.status != 404){
+      setReviewData(reviews.data?.data)
+      setLoadingReview(false)
+    }
+  }
+
+  const fetchCurrentUser = async () => {
+    const user = await fetchUser();
+    setUserData(user.data.data);
+  }
+ 
+  useEffect(() => {
+      fetchCurrentUser();
+      get();
+      getReviews();
   }, []);
+
+  const [starCount, setStarCount] = useState(0)
+  const [starCount1, setStarCount1] = useState(0)
+  const [starCount2, setStarCount2] = useState(0)
+  const [starCount3, setStarCount3] = useState(0)
+  const [starCount4, setStarCount4] = useState(0)
+  const [starCount5, setStarCount5] = useState(0)
+
+  // review counter system
+  useEffect(() => {
+    let count = 0
+    let count1 = 0
+    let count2 = 0
+    let count3 = 0
+    let count4 = 0
+    let count5 = 0
+    reviewData?.map((review)=>{
+      if(review.rating == 1){
+        count1 += 1
+      }
+      if(review.rating == 2){
+        count2 += 1
+      }
+      if(review.rating == 3){
+        count3 += 1
+      }
+      if(review.rating == 4){
+        count4 += 1
+      }
+      if(review.rating == 5){
+        count5 += 1
+      }
+      count += review.rating  
+    })
+    setStarCount(count)
+    setStarCount1(count1)
+    setStarCount2(count2)
+    setStarCount3(count3)
+    setStarCount4(count4)
+    setStarCount5(count5)
+  }, [reviewData])
+
+
+  const handleAddToCart = () => {
+    if(checkAuth()){
+      const pid = product?._id
+      const fpid = featuredproduct.gotFeaturedProductById?._id
+      const result = addToCart(fpid, pid, qty)
+      if(result.staus != 404 || result.status != 500){
+        toast.success("Product Successfully Added to Cart")
+        navigate("/cart")
+      } else {
+        toast.error(result.data.message)
+
+      }
+    } else {
+      navigate("/login")
+    }
+  }
+
+  const [ratingStars, setRatingStars] = useState(4)
+
+  const handleSubmitReview = async () => {
+    const pid = product?._id
+    const fpid = featuredproduct.gotFeaturedProductById?._id
+    console.log(pid, fpid, userData)
+    const config = {
+      rating: ratingStars,
+      review_desc : reviewSubmitRef.current?.value
+    }
+    if(reviewSubmitRef.current?.value != '' && reviewSubmitRef.current?.value && reviewSubmitRef.current?.value.length > 5){
+      const result = await addReviewsById(pid, config)
+      if(result.status != 404 || result.status != 500){
+        toast.success(result.data.message)
+      }
+    }
+    else {
+      toast.error("Write Something to submit a review, atleast 3 words")
+    }
+  }
+
+
+
+
 
   const MainContainer = styled.div`
     height: max-content;
@@ -178,6 +309,7 @@ const ProductPage = () => {
     margin-right: 10px;
     min-width: 80px;
     min-height: 25px;
+    cursor: pointer;
   `;
   const FeatureContainer = styled.div`
     display: flex;
@@ -244,6 +376,7 @@ const ProductPage = () => {
     @media (max-width: 810px) {
       font-size: 16px;
     }
+    cursor: pointer;
   `;
   const BottomContainer = styled.div`
     display: flex;
@@ -342,20 +475,37 @@ const ProductPage = () => {
     justify-content: space-evenly;
     flex-wrap: wrap;
   `;
+
+  const ReviewSubmitButton = styled.a`
+  
+  `
+
+  const ReviewSubmitContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  `
+
+  const handleFeatureChnage = (fp) => {
+    
+    console.log(fp)
+  }
+
   return (
-    <>
-      <TopNav />
+    <React.Fragment>
+            <TopNav />
       <BottomNav />
+    {loading ? <Loading /> : <> 
+    
+
       <MainContainer>
         <Container>
           <ProductContainerLeft>
             <ProductImageContainer>
               <Arrow src={leftarr} />
               <Imageslide>
-                <ProductImage src={product.main_url} />
-                <ProductImage src={ProductImg} />
-                <ProductImage src={ProductImg} />
-                <ProductImage src={ProductImg} />
+                <ProductImage src={product?.main_url} />
+                {featuredproduct?.gotFeaturedProductById?.url.map((imgUrl)=>(<ProductImage src={imgUrl} />))}
               </Imageslide>
               <Arrow src={rightarr} />
             </ProductImageContainer>
@@ -435,22 +585,28 @@ const ProductPage = () => {
             </Overview>
           </ProductContainerLeft>
           <ProductContainerRight>
-            <DetailTitle>{product.name}</DetailTitle>
+            <DetailTitle>{product?.name}</DetailTitle>
             <Price>
-              <StrikedPrice>{product.price}</StrikedPrice>
-              <DiscountPrice>{product.price}</DiscountPrice>
-              <SavePrice>Save Rs. 399</SavePrice>
+              <StrikedPrice>Rs. {featuredproduct?.gotFeaturedProductById?.price}</StrikedPrice>
+              <DiscountPrice>Rs. {featuredproduct?.gotFeaturedProductById?.discounted_price}</DiscountPrice>
+              <SavePrice>Save Rs. {featuredproduct?.gotFeaturedProductById?.price - featuredproduct?.gotFeaturedProductById?.discounted_price}</SavePrice>
             </Price>
             <FeatureContainer>
-              <FeatureButton>Feature 1</FeatureButton>
-              <FeatureButton>Feature 2</FeatureButton>
+
+{featuredProductList?.map(fp=>(  <FeatureButton onClick={()=>{
+  handleFeatureChnage(fp);
+}}>{fp.flavour}</FeatureButton>
+))}
+
+               
+             
             </FeatureContainer>
             <RatingContainer>
               <ReactStars
                 count={5}
                 // onChange={ratingChanged}
                 size={32}
-                value={3}
+                value={4}
                 activeColor="#ffd700"
                 style={{
                   display: "flex",
@@ -481,19 +637,24 @@ const ProductPage = () => {
               <QuantityContainer>
                 <QuantityText>Quantity</QuantityText>
                 <Quantity>
-                  <AddItem>+</AddItem>
-                  <QValue>3</QValue>
-                  <RemoveItem>-</RemoveItem>
+                  <AddItem onClick={(e)=>{
+                    e.preventDefault();
+                    setQty(qty + 1)
+                  }
+                  }> + </AddItem>
+                  <QValue>{qty}</QValue>
+                  <RemoveItem onClick={(e)=>{
+                    e.preventDefault();
+                    if(qty > 1){
+                      setQty(qty - 1)
+                    }
+                  }}> - </RemoveItem>
                 </Quantity>
               </QuantityContainer>
               <AddToBasketButton
-              // onClick={() => {
-              //   addToCart(
-              //     featuredproduct.gotFeaturedProductById._id,
-              //     product._id,
-              //     Cart._id
-              //   );
-              // }}
+              onClick={() => {
+                handleAddToCart();
+              }}
               >
                 Add to Basket
               </AddToBasketButton>
@@ -501,20 +662,21 @@ const ProductPage = () => {
           </ProductContainerRight>
         </Container>
         <Divider />
-        <ReviewContainer>
+        {loadingReview ? <Loading /> : <ReviewContainer>
           <ReviewTitle>Customer Review</ReviewTitle>
+          {reviewData ? 
           <MainReviewBox>
             <ReviewBarContainer>
               <ReviewStarContainer>
-                <ReactStars size={20} />
-                <StarCount>4.7 Starts out of 5</StarCount>
+                <ReactStars  count={5} size={20} value={Math.floor(starCount/reviewData.length)} edit={false} />
+                <StarCount>{Math.floor(starCount/reviewData.length)} Starts out of 5</StarCount>
               </ReviewStarContainer>
-              <CustomerCount>40 Customer reviews</CustomerCount>
+              <CustomerCount>{reviewData.length} Customer reviews</CustomerCount>
               <ReviewBar>
                 <StarProgress>
                   <Star>5 Star</Star>
                   <Progress
-                    percent={70}
+                    percent={Math.floor((starCount5/reviewData.length)*100)}
                     strokeColor={"#FFB100"}
                     style={{ width: "50%" }}
                     showInfo={false}
@@ -523,7 +685,7 @@ const ProductPage = () => {
                 <StarProgress>
                   <Star>4 Star</Star>
                   <Progress
-                    percent={90}
+                    percent={Math.floor((starCount4/reviewData.length)*100)}
                     strokeColor={"#FFB100"}
                     showInfo={false}
                     style={{ width: "50%" }}
@@ -532,7 +694,7 @@ const ProductPage = () => {
                 <StarProgress>
                   <Star>3 Star</Star>
                   <Progress
-                    percent={50}
+                    percent={Math.floor((starCount3/reviewData.length)*100)}
                     strokeColor={"#FFB100"}
                     showInfo={false}
                     style={{ width: "50%" }}
@@ -541,7 +703,7 @@ const ProductPage = () => {
                 <StarProgress>
                   <Star>2 Star</Star>
                   <Progress
-                    percent={20}
+                    percent={Math.floor((starCount2/reviewData.length)*100)}
                     strokeColor={"#FFB100"}
                     showInfo={false}
                     style={{ width: "50%" }}
@@ -550,7 +712,7 @@ const ProductPage = () => {
                 <StarProgress>
                   <Star>1 Star</Star>
                   <Progress
-                    percent={10}
+                    percent={Math.floor((starCount1/reviewData.length)*100)}
                     strokeColor={"#FFB100"}
                     showInfo={false}
                     style={{ width: "50%" }}
@@ -560,14 +722,21 @@ const ProductPage = () => {
             </ReviewBarContainer>
 
             <ReviewCardConatiner>
-              <ReviewCard />
-              <ReviewCard />
-              <ReviewCard />
+              {reviewData.map((review, index)=>(<ReviewCard review={review} key={index} />))}
+              
               <Divider />
+
+              <ReviewEditCard reviewSubmitRef={reviewSubmitRef} handleSubmitReview={handleSubmitReview} userData={userData} setRatingStars={setRatingStars} ratingStars={ratingStars} />
+              <Divider />
+
               <SeeAllButton>See all reviews </SeeAllButton>
             </ReviewCardConatiner>
-          </MainReviewBox>
-        </ReviewContainer>
+          </MainReviewBox> 
+          : <NoDataFound data={reviewNotFound} />
+     }
+
+     </ReviewContainer>}
+        
         <OtherProductContainer>
           <OtherCustomerBroughtTitle>
             Other Customers bought
@@ -597,8 +766,12 @@ const ProductPage = () => {
           </ProductContainer>
         </OtherProductContainer>
       </MainContainer>
-      <Footer />
     </>
+    }
+      <Footer />
+
+    </React.Fragment>
+    
   );
 };
 

@@ -1,22 +1,25 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
-const Details = ({ getDetails, details, name }) => {
-  const nameRef = useRef();
-  const detailsRef = useRef();
-  const [inputname, setInputName] = useState("");
-  const [inputdetails, setInputDetails] = useState("");
+const Details = ({ getDetails, nameRef, detailsRef, weightRef, mainUrlRef }) => {
 
-  useEffect(() => {
-    if (details) {
-      setInputDetails(details);
-    }
-    if (name) {
-      setInputName(name);
-    }
-  }, []);
-  getDetails(nameRef.current?.value, detailsRef.current?.value);
-  getDetails(nameRef.current?.value, detailsRef.current?.value);
+
+  // useEffect(() => {
+  //   // if(product){
+  //   //   // auto fill in all the details
+  //   // }
+
+    
+
+  // }, []);
+
+  
+
+      // getDetails(nameRef.current?.value, detailsRef.current?.value, weightRef.current?.value, mainUrlRef.current?.files[0]);
+
+
+
+
 
   const Heading = styled.p`
     font-weight: 500;
@@ -52,6 +55,8 @@ const Details = ({ getDetails, details, name }) => {
       margin: auto;
     }
   `;
+
+  
   return (
     <>
       <DetailsContainer>
@@ -61,22 +66,17 @@ const Details = ({ getDetails, details, name }) => {
           <Input
             type={"text"}
             ref={nameRef}
-            value={inputname}
-            onChange={(e) => {
-              setInputName(e.target.value);
-            }}
+  
           />
           <Label>Overview</Label>
           <Input
             type={"text"}
             ref={detailsRef}
-            onChange={(e) => {}}
-            value={inputdetails}
           />
-          <Label> Benefits</Label>
-          <Input type={"text"} />
-          <Label>Ingredients</Label>
-          <Input type={"text"} />
+          <Label>Weight in kg</Label>
+          <Input type={"Number"} ref={weightRef}  />
+          <Label>Upload Main Photo</Label>
+          <Input ref={mainUrlRef} type={"file"} />
         </DetailForm>
       </DetailsContainer>
     </>

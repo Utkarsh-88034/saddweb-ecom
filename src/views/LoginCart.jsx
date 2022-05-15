@@ -3,14 +3,23 @@ import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
 import useStore from "../store";
 import { loginSubmitHandeler } from "../Main/login";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Navigate } from "react-router-dom";
+import { checkAuth } from "../utils/checkAuth";
 
 const LoginCart = () => {
+
+
+  
+
   const emailRef = useRef();
   const passwordRef = useRef();
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get redirect location or provide fallback
+  const from = location.state?.from || "/";
 
   const login = useStore((state) => state.login);
   const Cart = useStore((state) => state.Cart);
@@ -122,17 +131,21 @@ const LoginCart = () => {
     color: white;
     border-radius: 12px;
   `;
+
+
   return (
+    <>
+    {checkAuth() ? <Navigate to={from} replace /> :
     <>
       <TopNav />
       <BoxContainer>
         <Box>
           {loginError ? <ErrorBox>{loginError}</ErrorBox> : ""}
-          <Title>Welcom to Hellboy Protiens</Title>
-          <InnerTitle>Content content content contentcontentcontent</InnerTitle>
+          <Title>Welcome to Hellboy Protiens</Title>
+          <InnerTitle>Login to your Account</InnerTitle>
           <Span>
             <StrikeHead>
-              Have a password? Continue with your email address
+              Don't Have a password? Continue with your Email ID
             </StrikeHead>
           </Span>
           <LoginForm
@@ -144,13 +157,15 @@ const LoginCart = () => {
                 login,
                 navigate,
                 createCart,
-                Cart
+                Cart,
+                from
               );
             }}
           >
+            
             <InputLabel>Email</InputLabel>
             <LoginInput type="email" ref={emailRef} />
-            <InputLabel>password</InputLabel>
+            <InputLabel>Password</InputLabel>
             <LoginInput type="password" ref={passwordRef} />
             <Check>
               <input type="checkbox" />{" "}
@@ -168,7 +183,10 @@ const LoginCart = () => {
           </LoginForm>
         </Box>
       </BoxContainer>
+    </>  }
     </>
+ 
+    
   );
 };
 

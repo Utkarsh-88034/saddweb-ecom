@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { Rate } from "antd";
-import ReactStars from "react-rating-stars-component";
-const ReviewCard = ({review}) => {
+const ReviewEditCard = ({reviewSubmitRef, handleSubmitReview, userData, setRatingStars, ratingStars}) => {
   const CardContainer = styled.div`
     margin-bottom: 20px;
   `;
@@ -37,7 +36,7 @@ const ReviewCard = ({review}) => {
     font-weight: 400;
     font-size: 14px;
   `;
-  const HelpfulButton = styled.div`
+  const HelpfulButton = styled.a`
     padding: 5px;
     display: flex;
     justify-content: center;
@@ -57,34 +56,45 @@ const ReviewCard = ({review}) => {
     margin: 0 15px;
     font-size: 20px;
   `;
-  const ReportButton = styled.p`
+  const ReportButton = styled.a`
     margin: 0;
     font-weight: 500;
     font-size: 12px;
+  `;
+  const Input = styled.input`
+
+    border: 1px solid;
+    min-width: 350px;
+    margin: 2rem 0;
+    padding: 0.5rem
+
+  
   `;
   return (
     <>
       <CardContainer>
         <AvatarContainer>
           <Avatar size={40} icon={<UserOutlined />} />
-          <UserName>{review.user_id.name}</UserName>
+          <UserName>{userData.name}</UserName>
         </AvatarContainer>
         <ReviewStarContainer>
-          <ReactStars edit={false} value={review.rating} />
-
+          <Rate value={ratingStars} onChange={(new_rating)=>{
+              setRatingStars(new_rating)
+          }} />
+          <ReviewHead>Submit a new Review</ReviewHead>
         </ReviewStarContainer>
-        <ReviewDate>Reviewed on 18 April 2022 </ReviewDate>
-        <Review>
-        {review.review_desc}
-        </Review>
+<Input type={'text'} placeholder={"Write your review here..."} ref={reviewSubmitRef} />
+        
         <ButtonContainer>
-          <HelpfulButton>Helpfull</HelpfulButton>
+          <HelpfulButton onClick={()=>{
+              handleSubmitReview()
+          }}>Submit</HelpfulButton>
           <ButtonDivider>|</ButtonDivider>
-          <ReportButton>Report Abuse</ReportButton>
+          <ReportButton>Cancel</ReportButton>
         </ButtonContainer>
       </CardContainer>
     </>
   );
 };
 
-export default ReviewCard;
+export default ReviewEditCard;

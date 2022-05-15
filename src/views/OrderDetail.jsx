@@ -1,10 +1,47 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
 import img from '../assets/images/Massgainer5kg.png'
 import Footer from '../components/Footer/Footer';
+import useStore from '../store'
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Loading from '../components/Atoms/Loading';
+
 const OrderDetail = () => {
+
+    const [loading, setLoading] = useState(true);
+    const [orderData, setOrderData] = useState(null);
+
+    const param = useParams();
+    const getOrderById = useStore((state)=> state.getOrderById);
+
+    const fetchOrderById = async () => {
+        setLoading(true);
+        const result = await getOrderById(param.oid);
+        console.log(result)
+        setOrderData(result.data.data[0])
+        if(result.status != 404 && result.status != 500){
+            setLoading(false);
+        }else{
+            toast.error(result.data.message)
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+     fetchOrderById()
+    }, [])
+
+
+      // price setting
+  const discountDisplayPrice = orderData?.cart_id?.total_cart_price - orderData?.cart_id?.discounted_cart_price;
+  const discountDisplayPercentage = Math.round((((discountDisplayPrice)/orderData?.cart_id?.total_cart_price)*100 + Number.EPSILON) * 100) / 100;
+  const deliveryPrice = 39
+  const taxPrice = 18
+
+
     const Container = styled.div`
     width: 80%;
 
@@ -143,120 +180,106 @@ const RightB=styled.p`
 font-size:13px;
 font-weight: 700;
 `
+
     return (
    <>
    <TopNav/>
    <BottomNav/>
-<Container>
-    <Title>Order ID</Title>
-<OrderDetail>
-<DetailContainer>
-<DeliveryBox>
-    <InTitle>Ordered Items</InTitle>
-    <ProductConatiners>
-<Img2 src={img} />
-<Productdesc>
-    <PTitle2>Hell Boy Natural Peanut Butter Crunchy ( 2KG )</PTitle2>
-<Price2>₹399.00</Price2>
-</Productdesc>
-
-</ProductConatiners>
-<ProductConatiners>
-<Img2 src={img} />
-<Productdesc>
-    <PTitle2>Hell Boy Natural Peanut Butter Crunchy ( 2KG )</PTitle2>
-<Price2>₹399.00</Price2>
-</Productdesc>
-
-</ProductConatiners>
-<Para>
-
-<InTitle>Shipping details</InTitle>
-<Divflex>
-    <p>Name </p>
-    <Left>Nishant Singh</Left>
-</Divflex>
-<Divflex>
-    <p>Phone number</p>
-    <Left>+91 8279492748</Left>
-</Divflex>
-<Divflex>
-    <p>Email</p>
-    <Left>ns991989@gmail.com</Left>
-</Divflex>
-<Divflex>
-    <p >Address</p>
-    <Left>100 feet road, teri bagiya,  Agra - 6</Left>
-</Divflex>
-<Delivery>Expected delivery  <Bold>date 28/12/2020 </Bold> </Delivery>
-</Para>
-<Para>
-
-
-<InTitle>Payment details</InTitle>
-<Divflex>
-    <p>Method</p>
-    <Left>COD</Left>
-</Divflex>
-</Para>
-</DeliveryBox>
-</DetailContainer>
-<SummaryContainer>
-    <SumTitle>Order Summary</SumTitle>
-    <DashedDivider/>
+{loading ? <Loading /> : <React.Fragment>
+    {
+        orderData ? <Container>
+        <Title>Order ID - {orderData._id}</Title>
+    <OrderDetail>
+    <DetailContainer>
+    <DeliveryBox>
+        <InTitle>Ordered Items</InTitle>
+    {orderData?.cart_id?.cart_items?.map((item)=>( <ProductConatiners>
+        <Img2 src={item.featured_product_id.url[0]} />
+        <Productdesc>
+            <PTitle2>{item.product_id.name} {item.featured_product_id.flavour} ( {item.product_id.weight}KG )</PTitle2>
+            <Price2>₹{item.featured_product_id.price}.00</Price2>
+        </Productdesc>
+    </ProductConatiners>))}
+       
+    
     <Para>
+    
+    <InTitle>Shipping details</InTitle>
+    <Divflex>
+        <p>Name </p>
+        <Left>{orderData.user_id.name}</Left>
+    </Divflex>
+    <Divflex>
+        <p>Phone number</p>
+        <Left>{orderData.phone_number}</Left>
+    </Divflex>
+    <Divflex>
+        <p>Email</p>
+        <Left>{orderData.user_id.email}</Left>
+    </Divflex>
+    <Divflex>
+        <p >Address</p>
+        <Left></Left>
+        <Left></Left>
+        <Left>{orderData.address_line_1} {orderData.address_line_2} {orderData.city + " " + orderData.state + " " + orderData.pincode}</Left>
+    </Divflex>
+    <Delivery>Expected delivery  <Bold>date 28/12/2020 </Bold> </Delivery>
+    </Para>
+    <Para>
+    
+    
+    <InTitle>Payment details</InTitle>
+    <Divflex>
+        <p>Paid</p>
+        <Left>{ orderData.payment_done ? 'Successful' : 'Not Yet'}</Left>
+    </Divflex>
+    </Para>
+    </DeliveryBox>
+    </DetailContainer>
+    <SummaryContainer>
+        <SumTitle>Order Summary</SumTitle>
+        <DashedDivider/>
+        <Para>
+    
+      
+    <Divflex>
+        <RightV>Subtotal</RightV>
+        <RightV>₹399.00</RightV>
+    </Divflex>
+    <Divflex>
+        <LeftV>Discount</LeftV>
+        <LeftV>({discountDisplayPercentage} %) {'->'} ₹ {discountDisplayPrice}</LeftV>
+    </Divflex>
+    <Divflex>
+        <LeftV>Delivery</LeftV>
+        <LeftV>₹00.00</LeftV>
+    </Divflex>
+    <Divflex>
+    <LeftV>Tax</LeftV>
+        <LeftV> + ₹39.00</LeftV>
+    </Divflex>
+    <Divflex>
+        <RightB>Total</RightB>
+        <RightB>₹{orderData.cart_id.discounted_cart_price + taxPrice + deliveryPrice}.00</RightB>
+    </Divflex>
+    </Para>
+    {orderData.cart_id?.cart_items?.map((item)=>( <ProductConatiner>
+    
+    <Img src={item.featured_product_id.url[0]} />
+    <Productdesc>
+        <PTitle>{item.product_id.name} {item.featured_product_id.flavour} ( {item.product_id.weight}KG )</PTitle>
+    <Price>₹{item.featured_product_id.price}.00</Price>
+    </Productdesc>
+    
+    </ProductConatiner>))}
+   
 
-  
-<Divflex>
-    <RightV>Subtotal</RightV>
-    <RightV>₹399.00</RightV>
-</Divflex>
-<Divflex>
-    <LeftV>Discount</LeftV>
-    <LeftV>(20%) - $16.19</LeftV>
-</Divflex>
-<Divflex>
-    <LeftV>Delivery</LeftV>
-    <LeftV>₹00.00</LeftV>
-</Divflex>
-<Divflex>
-<LeftV>Tax</LeftV>
-    <LeftV> + ₹39.00</LeftV>
-</Divflex>
-<Divflex>
-    <RightB>Total</RightB>
-    <RightB>₹399.00</RightB>
-</Divflex>
-</Para>
-<ProductConatiner>
-
-<Img src={img} />
-<Productdesc>
-    <PTitle>Hell Boy Natural Peanut Butter Crunchy ( 2KG )</PTitle>
-<Price>₹399.00</Price>
-</Productdesc>
-
-</ProductConatiner>
-<ProductConatiner>
-<Img src={img} />
-<Productdesc>
-    <PTitle>Hell Boy Natural Peanut Butter Crunchy ( 2KG )</PTitle>
-<Price>₹399.00</Price>
-</Productdesc>
-
-</ProductConatiner>
-<ProductConatiner>
-<Img src={img} />
-<Productdesc>
-    <PTitle>Hell Boy Natural Peanut Butter Crunchy ( 2KG )</PTitle>
-<Price>₹399.00</Price>
-</Productdesc>
-
-</ProductConatiner>
-
-</SummaryContainer>
-</OrderDetail>
-</Container>
+    
+    </SummaryContainer>
+    </OrderDetail>
+    </Container> : <Loading />
+    }
+    </React.Fragment>}
 <Footer/>
    </>
   )

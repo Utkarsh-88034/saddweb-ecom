@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import massgainer from "../..//assets/images/Massgainer5kg.png";
 
-const CartProduct = () => {
+const CartProduct = ({item, handleDeleteProductFromCart, handleQuantityChange, loading}) => {
+  console.log(item)
+
+  const [qty, setQty] = useState(item.quantity)
+
+  useEffect(() => {
+    if(qty != item.quantity){
+      handleQuantityChange(item.featured_product_id._id, item.product_id._id, qty)
+    }
+  }, [qty])
+
+  
+
   const CartProdContainer = styled.div`
     border: 1px solid #b5bdc4;
     box-sizing: border-box;
@@ -43,6 +55,10 @@ const CartProduct = () => {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
+    cursor: pointer;
+    &:hover {
+      color: red;
+    }
   `;
   const Title = styled.p`
     font-style: normal;
@@ -85,18 +101,29 @@ const CartProduct = () => {
     <CartContainer>
       <CartProdContainer>
         <ImageContainer>
-          <ProductImage src={massgainer} />
+          <ProductImage src={item.product_id.main_url} />
         </ImageContainer>
         <DetailsContainer>
-          <Title>Hell Boy Natural Peanut Butter Crunchy ( 2KG )</Title>
-          <Price>Rs.399.00</Price>
+          <Title>{item.product_id.name} {item.featured_product_id.flavour} ( {item.product_id.weight}KG )</Title>
+          <Price>Rs.{item.featured_product_id.price}.00</Price>
           <QuantityDeleteContainer>
-            <Quantity>
-              <AddItem>+</AddItem>
-              <QValue>3</QValue>
-              <RemoveItem>-</RemoveItem>
-            </Quantity>
-            <DeleteButton>Delete</DeleteButton>
+            
+             {loading ? 'Loading...' : <Quantity>
+             <AddItem onClick={()=>{
+                setQty(qty + 1)
+              }}
+              > + </AddItem>
+              <QValue>{qty}</QValue>
+              <RemoveItem onClick={()=>{
+                if(qty > 1){
+                  setQty(qty - 1)
+                }
+              }} > - </RemoveItem>
+             
+            </Quantity>}
+            <DeleteButton onClick={()=>{
+              handleDeleteProductFromCart(item.featured_product_id._id, item.product_id._id)
+            }}>Delete</DeleteButton> 
           </QuantityDeleteContainer>
         </DetailsContainer>
       </CartProdContainer>

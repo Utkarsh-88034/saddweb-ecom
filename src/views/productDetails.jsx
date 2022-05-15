@@ -9,17 +9,18 @@ import Price from "../components/ProductDetails/Price";
 import ProdImages from "../components/ProductDetails/ProdImages";
 import useStore from "../store";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 const ProductDetails = () => {
+
+  
   const [step, setStep] = useState(1);
   const addProduct = useStore((state) => state.addProduct);
+  const addFeaturedProdById = useStore((state) => state.addFeaturedProdById);
   const updateProduct = useStore((state) => state.updateProduct);
-  const nameRef = useRef();
-  const detailRef = useRef();
-  const priceRef = useRef();
   const param = useParams();
   const getProductById = useStore((state) => state.getProductById);
   const [product, setProduct] = useState(null);
-  console.log(product);
+
   useEffect(() => {
     if (param.id) {
       const get = async () => {
@@ -29,37 +30,112 @@ const ProductDetails = () => {
       get();
     }
   }, []);
-  if (product) {
-    nameRef.current = product.name;
-    detailRef.current = product.details;
-    priceRef.current = product.price;
+
+  const nameRef = useRef();
+  const detailsRef = useRef();
+  const weightRef = useRef();
+  const mainUrlRef = useRef();
+  const [newProductDetails, setNewProductDetails] = useState(null);
+
+  const flavourNameRef = useRef();
+  const flavourDescriptionRef = useRef();
+  const flavourIngridientsRef = useRef();
+  const flavourPriceRef = useRef();
+  const flavourDiscountedPriceRef = useRef();
+  const authCodeRef = useRef();
+  const featuredProductImagesRef = useRef();
+  const [newFeaturedProductDetails, setNewFeaturedProductDetails] = useState(null);
+
+  const getProductDetails = (name, details, weight, mainUrl) => {
+    const settingProductDetails = {
+      name,
+      details,
+      weight,
+      url: mainUrl,
+    }
+    return settingProductDetails
   }
 
-  const changeStep = () => {
-    if (step != 4) {
-      setStep(step + 1);
-    } else if (step == 4 && !product) {
-      const config = {
-        name: nameRef.current,
-        price: priceRef.current,
-        weight: 2,
-        details: detailRef.current,
-        main_url: "http",
-      };
-      addProduct(config);
-      setStep(1);
+  const getFeaturedProductDetails = (flavour, ingredients, description, price, discounted_price, auth_code, url) => {
+    const settingFeaturedProductDetails = {
+      flavour,
+      ingredients,
+      description,
+      price,
+      discounted_price,
+      auth_code,
+      url
+    }
+    return settingFeaturedProductDetails
+  }
+
+  const changeStep = async () => {
+    if(step != 4){
+        setStep(step + 1)
+    }
+    else if (step == 4 && !product) {
+      // add product logic
+      console.log(newProductDetails)
+      var productFormData = new FormData();
+      productFormData.append("name", newProductDetails.name);
+      productFormData.append("weight", newProductDetails.weight);
+      productFormData.append("details", newProductDetails.details);
+      productFormData.append("url", newProductDetails.url);
+      const result = await addProduct(productFormData);
+
+      if(result.status == 200){
+        // add featured product logic
+        console.log(newFeaturedProductDetails)
+        var featuredProductFormData = new FormData();
+        featuredProductFormData.append("flavour", newFeaturedProductDetails.flavour)
+        featuredProductFormData.append("description", newFeaturedProductDetails.description)
+        featuredProductFormData.append("ingredients", newFeaturedProductDetails.ingredients)
+        featuredProductFormData.append("price", newFeaturedProductDetails.price)
+        featuredProductFormData.append("discounted_price", newFeaturedProductDetails.discounted_price)
+        featuredProductFormData.append("auth_code", newFeaturedProductDetails.auth_code)
+        newFeaturedProductDetails.url.map((ur)=>{
+          featuredProductFormData.append("url", ur)
+        })
+        const fpresult = await addFeaturedProdById(result.data.data._id, featuredProductFormData)
+        console.log(result.data.data._id, fpresult)
+        
+        if(fpresult.status == 200){
+          setStep(1);
+          toast.success(result.data.message)
+        }
+        if(fpresult.status != 200){
+          toast.error(fpresult.message)
+        }
+      }
+
+
     } else if (step == 4 && product) {
       const config = {
-        name: nameRef.current,
-        price: priceRef.current,
-        weight: 2,
-        details: detailRef.current,
-        main_url: "http",
+        // setSendingProductDetials Updated Version
+     
       };
       updateProduct(config);
       setStep(1);
     }
+
+    if (step == 1){
+      const newProductDetails = getProductDetails(nameRef.current?.value, detailsRef.current?.value, weightRef.current?.value, mainUrlRef.current?.files[0]);
+      setNewProductDetails(newProductDetails);
+ 
+    }
+    if(step == 2){
+      const urlArr = Object.keys(featuredProductImagesRef.current?.files)
+      const arrUploadUrl = []
+      urlArr.map((url)=>{
+        let urlConfig = {}
+        urlConfig = featuredProductImagesRef.current?.files[url]
+        arrUploadUrl.push(urlConfig)
+      })
+      const settingFeaturedProductDetails = getFeaturedProductDetails(flavourNameRef.current.value,  flavourIngridientsRef.current.value, flavourDescriptionRef.current?.value, flavourPriceRef.current?.value, flavourDiscountedPriceRef.current?.value, authCodeRef.current?.value, arrUploadUrl,)
+      setNewFeaturedProductDetails(settingFeaturedProductDetails)
+    }
   };
+
   const NavHead = styled.div`
     width: 80%;
     margin: 20px auto;
@@ -112,13 +188,12 @@ const ProductDetails = () => {
       margin: auto;
     }
   `;
-  const getDetails = (name, detail) => {
-    nameRef.current = name;
-    detailRef.current = detail;
-  };
-  const getPrice = (price) => {
-    priceRef.current = price;
-  };
+
+
+
+
+
+
   return (
     <>
       <TopNav />
@@ -140,14 +215,16 @@ const ProductDetails = () => {
         <ProductInfoContainer>
           {step == 1 ? (
             <Details
-              getDetails={getDetails}
-              details={detailRef.current}
-              name={nameRef.current}
+              nameRef={nameRef}
+              detailsRef={detailsRef}
+              weightRef={weightRef}
+              mainUrlRef={mainUrlRef}
+              product={product}
             />
           ) : step == 2 ? (
-            <Features />
+            <Features setStep={setStep} flavourNameRef={flavourNameRef} flavourDescriptionRef={flavourDescriptionRef} flavourIngridientsRef={flavourIngridientsRef} flavourPriceRef={flavourPriceRef} flavourDiscountedPriceRef={flavourDiscountedPriceRef} authCodeRef={authCodeRef} featuredProductImagesRef={featuredProductImagesRef} getFeaturedProductDetails={getFeaturedProductDetails} />
           ) : step == 3 ? (
-            <Price getPrice={getPrice} price={priceRef.current} />
+            <Price getPrice={getProductDetails} price={product?.price} />
           ) : step == 4 ? (
             <ProdImages />
           ) : (

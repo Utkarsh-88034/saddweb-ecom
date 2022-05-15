@@ -3,18 +3,24 @@ import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
 import usestore from "../store";
 import { signupSubmitHandler } from "../Main/login";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import BottomNav from "../components/Navbar/BottomNav";
+import { checkAuth } from "../utils/checkAuth";
 const Signup = () => {
   const signup = usestore((state) => state.register);
   const email = useRef();
   const userName = useRef();
   const password = useRef();
+  const confirmPassword = useRef();
   const isAdmin = useRef();
   const fname = useRef();
   const lname = useRef();
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get redirect location or provide fallback
+  const from = location.state?.from || "/";
 
   const BoxContainer = styled.div`
     display: flex;
@@ -115,7 +121,7 @@ const Signup = () => {
   `;
   return (
     <>
-      <TopNav />
+    {checkAuth() ? <Navigate to={from} replace /> : <><TopNav />
       <BoxContainer>
         <Box>
           <Title>Welcome to Hellboy Protiens</Title>
@@ -131,10 +137,10 @@ const Signup = () => {
                 email.current.value,
                 userName.current.value,
                 password.current.value,
+                confirmPassword.current.value,
                 true,
-                signup
+                signup, navigate
               );
-              navigate("/login/");
             }}
           >
             <Name>
@@ -155,11 +161,14 @@ const Signup = () => {
             <Label>Password</Label>
             <Input type="password" ref={password} />
             <Label>Confirm Password</Label>
-            <Input type="password" />
+            <Input type="password" ref={confirmPassword} />
             <CheckoutButton type="submit">Sign Up</CheckoutButton>
           </Form>
         </Box>
-      </BoxContainer>
+      </BoxContainer> 
+      
+      </>}
+      
     </>
   );
 };

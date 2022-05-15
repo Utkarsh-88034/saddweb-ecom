@@ -1,5 +1,6 @@
 import create from "zustand";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 let useStore = (set) => ({
   AllProducts: [],
@@ -13,7 +14,7 @@ let useStore = (set) => ({
   ReviewByUserId: {},
   ReviewByReviewId: {},
   FeaturedProdById: {},
-  AllCartDetails: [],
+  CartDetails: [],
   AllCartDetailsById: {},
   LoginError: false,
   Cart: {},
@@ -24,24 +25,62 @@ let useStore = (set) => ({
     try {
       const res = await axios.get("/api/product/getproduct/");
       set({ AllProducts: res.data.data });
+      return res;
     } catch (error) {}
   },
 
   deleteProduct: async (id) => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.delete(`/api/product/${id}`);
-    } catch (error) {}
+    } catch (error) {
+      toast.error(error);
+    }
   },
 
   getAllUsers: async () => {
     try {
-      const res = await axios.get("/api/user/alluser");
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.get("/api/user/alluser", config, {});
       set({ AllUsers: res.data.data });
-    } catch (error) {}
+    } catch (error) {
+      toast.error(error);
+    }
+  },
+
+  fetchUser: async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.get("/api/user/fetchuser", config, {});
+      return res;
+    } catch (error) {
+      toast.error(error.message);
+    }
   },
 
   deleteUser: async (id) => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.delete(`/api/user/deleteuser/${id}`);
     } catch (error) {}
   },
@@ -56,12 +95,7 @@ let useStore = (set) => ({
 
   login: async (cred) => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const res = await axios.post("/api/auth/login", cred, config);
+      const res = await axios.post("/api/auth/login", cred);
       localStorage.setItem("userInfo", JSON.stringify(res.data.data));
       set({ LoginUser: res.data.data, LoginError: false });
       return "Success";
@@ -81,18 +115,28 @@ let useStore = (set) => ({
       const config = {
         headers: {
           Authorization: `Bearer ${token.AccessToken}`,
+          "Content-Type": "multipart/form-data",
         },
       };
+
       const res = await axios.post(
         "/api/product/addproduct",
         proddetails,
         config
       );
+
+      return res;
     } catch (error) {}
   },
 
   getProductById: async (id) => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.get(`/api/product/${id}`);
       // set({ Product: res.data.data });
       return res.data.data;
@@ -113,6 +157,12 @@ let useStore = (set) => ({
 
   getAllReviews: async () => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.get("/api/reviews/getall");
       set({ AllReviews: res.data.data });
     } catch (error) {}
@@ -120,48 +170,108 @@ let useStore = (set) => ({
 
   getAllReviewsById: async (id) => {
     try {
-      const res = await axios.get(`/api/reviews/${id}`);
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.get(`/api/reviews/${id}`, config, {});
       set({ AllReviewsById: res.data.data });
-    } catch (error) {}
+      return res;
+    } catch (error) {
+      return error;
+    }
   },
 
   addReviewsById: async (id, details) => {
     try {
-      const res = await axios.post(`/api/reviews/${id}`, details);
-    } catch (error) {}
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.post(`/api/reviews/${id}`, details, config);
+      return res;
+    } catch (error) {
+      return error;
+    }
   },
 
   updateReviewsById: async (prod_id, id, details) => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.put(`/api/reviews/${prod_id}/${id}`, details);
     } catch (error) {}
   },
 
   deleteReviewsById: async (prod_id, id, details) => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.delete(`/api/reviews/${prod_id}/${id}`);
     } catch (error) {}
   },
 
   getReviewsByUserId: async () => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.get(`/api/reviews/user_reviews`);
       set({ ReviewByUserId: res.data.data });
     } catch (error) {}
   },
   getReviewsByReviewId: async (id) => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.get(`/api/reviews/${id}`);
       set({ ReviewByReviewId: res.data.data });
     } catch (error) {}
   },
   addFeaturedProdById: async (id, details) => {
     try {
-      const res = await axios.post(`/api/featured_product/${id}`, details);
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const res = await axios.post(
+        `/api/featured_product/${id}`,
+        details,
+        config
+      );
+      return res;
     } catch (error) {}
   },
   getFeaturedProdById: async (pid, fpid) => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.get(`/api/featured_product/${pid}/${fpid}`);
       // set({ FeaturedProdById: res.data.data });
       return res.data.data;
@@ -169,35 +279,101 @@ let useStore = (set) => ({
   },
   updateProduct: async (id, details) => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.patch(`/api/featured_product/${id}`, details);
     } catch (error) {}
   },
   deleteFeaturedProdById: async (prod_id, id, details) => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.delete(`}/api/featured_product/${prod_id}/${id}`);
     } catch (error) {}
   },
-  getAllCartDetails: async () => {
+  getCartDetails: async () => {
     try {
-      const res = await axios.get("/api/cart/getallcart");
-      set({ AllCartDetails: res.data.data });
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.get("/api/cart/getcart", config, {});
+      set({ CartDetails: res.data.data });
+      return res;
     } catch (error) {}
   },
 
   getAllCartDetailsById: async (id) => {
     try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
       const res = await axios.get(`/api/cart/${id}`);
       set({ AllCartDetailsById: res.data.data });
     } catch (error) {}
   },
-  addOrderByCartId: async (id, details) => {
+  addOrderByCartId: async (details) => {
     try {
-      const res = await axios.post(`/api/orders/createorder/${id}`, details);
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.post(`/api/orders/createorder/`, details, config);
+      return res;
     } catch (error) {}
+  },
+
+  getAllOrders: async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.post(`/api/orders/getallorder/`, {}, config);
+      return res;
+    } catch (error) {
+      return error;
+    }
   },
   updateOrderById: async (id, details) => {
     try {
-      const res = await axios.patch(`}/api/orders/${id}`, details);
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.patch(`/api/orders/${id}`, details);
+    } catch (error) {}
+  },
+
+  getOrderById: async (id) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      const res = await axios.get(`/api/orders/${id}`, config, {});
+      return res;
     } catch (error) {}
   },
   createCart: async () => {
@@ -214,7 +390,7 @@ let useStore = (set) => ({
       console.log(error);
     }
   },
-  addToCart: async (fpid, pid, cid) => {
+  addToCart: async (fpid, pid, qty) => {
     try {
       const token = JSON.parse(localStorage.getItem("userInfo"));
       const config = {
@@ -222,12 +398,39 @@ let useStore = (set) => ({
           Authorization: `Bearer ${token.AccessToken}`,
         },
       };
+      console.log(fpid, pid, qty);
       const res = await axios.patch(
-        `/api/cart/${pid}/${fpid}/${cid}/add`,
-        { quantity: 1 },
+        `/api/cart/${pid}/${fpid}/add`,
+        { quantity: qty },
         config
       );
-    } catch (error) {}
+
+      return res;
+    } catch (error) {
+      toast.error(error.message);
+      return error;
+    }
+  },
+
+  deleteCartItems: async (fpid, pid) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("userInfo"));
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token.AccessToken}`,
+        },
+      };
+      console.log(fpid, pid);
+      const res = await axios.patch(
+        `/api/cart/${pid}/${fpid}/remove`,
+        {},
+        config
+      );
+      return res;
+    } catch (error) {
+      toast.error(error.message);
+      return error;
+    }
   },
 });
 // useStore = devtools(useStore);

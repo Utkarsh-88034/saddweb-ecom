@@ -1,11 +1,91 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import BottomNav from "../components/Navbar/BottomNav";
 import TopNav from "../components/Navbar/TopNav";
 import styled from "styled-components";
 import img from '../assets/images/Massgainer5kg.png'
 import Footer from '../components/Footer/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useStore from "../store";
+import Loading from '../components/Atoms/Loading';
+import { toast } from 'react-toastify';
+
+
 const Checkout = () => {
+
+  // utils
+  const navigate = useNavigate();
+
+  // getting cart details
+  const cartDetails = useStore((state) => state.CartDetails);
+  const getCartDetails = useStore((state) => state.getCartDetails);
+  const addOrderByCartId = useStore((state)=> state.addOrderByCartId);
+
+  const [cartInfo, setCartInfo] = useState()
+
+  const afunction = async () => {
+    const result = await getCartDetails();
+    setCartInfo(result.data.data)
+  }
+  useEffect( () => {
+   afunction()
+  }, []);
+
+
+  // price setting
+  const discountDisplayPrice = cartDetails.total_cart_price - cartDetails.discounted_cart_price;
+  const discountDisplayPercentage = Math.round((((discountDisplayPrice)/cartDetails.total_cart_price)*100 + Number.EPSILON) * 100) / 100;
+  const deliveryPrice = 39
+  const taxPrice = 18
+
+
+
+  const [address, setAddress] = useState()
+  const [loading, setLoading] = useState()
+  const addressLine1Ref = useRef();
+  const addressLine2Ref = useRef();
+  const cityInputRef = useRef();
+  const stateInputRef = useRef();
+  const pincodeInputRef = useRef();
+  const phoneInputRef = useRef();
+
+  // const [addressLine1, setAddressLine1] = useState('')
+  // const [addressLine2, setAddressLine2] = useState('')
+  // const [city, setCity] = useState('')
+  // const [state, setState] = useState('')
+  // const [pincode, setPincode] = useState('')
+
+
+  const handleCheckoutOrder = async () => {
+  // save the adress state
+  const config = {
+    address_line_1: addressLine1Ref.current?.value,
+    address_line_2: addressLine2Ref.current?.value,
+    city: cityInputRef.current?.value,
+    state: stateInputRef.current?.value,
+    pincode: parseInt(pincodeInputRef.current?.value),
+    phone_number: phoneInputRef.current?.value,
+  }
+  if(config.address_line_1 && config.city && config.state && config.pincode){
+    // call the order api
+    setLoading(true)
+    const result = await addOrderByCartId(config)
+    if(result.status != 404 && result.status != 500){
+      toast.success(result.message)
+      navigate(`/orderdetail/${result.data.data.addedOrder._id}`)
+      setLoading(false)
+    } else {
+      toast.error(result.message)
+      setLoading(false)
+    }
+  
+  } else {
+      toast.error("Fill all mandatory fields")
+    }
+  
+  
+}
+
+
     const ProductContainer = styled.div`
     width: 80%;
 
@@ -61,7 +141,7 @@ flex-wrap:wrap;
   margin-top:2rem;
   `
 
-  const Form =styled.div`
+  const Form =styled.form`
   display:flex;
 
   flex-direction:column;
@@ -122,161 +202,132 @@ margin-bottom:1rem;
 height: 1px;
 width: 100%;
 `;
+
+
+
   return (
-<>
+    <>
 <TopNav/>
 <BottomNav/>
-<ProductContainer>
 
-    <CurrentUrlContainer>
-    <p
-                style={{
-                  fontWeight: "400",
-                  fontSize: "14px",
-                  color: "#818181",
-                }}
-              >
-                Home
-              </p>
-              <p style={{ 
-                                   fontWeight: "400",
-                                   fontSize: "14px",
-                                   color: "#818181",
-               }}>/All Products</p>
-              <p style={{ 
-                                   fontWeight: "400",
-                                   fontSize: "14px",
-                                   color: "#818181",
-               }}>/Product1</p>
-              <p style={{ 
-                                   fontWeight: "400",
-                                   fontSize: "14px",
-                                   color: "#818181",
-               }}>/Basket</p>
-              <p style={{ fontWeight: "500" }}>/Checkout</p>
+{loading ? <Loading /> :  <ProductContainer>
+
+<CurrentUrlContainer>
+<p
+            style={{
+              fontWeight: "400",
+              fontSize: "14px",
+              color: "#818181",
+            }}
+          >
+            Home
+          </p>
+          <p style={{ 
+                               fontWeight: "400",
+                               fontSize: "14px",
+                               color: "#818181",
+           }}>/All Products</p>
+          <p style={{ 
+                               fontWeight: "400",
+                               fontSize: "14px",
+                               color: "#818181",
+           }}>/Product1</p>
+          <p style={{ 
+                               fontWeight: "400",
+                               fontSize: "14px",
+                               color: "#818181",
+           }}>/Basket</p>
+          <p style={{ fontWeight: "500" }}>/Checkout</p>
 
 
 
-    </CurrentUrlContainer>
+</CurrentUrlContainer>
 <PageTitle>Shipping Details</PageTitle>
+
+{
+cartInfo ?
 <ShippingDetail>
 <DeliveryContainer>
 <DeliveryBox>
-    <h3>Delivery Information</h3>
-    <Form>
+<h3>Delivery Information</h3>
+<Form>
+
+<Label>Phone Number</Label>
+<Input ref={phoneInputRef} type='text' placeholder='+91 '/>
+
 <Label>Street address</Label>
-<Input type='text' placeholder='Click to find Address'/>
-   <Divflex>
-       <Form>
-           <Label>Pincode</Label>
-           <Input style={{width:'107px'}} type='number' placeholder='395003'/>
-       </Form>
-       <Form>
-           <Label>City</Label>
-           <Select style={{width:'107px'}} id="city" name="city">
-           <option value="surat">surat</option>
-  </Select>
-           
-       </Form>
-       <Form>
-           <Label>Country</Label>
-           <Select style={{width:'107px'}} id="city" name="city">
-           <option value="India">India</option>
-  </Select>
-                  </Form>
-   </Divflex>
-    </Form>
+<Input ref={addressLine1Ref} type='text' placeholder='Address Line 1'/>
+<Input ref={addressLine2Ref} type='text' placeholder='Address Line 2'/>
+<Divflex>
+   <Form>
+       <Label>Pincode</Label>
+       <Input ref={pincodeInputRef} style={{width:'107px'}} type='number'/>
+   </Form>
+   <Form>
+       <Label>City</Label>
+       <Input ref={cityInputRef} style={{width:'107px'}} id="city" name="city" />
+   </Form>
+   <Form>
+       <Label>State</Label>
+       <Input ref={stateInputRef} style={{width:'107px'}} id="city" name="state" />
+   </Form>
+</Divflex>
+</Form>
 </DeliveryBox>
 <PaymentBox>
 {/* padding yaha se */}
-<DeliveryBox>
-    <h3>Delivery Information</h3>
-    <Form>
-<Label>Street address</Label>
-<Input type='text' placeholder='Click to find Address'/>
-   <Divflex>
-       <Form>
-           <Label>Pincode</Label>
-           <Input style={{width:'107px'}} type='number' placeholder='395003'/>
-       </Form>
-       <Form>
-           <Label>City</Label>
-           <Select style={{width:'107px'}} id="city" name="city">
-           <option value="surat">surat</option>
-  </Select>
-           
-       </Form>
-       <Form>
-           <Label>Country</Label>
-           <Select style={{width:'107px'}} id="city" name="city">
-           <option value="India">India</option>
-  </Select>
-                  </Form>
-   </Divflex>
-    </Form>
-</DeliveryBox>
+
 </PaymentBox>
 </DeliveryContainer>
 <CheckoutContainer>
 <Divflex>
-    <p style={{fontSize:'13px'}}>Subtotal</p>
-    <span style={{fontSize:'13px'}}>₹399.00</span>
+<p style={{fontSize:'13px'}}>Subtotal</p>
+<span style={{fontSize:'13px'}}>₹{cartDetails.total_cart_price}.00</span>
 </Divflex>
 <Divflex>
-    <p style={{fontSize:'11px'}}>Discount</p>
-    <span style={{fontSize:'11px'}}>(20%) - $16.19</span>
+<p style={{fontSize:'11px'}}>Discount</p>
+<span style={{fontSize:'11px'}}>({discountDisplayPercentage} %) {'->'} Rs. {discountDisplayPrice}</span>
 </Divflex>
 <Divflex>
-    <p style={{fontSize:'11px'}}>Delivery</p>
-    <span style={{fontSize:'11px'}}>₹00.00</span>
+<p style={{fontSize:'11px'}}>Delivery</p>
+<span style={{fontSize:'11px'}}>₹{deliveryPrice}.00</span>
 </Divflex>
 <Divflex>
-    <p style={{fontSize:'11px'}}>Tax</p>
-    <span style={{fontSize:'11px'}}> + ₹39.00</span>
+<p style={{fontSize:'11px'}}>Tax</p>
+<span style={{fontSize:'11px'}}> + ₹{taxPrice}.00</span>
 </Divflex>
 <Divflex>
-    <p style={{fontSize:'13px' , fontWeight:'700'}}>Total</p>
-    <span style={{fontSize:'13px',fontWeight:'700'}}>₹399.00</span>
+<p style={{fontSize:'13px' , fontWeight:'700'}}>Total</p>
+<span style={{fontSize:'13px',fontWeight:'700'}}>₹{cartDetails.discounted_cart_price + taxPrice + deliveryPrice}.00</span>
 </Divflex>
-<ProductConatiner>
-<img src={img} style={{width:'35px',
+{cartInfo?.cart_items?.map((item, index)=> {
+return (<ProductConatiner key={index}>
+<img src={item.product_id.main_url} style={{width:'35px',
 height:'35px'}}/>
 <Productdesc>
-    <p style={{fontSize:'9px'}}>Hell Boy Natural Peanut Butter 
-Crunchy ( 2KG )</p>
-<span style={{fontSize:'9px'}}>₹399.00</span>
+    <p style={{fontSize:'9px'}}>{item.product_id.name} {item.featured_product_id.flavour} ( {item.product_id.weight}KG )</p>
+<span style={{fontSize:'9px'}}>₹{item.featured_product_id.price}.00</span>
 </Productdesc>
+</ProductConatiner>)
 
-</ProductConatiner>
-<ProductConatiner>
-<img src={img} style={{width:'35px',
-height:'35px'}}/>
-<Productdesc>
-    <p style={{fontSize:'9px'}}>Hell Boy Natural Peanut Butter 
-Crunchy ( 2KG )</p>
-<span style={{fontSize:'9px'}}>₹399.00</span>
-</Productdesc>
+}) 
+}
 
-</ProductConatiner>
-<ProductConatiner>
-<img src={img} style={{width:'35px',
-height:'35px'}}/>
-<Productdesc>
-    <p style={{fontSize:'9px'}}>Hell Boy Natural Peanut Butter 
-Crunchy ( 2KG )</p>
-<span style={{fontSize:'9px'}}>₹399.00</span>
-</Productdesc>
 
-</ProductConatiner>
 <DashedDivider/>
-<Link to="/orderdetail">
-<Button>Checkout</Button>
+<Button onClick={(e)=>{
+handleCheckoutOrder()
+}}>Checkout</Button>
 
-</Link>
+
 </CheckoutContainer>
 </ShippingDetail>
+: <Loading />
+}
 
-</ProductContainer>
+</ProductContainer> }
+
+
 <Footer/>
 </>
   )

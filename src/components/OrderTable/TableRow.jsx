@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import OptionVector from "../../assets/images/optionvector.png";
 const TableRow = ({ProductName,ProductDesc,ID,Paid,Total,Deliverd }) => {
@@ -28,12 +28,18 @@ font-size: 12px;
     border-radius: 12px;
   `;
 
+
   const OptionVec = styled.img``;
+  const navigate = useNavigate()
+
   return (
     <TR>
-      <TD>
-        <Link to='/orderdetail'>
-        <TdContainer>
+      <TD >
+
+        <TdContainer  onClick={()=>{
+          console.log('first')
+      navigate(`/orderdetail/${ID}`)
+    }}>
           <Span></Span>
           <div
             style={{
@@ -61,7 +67,7 @@ font-size: 12px;
             </p>
           </div>
         </TdContainer>
-        </Link>
+
     
       </TD>
       <TD>{ID}</TD>

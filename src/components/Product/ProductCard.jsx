@@ -6,7 +6,7 @@ import CartIcon from "../../assets/images/cart1.png";
 import { useNavigate } from "react-router-dom";
 import useStore from "../../store";
 
-function ProductCard({ type, title, originalPrice, price, productImage, id }) {
+function ProductCard({ type, title, originalPrice, price, productImage, id, fpidFromProductPage }) {
   const Navigate = useNavigate();
   const getProductById = useStore((state) => state.getProductById);
   const [product, setProduct] = useState({});
@@ -91,7 +91,7 @@ function ProductCard({ type, title, originalPrice, price, productImage, id }) {
   return (
     <CardContainer
       onClick={() => {
-        Navigate(`/product-info/${id}`);
+        Navigate(`/product-info/${id}/${fpidFromProductPage}`);
       }}
     >
       <CardTopContainer>
