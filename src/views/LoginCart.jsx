@@ -137,7 +137,7 @@ const LoginCart = () => {
     <>
     {checkAuth() ? <Navigate to={from} replace /> :
     <>
-      <TopNav />
+
       <BoxContainer>
         <Box>
           {loginError ? <ErrorBox>{loginError}</ErrorBox> : ""}

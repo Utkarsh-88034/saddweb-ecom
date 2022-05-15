@@ -77,6 +77,7 @@ const Checkout = () => {
       toast.error(result.message)
       setLoading(false)
     }
+    console.log(result)
   
   } else {
       toast.error("Fill all mandatory fields")
@@ -207,8 +208,8 @@ width: 100%;
 
   return (
     <>
-<TopNav/>
-<BottomNav/>
+
+
 
 {loading ? <Loading /> :  <ProductContainer>
 
@@ -261,15 +262,15 @@ cartInfo ?
 <Divflex>
    <Form>
        <Label>Pincode</Label>
-       <Input ref={pincodeInputRef} style={{width:'107px'}} type='number'/>
+       <Input ref={pincodeInputRef} placeholder={'Pincode'} style={{width:'107px'}} type='number'/>
    </Form>
    <Form>
        <Label>City</Label>
-       <Input ref={cityInputRef} style={{width:'107px'}} id="city" name="city" />
+       <Input ref={cityInputRef} style={{width:'107px'}} placeholder={'City'} id="city" name="city" />
    </Form>
    <Form>
        <Label>State</Label>
-       <Input ref={stateInputRef} style={{width:'107px'}} id="city" name="state" />
+       <Input ref={stateInputRef} style={{width:'107px'}} placeholder={'State'} id="state" name="state" />
    </Form>
 </Divflex>
 </Form>

@@ -92,7 +92,7 @@ align-items: center;
 `;
   return (
     <>
-      <TopNav />
+
       <BoxContainer>
         <Box>
           <Title

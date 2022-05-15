@@ -136,11 +136,11 @@ const ProductPage = ({fpidFromProductPage}) => {
   }, [reviewData])
 
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if(checkAuth()){
       const pid = product?._id
       const fpid = featuredproduct.gotFeaturedProductById?._id
-      const result = addToCart(fpid, pid, qty)
+      const result = await addToCart(fpid, pid, qty)
       if(result.staus != 404 || result.status != 500){
         toast.success("Product Successfully Added to Cart")
         navigate("/cart")
@@ -501,8 +501,8 @@ const ProductPage = ({fpidFromProductPage}) => {
 
   return (
     <React.Fragment>
-            <TopNav />
-      <BottomNav />
+
+
     {loading ? <Loading /> : <> 
     
 
@@ -594,7 +594,7 @@ const ProductPage = ({fpidFromProductPage}) => {
           </ProductContainerLeft>
           <ProductContainerRight>
             <DetailTitle>{product?.name}</DetailTitle>
-            <DetailTitle>{featuredproduct?.flavour}</DetailTitle>
+            <DetailTitle>{featuredproduct?.gotFeaturedProductById?.flavour}</DetailTitle>
             <Price>
               <StrikedPrice>Rs. {featuredproduct?.gotFeaturedProductById?.price}</StrikedPrice>
               <DiscountPrice>Rs. {featuredproduct?.gotFeaturedProductById?.discounted_price}</DiscountPrice>
@@ -615,7 +615,7 @@ const ProductPage = ({fpidFromProductPage}) => {
                 count={5}
                 // onChange={ratingChanged}
                 size={32}
-                value={Math.floor(starCount/reviewData.length)}
+                value={Math.floor(starCount/reviewData?.length)}
                 edit={false}
                 activeColor="#ffd700"
                 style={{

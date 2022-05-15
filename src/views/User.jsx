@@ -32,8 +32,8 @@ const User = () => {
   `
   return (
     <>
-      <TopNav />
-      <BottomNav />
+
+
       <ProductContainer>
         <p
           style={{

@@ -11,7 +11,7 @@ export const checkAuth = () => {
 export const checkAdmin = () => {
   if (checkAuth()) {
     const token = JSON.parse(localStorage.getItem("userInfo"));
-    if (token.isAdmin) {
+    if (token.is_admin) {
       return true;
     } else return false;
   } else return false;

@@ -158,7 +158,7 @@ const ProductDetails = () => {
         productFormData.append("weight", newProductDetails.weight);
         productFormData.append("details", newProductDetails.details);
         productFormData.append("url", newProductDetails.url);
-        const result = await updateProduct(productFormData);
+        const result = await updateProduct(product._id, productFormData);
 
         
       setStep(1);
@@ -330,8 +330,8 @@ const ProductDetails = () => {
 
   return (
     <>
-      <TopNav />
-      <BottomNav />
+
+
       <NavHead>
         <p
           style={{
@@ -357,16 +357,19 @@ const ProductDetails = () => {
             />
           ) : step == 2 ? ( product ? <React.Fragment>
             <Features setStep={setStep} flavourNameRef={flavourNameRef} flavourDescriptionRef={flavourDescriptionRef} flavourIngridientsRef={flavourIngridientsRef} flavourPriceRef={flavourPriceRef} flavourDiscountedPriceRef={flavourDiscountedPriceRef} authCodeRef={authCodeRef} featuredProductImagesRef={featuredProductImagesRef} getFeaturedProductDetails={getFeaturedProductDetails} updateFeaturedProductOnClick={updateFeaturedProductOnClick} edit={true} addNewFeaturedProductEdit={addNewFeaturedProductEdit} featuredProductEdit={featuredProductEdit} />
+            
+            <SetFpi onClick={()=>{
+                handleFeaturedProductEditChange(product._id, 'new');
+              }}>
+                <p>New Featured Product</p>
+              </SetFpi>
+          
            {product.featured_product_id.map((fpi)=>( <SetFpi onClick={()=>{
              handleFeaturedProductEditChange(product._id, fpi._id)
            }}>
              <p>{fpi.flavour}</p>
               </SetFpi>))}
-              <SetFpi onClick={()=>{
-                handleFeaturedProductEditChange(product._id, 'new');
-              }}>
-                <p>New Featured Product</p>
-              </SetFpi>
+             
           </React.Fragment> :
             <Features setStep={setStep} flavourNameRef={flavourNameRef} flavourDescriptionRef={flavourDescriptionRef} flavourIngridientsRef={flavourIngridientsRef} flavourPriceRef={flavourPriceRef} flavourDiscountedPriceRef={flavourDiscountedPriceRef} authCodeRef={authCodeRef} featuredProductImagesRef={featuredProductImagesRef} getFeaturedProductDetails={getFeaturedProductDetails} edit={false} />
           ) : step == 3 ? (

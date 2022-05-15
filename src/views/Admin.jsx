@@ -79,8 +79,8 @@ const Admin = () => {
 
   return (
     <>
-      <TopNav />
-      <BottomNav />
+
+
       {editState == "products" ? 
       <ProductContainer>
         <p

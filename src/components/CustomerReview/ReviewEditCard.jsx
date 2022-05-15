@@ -75,7 +75,7 @@ const ReviewEditCard = ({reviewSubmitRef, handleSubmitReview, userData, setRatin
       <CardContainer>
         <AvatarContainer>
           <Avatar size={40} icon={<UserOutlined />} />
-          <UserName>{userData.name}</UserName>
+          <UserName>{userData?.name}</UserName>
         </AvatarContainer>
         <ReviewStarContainer>
           <Rate value={ratingStars} onChange={(new_rating)=>{

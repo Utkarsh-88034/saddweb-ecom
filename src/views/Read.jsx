@@ -79,8 +79,8 @@ font-size: 16px;
 
     return (
    <>
-   <TopNav/>
-   <BottomNav/>
+
+
 <Container>
     <ImgContainer>
     <Img src={img}/>

@@ -8,6 +8,7 @@ import useStore from '../store'
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from '../components/Atoms/Loading';
+import { checkAdmin } from '../utils/checkAuth';
 
 const OrderDetail = () => {
 
@@ -34,12 +35,89 @@ const OrderDetail = () => {
      fetchOrderById()
     }, [])
 
-
-      // price setting
+          // price setting
   const discountDisplayPrice = orderData?.cart_id?.total_cart_price - orderData?.cart_id?.discounted_cart_price;
   const discountDisplayPercentage = Math.round((((discountDisplayPrice)/orderData?.cart_id?.total_cart_price)*100 + Number.EPSILON) * 100) / 100;
   const deliveryPrice = 39
   const taxPrice = 18
+
+  const totalPaymentAmount = orderData?.discounted_cart_price + deliveryPrice + taxPrice
+
+  const displayRazorPay = async () => {
+      const res = await loadRazorPay('https://checkout.razorpay.com/v1/checkout.js')
+      if(!res){
+          toast.error('Razorpay SDK failed to load! Check Your Internet Connection')
+          return
+      }
+
+    const options = {
+        "key": "rzp_test_mNRqtuqoHtvQav", // Enter the Key ID generated from the Dashboard
+        "amount": totalPaymentAmount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Hellboy Nutrition",
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": "order_JVc3ckloHRitXs", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+            alert(response.razorpay_payment_id);
+            alert(response.razorpay_order_id);
+            alert(response.razorpay_signature)
+        },
+        
+        "notes": {
+            "address_line_1": orderData.address_line_1,
+            "address_line_2": orderData?.address_line_2 || " ",
+            "city": orderData.city,
+            "state": orderData.state,
+            "pincode": orderData.pincode,
+        },
+        "theme": {
+            "color": "#F9C349"
+        }
+    };
+
+    var paymentObject = new window.Razorpay(options);
+    paymentObject.open()
+
+    paymentObject.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+
+  }
+
+    const loadRazorPay = (scr) => {
+        return new Promise(resolve =>{
+            const script = document.createElement('script')
+            script.src = scr;
+            script.onload = () => {
+                resolve(true)
+            }
+            script.onerror = () => {
+                resolve(false)
+            }
+            document.body.appendChild(script)
+
+        })
+    }
+
+
+    const handlePayOrder = () => {
+        displayRazorPay()
+
+    }
+
+    const handleDeliveryCheckOrder = () => {
+
+    }
+
+
+
 
 
     const Container = styled.div`
@@ -181,10 +259,20 @@ font-size:13px;
 font-weight: 700;
 `
 
+const Button=styled.button`
+background: #F9C349;
+color:white;
+border:none;
+border-radius: 7px;
+width:100%;
+margin: 2rem 0;
+cursor: pointer;
+`
+
     return (
    <>
-   <TopNav/>
-   <BottomNav/>
+
+
 {loading ? <Loading /> : <React.Fragment>
     {
         orderData ? <Container>
@@ -270,11 +358,28 @@ font-weight: 700;
         <PTitle>{item.product_id.name} {item.featured_product_id.flavour} ( {item.product_id.weight}KG )</PTitle>
     <Price>₹{item.featured_product_id.price}.00</Price>
     </Productdesc>
-    
+
     </ProductConatiner>))}
    
+   {
+       orderData.payment_done ? <React.Fragment>
+{
+    checkAdmin() ? <Button onClick={(e)=>{
+        handleDeliveryCheckOrder()
+        }}>Mark as Delivered</Button> : ''
+}
+       </React.Fragment> : <React.Fragment>
+        <Button onClick={(e)=>{
+            handlePayOrder()
+            }}>Pay Now</Button>
+       </React.Fragment>
+   }
+
 
     
+       
+     
+     
     </SummaryContainer>
     </OrderDetail>
     </Container> : <Loading />

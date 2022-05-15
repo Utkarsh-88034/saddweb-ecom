@@ -1,13 +1,14 @@
 import React from "react";
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
+import { checkAdmin } from "../../utils/checkAuth";
 
 const BottomNav = () => {
   const { SubMenu } = Menu;
   return (
     <Menu
       mode="horizontal"
-      theme="dark"
+      theme="light"
       style={{
         display: "flex",
         justifyContent: "center",
@@ -34,7 +35,7 @@ const BottomNav = () => {
         </Link>
       </Menu.Item>
 
-      <Menu.Item key="admin">
+  { checkAdmin() &&  <Menu.Item key="admin">
         <SubMenu key="SubMenu" title="Admin">
           <Link to="/admin/dashboard">
             <Menu.Item key="setting:1">Dashboard</Menu.Item>
@@ -46,7 +47,7 @@ const BottomNav = () => {
             <Menu.Item key="setting:3">Product Management</Menu.Item>
           </Link>
         </SubMenu>
-      </Menu.Item>
+      </Menu.Item>}
     </Menu>
   );
 };

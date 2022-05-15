@@ -25,6 +25,7 @@ import ProductPage from "./views/projectPage";
 import UserName from "./views/UserName";
 import UserNamecompo from "./components/UserName/UserNamecompo";
 import PrivateRoute from "./utils/PrivateRoute";
+import RestrictedRoute from "./utils/RestrictedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -35,6 +36,8 @@ function App() {
         className="Application"
         style={{ maxWidth: "1440px", margin: "auto" }}
       >
+        <TopNav />
+        <BottomNav />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="products" element={<AllProducts />} />
@@ -47,9 +50,9 @@ function App() {
           <Route
             path="admin/product"
             element={
-              <PrivateRoute>
+              <RestrictedRoute>
                 <Admin />
-              </PrivateRoute>
+              </RestrictedRoute>
             }
           />
           <Route path="admin/dashboard" element={<Dashbord />} />

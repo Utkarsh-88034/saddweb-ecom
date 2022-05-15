@@ -10,7 +10,7 @@ import hellboylogo1 from "../../assets/images/helboylogo1.png";
 import { Link, useLocation } from "react-router-dom";
 import { checkAuth } from "../../utils/checkAuth";
 
-const TopNav = () => {
+const TopNav = ({handleSearch}) => {
 
   const location = useLocation()
 
@@ -109,7 +109,9 @@ const TopNav = () => {
 
       <RegularFragment>
         <SearchForm>
-          <SearchInput placeholder="Try our search..." type="text" />
+          <SearchInput onChange={(e)=>{
+            handleSearch(e.target.value);
+          }} placeholder="Try our search..." type="text" />
           <SearchButton type="submit">
             <div style={{ marginRight: "10px" }}>
               <SearchOutlined />

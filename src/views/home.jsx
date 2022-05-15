@@ -178,8 +178,8 @@ const Home = () => {
   `;
   return (
     <HomeContainer>
-      <TopNav />
-      <BottomNav />
+
+
       <MainHeadContainer>
         <img
           src={HeaderMain}

@@ -25,8 +25,13 @@ const Cart = () => {
   const [loading, setLoading] = useState(false);
 
   const afunction = async () => {
+    setLoading(true)
     const result = await getCartDetails();
     setCartInfo(result.data.data)
+    if(result.status != 404 || result.status != 500){
+      setLoading(false)
+
+    }
   }
 
   const handleDeleteProductFromCart = async (fpid, pid) => {
@@ -203,8 +208,6 @@ const handleQuantityChange = async (fpid, pid, qty) => {
 
   return (
     <React.Fragment>
-          <TopNav />
-      <BottomNav />
       <NavHead>
         <p
           style={{
@@ -222,20 +225,18 @@ const handleQuantityChange = async (fpid, pid, qty) => {
       <CartContainer>
         {cartInfo.cart_items?.length > 0 ? (
           <ProductListContainer>
-            {cartInfo.cart_items.map((item, index) => (
-              <CartProduct item={item} loading={loading} key={index} handleDeleteProductFromCart={handleDeleteProductFromCart} handleQuantityChange={handleQuantityChange} />         
+            {cartInfo.cart_items.map((item, index) => (<CartProduct item={item} loading={loading} key={index} handleDeleteProductFromCart={handleDeleteProductFromCart} handleQuantityChange={handleQuantityChange} />         
             ))}
           </ProductListContainer>
         ) : (
           <p>No Items in the Cart...</p>
         )}
-
         <TotalContainer>
-          <PromocodeContainer>
+          {/* <PromocodeContainer>
             <Promocode placeholder="Promocode" />
             <PromocodeAppyButton>Apply</PromocodeAppyButton>
-          </PromocodeContainer>
-          <DashedDivider />
+          </PromocodeContainer> */}
+          {/* <DashedDivider /> */}
           <CostDetailsContainer>
             <DetailContainer>
               <Subtotal>Subtotal</Subtotal>

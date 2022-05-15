@@ -100,8 +100,8 @@ const Div=styled.div`
 `
   return (
     <>
-    <TopNav/>
-    <BottomNav/>
+
+
     <Container>
 <NameContainer>
 <Img src={img}/>

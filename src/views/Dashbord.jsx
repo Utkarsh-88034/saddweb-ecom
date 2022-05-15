@@ -61,8 +61,8 @@ const TBody = styled.tbody``;
 
   return (
  <>
- <TopNav/>
- <BottomNav/>
+
+
  <ProductContainer>
  <p
           style={{

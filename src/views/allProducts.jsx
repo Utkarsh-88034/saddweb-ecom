@@ -89,8 +89,8 @@ const AllProducts = () => {
 
   return (
     <>
-      <TopNav />
-      <BottomNav />
+
+
       <ProductContainer>
         <ProductContainerHead>
           <ProductHeadLeft>
