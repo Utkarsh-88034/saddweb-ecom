@@ -13,7 +13,7 @@ import payment2 from "../../assets/images/payment2.png";
 
 const Footer = () => {
   const FooterContainer = styled.div`
-    width: 80%;
+    width: 100%;
     padding: 2rem;
     margin: auto;
     margin-top: 200px;
@@ -21,13 +21,14 @@ const Footer = () => {
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    // justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 40px 0;
     position: relative;
     @media (max-width: 820px) {
       width: 100%;
     }
+    max-width: 1700px
   `;
   const FooterLogo = styled.img`
     margin-right: 100px;
@@ -46,9 +47,8 @@ const Footer = () => {
   const SocialLogo = styled.img``;
   const ContactContainer = styled.div`
     display: flex;
-    // justify-content: space-evenly;
+    justify-content: space-evenly;
     flex-wrap: wrap;
-    // align-items: center;
     margin: 20px 0;
     width: 100%;
     @media (max-width: 700px) {
@@ -98,7 +98,7 @@ const Footer = () => {
     margin: 20px 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     @media (max-width: 500px) {
       display: flex;
       flex-direction: column;
@@ -144,7 +144,7 @@ const Footer = () => {
         <ContactContainer>
           {/* <SocialLogo src={location} /> */}
           <ItemContainer>
-            <ItemHead>Feauted Products</ItemHead>
+            <ItemHead> Categories</ItemHead>
             <ContactDetails>Product 1</ContactDetails>
             <ContactDetails>Product 2</ContactDetails>
             <ContactDetails>Product 3</ContactDetails>

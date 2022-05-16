@@ -8,7 +8,7 @@ import leftarr from "../assets/images/left-arrow.png";
 import arrowup from "../assets/images/arrowup.png";
 import arrowdown from "../assets/images/arrowdown.png";
 import ReactStars from "react-rating-stars-component";
-import { Button, Divider } from "antd";
+import { Button, Carousel, Divider } from "antd";
 import Footer from "../components/Footer/Footer";
 import ReviewCard from "../components/CustomerReview/ReviewCard";
 import { Progress } from "antd";
@@ -84,8 +84,12 @@ const ProductPage = ({fpidFromProductPage}) => {
   }
 
   const fetchCurrentUser = async () => {
-    const user = await fetchUser();
-    setUserData(user.data.data);
+    if(checkAuth()){
+      const user = await fetchUser();
+      setUserData(user.data.data);
+    } else {
+      navigate('/login')
+    }
   }
  
   useEffect(() => {
@@ -158,7 +162,6 @@ const ProductPage = ({fpidFromProductPage}) => {
   const handleSubmitReview = async () => {
     const pid = product?._id
     const fpid = featuredproduct.gotFeaturedProductById?._id
-    console.log(pid, fpid, userData)
     const config = {
       rating: ratingStars,
       review_desc : reviewSubmitRef.current?.value
@@ -202,15 +205,11 @@ const ProductPage = ({fpidFromProductPage}) => {
   `;
   const ProductImageContainer = styled.div`
     background: #fef9ed;
-    width: 30vw;
+    width: 27rem;
+    heigth: 27rem;
     padding: 1vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-radius: 12px;
     margin-bottom: 20px;
-    min-height: 300px;
-    min-width: 300px;
   `;
   const Overview = styled.div`
     background: #fef9ed;
@@ -226,9 +225,9 @@ const ProductPage = ({fpidFromProductPage}) => {
   `;
   const ProductImage = styled.img`
     background: none;
-    height: 100%;
-    width: 100%;
-    // object-fit: cover;
+    min-height: 90%;
+    min-width: 90%;
+    object-fit: cover;
   `;
   const Arrow = styled.img`
     height: 33px;
@@ -499,6 +498,8 @@ const ProductPage = ({fpidFromProductPage}) => {
       console.log(fpr)
   }
 
+  console.log(featuredproduct)
+
   return (
     <React.Fragment>
 
@@ -510,12 +511,14 @@ const ProductPage = ({fpidFromProductPage}) => {
         <Container>
           <ProductContainerLeft>
             <ProductImageContainer>
-              <Arrow src={leftarr} />
-              <Imageslide>
-                <ProductImage src={product?.main_url} />
+              {/* <Arrow src={leftarr} /> */}
+              
+                <Carousel autoplay dotPosition={'left'} effect="fade">
+
                 {featuredproduct?.gotFeaturedProductById?.url.map((imgUrl)=>(<ProductImage src={imgUrl} />))}
-              </Imageslide>
-              <Arrow src={rightarr} />
+                </Carousel>
+              
+              {/* <Arrow src={rightarr} /> */}
             </ProductImageContainer>
             <Overview>
               <OverviewTitleContainer>
@@ -541,20 +544,7 @@ const ProductPage = ({fpidFromProductPage}) => {
               </OverviewTitleContainer>
               {benefitsFlag ? (
                 <p>
-                  Hell Boy Nutrition Peanut butter is comprised of about 30g
-                  protein per 100g, making it an excellent plant-based protein
-                  source. Peanuts belong to the legume family, which also
-                  includes beans, peas and lentils. Legume protein is much lower
-                  in methionine and cysteine compared to animal protein. Peanuts
-                  are low in carbs and suitable for people with type 2 diabetes
-                  or those following a low-carb diet. Pure peanut butter is a
-                  good source of healthy fats. It is high in many healthy
-                  vitamins and minerals. It is rich in antioxidants, including
-                  p-coumarin and resveratrol. BCS Peanut Butter is fairly rich
-                  in nutrients and a decent protein source. It’s also loaded
-                  with fiber, vitamins and minerals; it’s a potential source of
-                  aflatoxins, which are associated with harmful effects in the
-                  long run.
+                  {featuredproduct?.gotFeaturedProductById?.benefits}
                 </p>
               ) : (
                 ""
@@ -572,20 +562,8 @@ const ProductPage = ({fpidFromProductPage}) => {
               </OverviewTitleContainer>
               {ingredientFlag ? (
                 <p>
-                  Hell Boy Nutrition Peanut butter is comprised of about 30g
-                  protein per 100g, making it an excellent plant-based protein
-                  source. Peanuts belong to the legume family, which also
-                  includes beans, peas and lentils. Legume protein is much lower
-                  in methionine and cysteine compared to animal protein. Peanuts
-                  are low in carbs and suitable for people with type 2 diabetes
-                  or those following a low-carb diet. Pure peanut butter is a
-                  good source of healthy fats. It is high in many healthy
-                  vitamins and minerals. It is rich in antioxidants, including
-                  p-coumarin and resveratrol. BCS Peanut Butter is fairly rich
-                  in nutrients and a decent protein source. It’s also loaded
-                  with fiber, vitamins and minerals; it’s a potential source of
-                  aflatoxins, which are associated with harmful effects in the
-                  long run.
+                  {featuredproduct?.gotFeaturedProductById?.ingredients}
+
                 </p>
               ) : (
                 ""
@@ -627,6 +605,7 @@ const ProductPage = ({fpidFromProductPage}) => {
             </RatingContainer>
             <Divider />
             <MoreFeatures>
+                {featuredproduct?.gotFeaturedProductById?.description}
               <FeatureLI>Excellent plant-based protein source.</FeatureLI>{" "}
               <FeatureLI>High protein</FeatureLI>
               <FeatureLI>Low in carbs</FeatureLI>

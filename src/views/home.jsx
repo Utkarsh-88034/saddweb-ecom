@@ -19,6 +19,7 @@ import category2 from "../assets/images/category2.png";
 import category3 from "../assets/images/category3.png";
 import useStore from "../store";
 import CommentDivider from "../components/PageDivider/CommentDivider";
+import { Carousel } from "antd";
 
 const Home = () => {
   const loginUser = useStore((state) => state.LoginUser);
@@ -114,16 +115,15 @@ const Home = () => {
     background-repeat: no-repeat;
     border-radius: 6px;
     background-position: center;
-    font-weight: 700;
-    font-size: 40px;
+    font-weight: 500;
+    font-size: 30px;
     color: #ffffff;
     display: flex;
-    padding: 10px;
+    padding: 20px 30px;
     align-items: end;
     @media(max-width:710px){
       width::90%;
       height:280px;
-
     }
   `;
   const Category2 = styled.div`
@@ -134,12 +134,12 @@ const Home = () => {
     background-repeat: no-repeat;
     border-radius: 6px;
     background-position: center;
-    font-weight: 700;
-    font-size: 40px;
+    font-weight: 500;
+    font-size: 30px;
     color: #ffffff;
     display: flex;
     align-items: end;
-    padding: 10px;
+    padding: 20px 30px;
     @media(max-width:710px){
       width::90%;
       height:280px;
@@ -155,11 +155,11 @@ const Home = () => {
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 6px;
-    font-weight: 700;
-    font-size: 40px;
+    font-weight: 500;
+    font-size: 30px;
     color: #ffffff;
     display: flex;
-    padding: 10px;
+    padding: 20px 30px;
     align-items: end;
     // background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
     @media (max-width: 710px) {
@@ -181,24 +181,50 @@ const Home = () => {
 
 
       <MainHeadContainer>
-        <img
+        {/* <img
           src={HeaderMain}
           style={{ width: "100vw", objectFit: "cover" }}
-        ></img>
+        ></img> */}
+        <Carousel autoplay>
+          <div>
+            <img
+            src={HeaderMain}
+            style={{ width: "100vw", objectFit: "cover" }}
+          ></img> 
+          </div>
+          <div>
+            <img
+            src={HeaderMain}
+            style={{ width: "100vw", objectFit: "cover" }}
+          ></img> 
+          </div>
+          <div>
+            <img
+            src={HeaderMain}
+            style={{ width: "100vw", objectFit: "cover" }}
+          ></img> 
+          </div>
+          <div>
+            <img
+            src={HeaderMain}
+            style={{ width: "100vw", objectFit: "cover" }}
+          ></img> 
+          </div>
+        </Carousel>
       </MainHeadContainer>
       <CategoryContainer>
         <CategoryHeadding>Shop By Category</CategoryHeadding>
         <CategoryBoxContainer>
           <CategoryBoxLeft>
-            <Category1>Category1</Category1>
-            <Category2>Category2</Category2>
+            <Category1>Category 1</Category1>
+            <Category2>Category 2</Category2>
           </CategoryBoxLeft>
-          <Category3>Category3</Category3>
+          <Category3>Category 3</Category3>
         </CategoryBoxContainer>
       </CategoryContainer>
       <ProductBanner
         img={LeanGainerProduct}
-        title=" Best Quality Hell Boy Nutrition - Lean Gainer"
+        title={'Best Quality Hell Boy Nutrition - Lean Gainer'}
       />
       <BestSellerContainer>
         <BestSellerHead>BEST SELLER</BestSellerHead>
@@ -218,6 +244,13 @@ const Home = () => {
             productImage={MassGainer5KG}
           />
           <ProductCard
+            price={"6,999.00"}
+            originalPrice={"6,999.00"}
+            type={"GAINER"}
+            title={"Mass Gainer(5KG)"}
+            productImage={MassGainer5KG}
+          />
+           <ProductCard
             price={"6,999.00"}
             originalPrice={"6,999.00"}
             type={"GAINER"}

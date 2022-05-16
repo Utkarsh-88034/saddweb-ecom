@@ -11,6 +11,10 @@ const IngredientsBox = ({ detail, type, background }) => {
     border-radius: 12px;
     background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%),
       url(${background});
+    &:hover {
+      
+      background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, #000000 100%), url(${background}); 
+    }
     background-repeat: no-repeat;
     position: relative;
     top: 0;
@@ -23,12 +27,13 @@ const IngredientsBox = ({ detail, type, background }) => {
     bottom: 90px;
     left: 10px;
     flex-wrap: wrap;
-    padding: 15px;
+    padding: 0 15px;
 
     font-style: normal;
     font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 15xpx;
+    line-height: 18px;
+    text-align: justify;
   `;
   const Ingredienttype = styled.p`
     color: white;

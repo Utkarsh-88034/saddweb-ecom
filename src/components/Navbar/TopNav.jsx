@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ham from "../../assets/images/hamburger.png";
+import cross from "../../assets/images/cross.png";
 import {
   SearchOutlined,
   UserOutlined,
@@ -12,9 +13,15 @@ import { checkAuth } from "../../utils/checkAuth";
 
 const TopNav = ({handleSearch}) => {
 
+  const [hambugerMenuDisplay, setHambugerMenuDisplay] = useState(false)
+
   const location = useLocation()
 
-  const Hamburger = styled.img``;
+  const Hamburger = styled.img`
+  position: relative;
+  width: 30px;
+  
+  `;
   const HamburgerContainer = styled.div`
     display: none;
     @media (max-width: 963px) {
@@ -27,11 +34,12 @@ const TopNav = ({handleSearch}) => {
     padding: 10px 10px;
     align-items: center;
     justify-content: space-between;
-    max-width: 1500px;
+    @media (max-width: 963px) {
+      background: #000000;
+    }
   `;
   const SearchForm = styled.form`
     height: "40px";
-    width: 30%;
     border: 1px solid black;
     border-radius: 100px;
     display: flex;
@@ -41,6 +49,7 @@ const TopNav = ({handleSearch}) => {
     @media (max-width: 784) {
       display: none;
     }
+    min-width: 25rem;
   `;
   const SearchInput = styled.input`
     height: 30px;
@@ -93,35 +102,75 @@ const TopNav = ({handleSearch}) => {
     justify-content: space-evenly;
   `;
   const RegularFragment = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
     @media (max-width: 963px) {
       display: none;
     }
   `;
 
+
+  const HamburgerMenu = styled.div`
+    display: none;
+    @media (max-width: 963px) {
+      display: block;
+    }
+  `;
+
+  const List = styled.ul`
+    position: absolute;
+    right: 10px;
+    background: black;
+    height: 10rem;
+    top: 50px;
+    z-index: 10000;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    color: white;
+  `;
+  const ListItem = styled.li`
+    font-size: 1rem;
+    cursor: pointer;
+    color: #F1C40F;
+  `;
+
+
+  const LogoImg = styled.img`
+    
+  `
+
   return (
     <NavBarTopContainer>
-      <Link to="/">
-        <img src={hellboylogo1} alt="" style={{ margin: "0 3rem" }} />
+  
+  <Link to="/">
+        <LogoImg src={hellboylogo1} alt="Hellby Protein Logo" />
       </Link>
+   
+    
 
       <RegularFragment>
         <SearchForm>
           <SearchInput onChange={(e)=>{
             handleSearch(e.target.value);
-          }} placeholder="Try our search..." type="text" />
+          }} placeholder="Type Here to Search Products...." type="text" />
           <SearchButton type="submit">
             <div style={{ marginRight: "10px" }}>
               <SearchOutlined />
             </div>
             Search
           </SearchButton>
-        </SearchForm>
-        <LinksContainer>
-     {checkAuth() ? <React.Fragment><Link to="/acc" style={{ textDecoration: "none", color: "black" }}>
-            <AccButton>
+        </SearchForm>   
+      </RegularFragment>
+
+      <RegularFragment>
+
+      <LinksContainer>
+     {checkAuth() ? <React.Fragment>
+            <AccButton onClick={()=>{
+              localStorage.clear();
+              window.location.reload()
+            }}>
               <UserOutlined
                 style={{
                   fontSize: "20px",
@@ -138,10 +187,10 @@ const TopNav = ({handleSearch}) => {
                   cursor: "pointer",
                 }}
               >
-                Account
+                Sign Out
               </button>
             </AccButton>
-        </Link>
+
       <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
             <CartButton>
               <ShoppingCartOutlined
@@ -238,9 +287,43 @@ const TopNav = ({handleSearch}) => {
         </LinksContainer>
       </RegularFragment>
 
-      <HamburgerContainer>
-        <Hamburger src={ham} />
+      <HamburgerContainer onClick={()=>{
+        setHambugerMenuDisplay(!hambugerMenuDisplay)
+      }}>
+        <Hamburger src={hambugerMenuDisplay ? cross : ham} />
+        {hambugerMenuDisplay && <HamburgerMenu>
+        <List>
+          <ListItem>
+              <Link to='/'>Home</Link> 
+          </ListItem>
+          <ListItem>
+           <Link to='/products'>Explore</Link>   
+          </ListItem>
+          <ListItem>
+           <Link to='/cart'>Cart</Link>   
+          </ListItem>
+          <ListItem>
+             <Link to='/authenticity'>
+             Authenticity
+             </Link> 
+          </ListItem>
+          <ListItem>
+           <Link to='/admin/dashboard'> 
+           Admin
+           </Link>   
+          </ListItem>
+          <ListItem onClick={()=>{
+            localStorage.clear()
+            window.location.reload()
+          }}>
+            
+           Sign Out
+          
+          </ListItem>
+        </List>
+      </HamburgerMenu>}
       </HamburgerContainer>
+
     </NavBarTopContainer>
   );
 };

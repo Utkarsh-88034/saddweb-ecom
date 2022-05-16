@@ -47,6 +47,7 @@ const ProductDetails = () => {
     let flavourNameRef = useRef();
     let flavourDescriptionRef = useRef();
     let flavourIngridientsRef = useRef();
+    let flavourBenefitsRef = useRef();
     let flavourPriceRef = useRef();
     let flavourDiscountedPriceRef = useRef();
     let authCodeRef = useRef();
@@ -70,6 +71,7 @@ const ProductDetails = () => {
     flavourNameRef.current.value = featuredProductEdit?.flavour
     flavourDescriptionRef.current.value = featuredProductEdit?.description
     flavourIngridientsRef.current.value = featuredProductEdit?.ingredients
+    flavourBenefitsRef.current.value = featuredProductEdit?.benefits
     flavourPriceRef.current.value = featuredProductEdit?.price
     flavourDiscountedPriceRef.current.value = featuredProductEdit?.discounted_price
     authCodeRef.current.value = featuredProductEdit?.auth_code
@@ -86,11 +88,12 @@ const ProductDetails = () => {
     return settingProductDetails
   }
 
-  const getFeaturedProductDetails = (flavour, ingredients, description, price, discounted_price, auth_code, url) => {
+  const getFeaturedProductDetails = (flavour, ingredients, description, benefits, price, discounted_price, auth_code, url) => {
     const settingFeaturedProductDetails = {
       flavour,
       ingredients,
       description,
+      benefits,
       price,
       discounted_price,
       auth_code,
@@ -131,6 +134,7 @@ const ProductDetails = () => {
         featuredProductFormData.append("flavour", newFeaturedProductDetails.flavour)
         featuredProductFormData.append("description", newFeaturedProductDetails.description)
         featuredProductFormData.append("ingredients", newFeaturedProductDetails.ingredients)
+        featuredProductFormData.append("benefits", newFeaturedProductDetails.benefits)
         featuredProductFormData.append("price", newFeaturedProductDetails.price)
         featuredProductFormData.append("discounted_price", newFeaturedProductDetails.discounted_price)
         featuredProductFormData.append("auth_code", newFeaturedProductDetails.auth_code)
@@ -179,7 +183,7 @@ const ProductDetails = () => {
         urlConfig = featuredProductImagesRef.current?.files[url]
         arrUploadUrl.push(urlConfig)
       })
-      const settingFeaturedProductDetails = getFeaturedProductDetails(flavourNameRef.current.value,  flavourIngridientsRef.current.value, flavourDescriptionRef.current?.value, flavourPriceRef.current?.value, flavourDiscountedPriceRef.current?.value, authCodeRef.current?.value, arrUploadUrl,)
+      const settingFeaturedProductDetails = getFeaturedProductDetails(flavourNameRef.current.value,  flavourIngridientsRef.current.value, flavourDescriptionRef.current?.value, flavourBenefitsRef.current?.value,  flavourPriceRef.current?.value, flavourDiscountedPriceRef.current?.value, authCodeRef.current?.value, arrUploadUrl,)
       setNewFeaturedProductDetails(settingFeaturedProductDetails)
     }
   };
@@ -193,7 +197,7 @@ const ProductDetails = () => {
         urlConfig = featuredProductImagesRef.current?.files[url]
         arrUploadUrl.push(urlConfig)
       })
-      const settingFeaturedProductDetails = getFeaturedProductDetails(flavourNameRef.current.value,  flavourIngridientsRef.current.value, flavourDescriptionRef.current?.value, flavourPriceRef.current?.value, flavourDiscountedPriceRef.current?.value, authCodeRef.current?.value, arrUploadUrl,)
+      const settingFeaturedProductDetails = getFeaturedProductDetails(flavourNameRef.current.value,  flavourIngridientsRef.current.value, flavourDescriptionRef.current?.value, flavourBenefitsRef.current?.value,  flavourPriceRef.current?.value, flavourDiscountedPriceRef.current?.value, authCodeRef.current?.value, arrUploadUrl,)
       setNewFeaturedProductDetails(settingFeaturedProductDetails)
      
       // update featured product logic
@@ -202,6 +206,7 @@ const ProductDetails = () => {
       featuredProductFormData.append("flavour", settingFeaturedProductDetails.flavour)
       featuredProductFormData.append("description", settingFeaturedProductDetails.description)
       featuredProductFormData.append("ingredients", settingFeaturedProductDetails.ingredients)
+      featuredProductFormData.append("benefits", settingFeaturedProductDetails.benefits)
       featuredProductFormData.append("price", settingFeaturedProductDetails.price)
       featuredProductFormData.append("discounted_price", settingFeaturedProductDetails.discounted_price)
       featuredProductFormData.append("auth_code", settingFeaturedProductDetails.auth_code)
@@ -229,7 +234,7 @@ const ProductDetails = () => {
           urlConfig = featuredProductImagesRef.current?.files[url]
           arrUploadUrl.push(urlConfig)
         })
-        const settingFeaturedProductDetails = getFeaturedProductDetails(flavourNameRef.current.value,  flavourIngridientsRef.current.value, flavourDescriptionRef.current?.value, flavourPriceRef.current?.value, flavourDiscountedPriceRef.current?.value, authCodeRef.current?.value, arrUploadUrl,)
+        const settingFeaturedProductDetails = getFeaturedProductDetails(flavourNameRef.current.value,  flavourIngridientsRef.current.value, flavourDescriptionRef.current?.value, flavourBenefitsRef.current?.value,  flavourPriceRef.current?.value, flavourDiscountedPriceRef.current?.value, authCodeRef.current?.value, arrUploadUrl,)
         setNewFeaturedProductDetails(settingFeaturedProductDetails)
        
         // update featured product logic
@@ -238,6 +243,7 @@ const ProductDetails = () => {
         featuredProductFormData.append("flavour", settingFeaturedProductDetails.flavour)
         featuredProductFormData.append("description", settingFeaturedProductDetails.description)
         featuredProductFormData.append("ingredients", settingFeaturedProductDetails.ingredients)
+        featuredProductFormData.append("benefits", settingFeaturedProductDetails.benefits)
         featuredProductFormData.append("price", settingFeaturedProductDetails.price)
         featuredProductFormData.append("discounted_price", settingFeaturedProductDetails.discounted_price)
         featuredProductFormData.append("auth_code", settingFeaturedProductDetails.auth_code)
@@ -356,7 +362,7 @@ const ProductDetails = () => {
               product={product}
             />
           ) : step == 2 ? ( product ? <React.Fragment>
-            <Features setStep={setStep} flavourNameRef={flavourNameRef} flavourDescriptionRef={flavourDescriptionRef} flavourIngridientsRef={flavourIngridientsRef} flavourPriceRef={flavourPriceRef} flavourDiscountedPriceRef={flavourDiscountedPriceRef} authCodeRef={authCodeRef} featuredProductImagesRef={featuredProductImagesRef} getFeaturedProductDetails={getFeaturedProductDetails} updateFeaturedProductOnClick={updateFeaturedProductOnClick} edit={true} addNewFeaturedProductEdit={addNewFeaturedProductEdit} featuredProductEdit={featuredProductEdit} />
+            <Features setStep={setStep} flavourNameRef={flavourNameRef} flavourDescriptionRef={flavourDescriptionRef} flavourIngridientsRef={flavourIngridientsRef} flavourPriceRef={flavourPriceRef} flavourDiscountedPriceRef={flavourDiscountedPriceRef} authCodeRef={authCodeRef} featuredProductImagesRef={featuredProductImagesRef} flavourBenefitsRef={flavourBenefitsRef} getFeaturedProductDetails={getFeaturedProductDetails} updateFeaturedProductOnClick={updateFeaturedProductOnClick} edit={true} addNewFeaturedProductEdit={addNewFeaturedProductEdit} featuredProductEdit={featuredProductEdit} />
             
             <SetFpi onClick={()=>{
                 handleFeaturedProductEditChange(product._id, 'new');
@@ -371,7 +377,7 @@ const ProductDetails = () => {
               </SetFpi>))}
              
           </React.Fragment> :
-            <Features setStep={setStep} flavourNameRef={flavourNameRef} flavourDescriptionRef={flavourDescriptionRef} flavourIngridientsRef={flavourIngridientsRef} flavourPriceRef={flavourPriceRef} flavourDiscountedPriceRef={flavourDiscountedPriceRef} authCodeRef={authCodeRef} featuredProductImagesRef={featuredProductImagesRef} getFeaturedProductDetails={getFeaturedProductDetails} edit={false} />
+            <Features setStep={setStep} flavourNameRef={flavourNameRef} flavourDescriptionRef={flavourDescriptionRef} flavourIngridientsRef={flavourIngridientsRef} flavourPriceRef={flavourPriceRef} flavourDiscountedPriceRef={flavourDiscountedPriceRef} authCodeRef={authCodeRef} featuredProductImagesRef={featuredProductImagesRef} flavourBenefitsRef={flavourBenefitsRef} getFeaturedProductDetails={getFeaturedProductDetails} edit={false} />
           ) : step == 3 ? (
             <Price getPrice={getProductDetails} price={product?.price} />
           ) : step == 4 ? (

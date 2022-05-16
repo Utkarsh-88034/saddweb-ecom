@@ -2,13 +2,25 @@ import React from "react";
 import { Menu } from "antd";
 import { Link } from "react-router-dom";
 import { checkAdmin } from "../../utils/checkAuth";
+import styled from "styled-components";
+
 
 const BottomNav = () => {
   const { SubMenu } = Menu;
+
+  const MenuContainer = styled.div`
+  display: block;
+  @media (max-width: 963px) {
+    display: none;
+  }
+  width: 100vw;
+  `
+
   return (
+    <MenuContainer>
     <Menu
       mode="horizontal"
-      theme="light"
+      theme="dark"
       style={{
         display: "flex",
         justifyContent: "center",
@@ -49,6 +61,8 @@ const BottomNav = () => {
         </SubMenu>
       </Menu.Item>}
     </Menu>
+    </MenuContainer>
+
   );
 };
 

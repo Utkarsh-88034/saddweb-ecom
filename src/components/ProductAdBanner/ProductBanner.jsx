@@ -12,8 +12,9 @@ function ProductBanner({ img, title, disc }) {
   const Container = styled.div`
     margin-top: 5rem;
     display: flex;
-    width: 80%;
-    margin: auto;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     min-width: 350px;
 
     @media (max-width: 585px) {
@@ -30,8 +31,10 @@ function ProductBanner({ img, title, disc }) {
     border-radius: 10px;
     font-size: 1.8vw;
     padding: 20px;
+    width: 40%;
+    min-width: 400px;
     @media (max-width: 850px) {
-      font-size: 1.3vw;
+      font-size: 1.2vw;
     }
     @media (max-width: 1200px) {
       dipaly: none;
@@ -43,11 +46,14 @@ function ProductBanner({ img, title, disc }) {
   const PordBannerDisc = styled.ul`
     // padding: 20px;
     font-size: 1rem;
+    max-width: 30rem;
+
     // list-style: none; /* Remove default bullets */
   `;
 
   const Li = styled.li`
     font-size: 14px;
+    padding: 5px 0;
     @media (max-width: 1035px) {
       font-size: 12px;
     }
@@ -58,8 +64,10 @@ function ProductBanner({ img, title, disc }) {
     @media (max-width: );
   `;
   const BannerTitle = styled.p`
-    font-size: 3vw;
+    font-size: 2vw;
     font-weight: bolder;
+    max-width: 30rem;
+    padding: 20px;
 
     @media (max-width: 1035px) {
       font-size: 2.3vw;
@@ -96,21 +104,30 @@ function ProductBanner({ img, title, disc }) {
             }}
           >
             Helps in building lean muscles
+
+
+
+
+
           </Li>
           <Li>
             It is rich in protein supplement with a great taste that provides a
             rapid increase in strength
           </Li>
           <Li>
-            It is rich in protein supplement with a great taste that provides a
-            rapid increase in strength
+          It is an ideal supplement, which aids in providing speed muscle recovery and repair after every workout session
+
           </Li>
           <Li>
-            It is rich in protein supplement with a great taste that provides a
-            rapid increase in strength
+          It contains whole grain carbohydrate blend and zero sugar
+
+          </Li>
+          <Li>
+It contains Creatine Ethyl Ester that helps in clean muscle bulking
+
           </Li>
         </PordBannerDisc>
-        <Link to={"/products"} style={{ width: "50%", margin: "auto" }}>
+        <Link to={"/products"} style={{marginLeft: '20px', marginTop: '10px' }}>
           <PrimaryButton btnText={"Shop Now"} />
         </Link>
       </ProdBanner>

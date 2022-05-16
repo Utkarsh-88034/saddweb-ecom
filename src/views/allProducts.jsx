@@ -131,7 +131,7 @@ const AllProducts = () => {
           margin: "2rem 1rem",
         }}
       >
-        <PrimaryButton btnText={"Load More"} />
+        {/* <PrimaryButton btnText={"Load More"} /> */}
       </div>
       <Footer />
     </>

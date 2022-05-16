@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Addbtn from "../../assets/images/AddButton.png";
 
-const Features = ({setStep, getFeaturedProductDetails, flavourNameRef, flavourDescriptionRef, flavourIngridientsRef, flavourPriceRef, flavourDiscountedPriceRef, authCodeRef, featuredProductImagesRef, updateFeaturedProductOnClick, edit, addNewFeaturedProductEdit, featuredProductEdit }) => {
+const Features = ({setStep, getFeaturedProductDetails, flavourNameRef, flavourDescriptionRef, flavourIngridientsRef, flavourPriceRef, flavourDiscountedPriceRef, authCodeRef, featuredProductImagesRef, updateFeaturedProductOnClick, edit, addNewFeaturedProductEdit, featuredProductEdit, flavourBenefitsRef }) => {
   const Heading = styled.p`
     font-weight: 500;
     font-size: 24px;
@@ -62,6 +62,9 @@ const Features = ({setStep, getFeaturedProductDetails, flavourNameRef, flavourDe
           <Label>Flavour Ingredients</Label>
           <Input type={"text"} ref={flavourIngridientsRef} placeholder={"Write all the ingredients of the featured product..."} />
 
+          <Label>Flavour Benefits</Label>
+          <Input type={"text"} ref={flavourBenefitsRef} placeholder={"Write all the benefits of the featured product..."} />
+
           <Label>Flavour Price</Label>
           <Input type={"number"} ref={flavourPriceRef} placeholder={"Set the Price of the Product"} />
           
@@ -73,6 +76,8 @@ const Features = ({setStep, getFeaturedProductDetails, flavourNameRef, flavourDe
 
           <Label>Upload All Photos</Label>
           <Input type={"file"} ref={featuredProductImagesRef} multiple={"multiple"} placeholder={"Upload all the featured product photos together"} />
+
+          {/* flavourBenefitsRef */}
 
         </FeatureForm>
         { edit ? <AddButton onClick={()=>{

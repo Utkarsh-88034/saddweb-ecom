@@ -16,6 +16,7 @@ import {
   Route,
   Routes,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import Checkout from "./views/Checkout";
 import Dashbord from "./views/Dashbord";
@@ -32,10 +33,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <BrowserRouter>
-      <div
-        className="Application"
-        style={{ maxWidth: "1440px", margin: "auto" }}
-      >
+      <div className="application">
         <TopNav />
         <BottomNav />
         <Routes>

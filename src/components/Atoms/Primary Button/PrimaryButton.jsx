@@ -4,7 +4,7 @@ import styled from "styled-components";
 const PrimaryButton = ({ btnText, alignment }) => {
   const Button = styled.div`
     width: 180px;
-    height: 64px;
+    height: 60px;
     background: #f9c349;
     border-radius: 12px;
     font-style: normal;
