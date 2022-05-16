@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import hellboylogo1 from "../../assets/images/helboylogo1.png";
 import { Link, useLocation } from "react-router-dom";
-import { checkAuth } from "../../utils/checkAuth";
+import { checkAdmin, checkAuth } from "../../utils/checkAuth";
 
 const TopNav = ({handleSearch}) => {
 
@@ -307,19 +307,23 @@ const TopNav = ({handleSearch}) => {
              Authenticity
              </Link> 
           </ListItem>
-          <ListItem>
+          {checkAdmin() && <ListItem>
            <Link to='/admin/dashboard'> 
            Admin
            </Link>   
-          </ListItem>
-          <ListItem onClick={()=>{
+          </ListItem>}
+         {checkAuth() ? <ListItem onClick={()=>{
             localStorage.clear()
             window.location.reload()
           }}>
             
            Sign Out
           
-          </ListItem>
+          </ListItem> : <ListItem>
+            
+          <Link to='/login'>Login</Link> 
+          
+          </ListItem>}
         </List>
       </HamburgerMenu>}
       </HamburgerContainer>
